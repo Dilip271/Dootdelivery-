@@ -4,171 +4,443 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#16a34a">
-
 <title>DootDelivery - Fast Local Delivery</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
   background:#f5f7f6;
   color:#17231d;
+  padding-bottom:80px
 }
-
-button{
-  font-family:inherit;
-  cursor:pointer;
-}
-
-.topbar{
-  background:#159653;
+header{
+  background:#16a34a;
   color:white;
-  padding:14px 16px;
+  padding:18px 16px 22px;
   position:sticky;
   top:0;
-  z-index:100;
-  box-shadow:0 2px 10px rgba(0,0,0,.12);
+  z-index:10
 }
-
-.header{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-
 .logo{
   font-size:25px;
   font-weight:800;
-  color:white;
-  text-decoration:none;
+  margin-bottom:14px
 }
-
-.logo span{
-  color:#d9ffe9;
-}
-
-.location{
-  font-size:12px;
-  opacity:.95;
-  margin-top:3px;
-}
-
-.cart-btn{
-  background:white;
-  color:#159653;
-  border:0;
-  border-radius:12px;
-  padding:10px 14px;
-  font-weight:bold;
-  font-size:15px;
-}
-
-.cart-count{
-  background:#ef4444;
-  color:white;
-  border-radius:50%;
-  padding:2px 6px;
-  font-size:11px;
-  margin-left:3px;
-}
-
-.hero{
-  background:linear-gradient(135deg,#159653,#22c55e);
-  color:white;
-  padding:28px 16px;
-}
-
-.hero-inner{
-  max-width:1100px;
-  margin:auto;
-}
-
-.hero h1{
-  font-size:32px;
-  margin-bottom:8px;
-}
-
-.hero p{
-  font-size:15px;
-  margin-bottom:18px;
-}
-
+.logo span{font-size:14px;font-weight:500;display:block}
 .search{
-  width:100%;
-  max-width:650px;
+  background:white;
+  border-radius:12px;
+  padding:12px 14px;
+  display:flex;
+  gap:8px
+}
+.search input{
   border:0;
+  outline:0;
+  width:100%;
+  font-size:15px
+}
+.container{max-width:700px;margin:auto;padding:15px}
+.delivery{
+  background:white;
+  padding:15px;
   border-radius:14px;
-  padding:15px 18px;
-  font-size:16px;
-  outline:none;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px #0000000d
 }
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:20px 16px 80px;
-}
-
-.section-title{
-  font-size:22px;
-  margin:10px 0 15px;
-}
-
+.delivery b{color:#16a34a}
 .categories{
   display:flex;
   gap:10px;
   overflow-x:auto;
-  padding-bottom:8px;
+  padding:4px 0 15px
 }
-
-.category{
-  flex:0 0 auto;
+.categories button{
+  border:1px solid #ddd;
   background:white;
-  border:1px solid #e1e7e3;
-  border-radius:12px;
-  padding:10px 15px;
-  font-weight:bold;
+  padding:10px 14px;
+  border-radius:20px;
+  white-space:nowrap
 }
-
-.category.active{
-  background:#159653;
+.categories button.active{
+  background:#16a34a;
   color:white;
-  border-color:#159653;
+  border-color:#16a34a
 }
-
+h2{font-size:20px;margin:8px 0 14px}
 .products{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px
 }
-
 .product{
   background:white;
-  border-radius:16px;
-  padding:13px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-  border:1px solid #e9eeeb;
+  border-radius:15px;
+  padding:12px;
+  box-shadow:0 2px 8px #0000000c
 }
-
-.product-img{
-  width:100%;
-  height:150px;
-  background:#f1f5f3;
+.product .pic{
+  height:110px;
+  background:#f0f7f2;
   border-radius:12px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:65px;
-  margin-bottom:12px;
+  font-size:55px;
+  margin-bottom:10px
+}
+.product h3{font-size:15px;margin-bottom:5px}
+.product small{color:#777}
+.price{font-weight:bold;font-size:17px;margin:8px 0}
+.add{
+  width:100%;
+  border:1px solid #16a34a;
+  color:#16a34a;
+  background:white;
+  padding:9px;
+  border-radius:9px;
+  font-weight:bold
+}
+.add:active{background:#16a34a;color:white}
+.cartbar{
+  position:fixed;
+  bottom:15px;
+  left:15px;
+  right:15px;
+  max-width:670px;
+  margin:auto;
+  background:#17231d;
+  color:white;
+  padding:14px 17px;
+  border-radius:14px;
+  display:none;
+  justify-content:space-between;
+  align-items:center;
+  z-index:20
+}
+.cartbar button{
+  background:#16a34a;
+  color:white;
+  border:0;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:bold
+}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:30;
+  padding:20px
+}
+.box{
+  background:white;
+  width:100%;
+  max-width:500px;
+  max-height:90vh;
+  overflow:auto;
+  margin:auto;
+  border-radius:18px;
+  padding:20px
+}
+.close{
+  float:right;
+  border:0;
+  background:#eee;
+  border-radius:50%;
+  width:34px;
+  height:34px
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #eee
+}
+.qty button{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:7px;
+  background:#e8f5ec
+}
+.form input,.form textarea{
+  width:100%;
+  padding:12px;
+  margin-top:9px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  outline:0
+}
+.checkout{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:0;
+  background:#16a34a;
+  color:white;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:16px
+}
+.empty{text-align:center;padding:30px;color:#777}
+@media(min-width:600px){
+ .products{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    🛵 DootDelivery
+    <span>Fast Local Delivery • 10–30 Minutes</span>
+  </div>
+
+  <div class="search">
+    🔍
+    <input id="search" type="text"
+      placeholder="Search groceries, snacks, drinks..."
+      oninput="renderProducts()">
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="delivery">
+    📍 <b>Fast Delivery</b><br>
+    <small>Order now and get your products delivered locally in 10–30 minutes.</small>
+  </div>
+
+  <div class="categories">
+    <button class="active" onclick="setCategory('All',this)">All</button>
+    <button onclick="setCategory('Grocery',this)">🛒 Grocery</button>
+    <button onclick="setCategory('Snacks',this)">🍪 Snacks</button>
+    <button onclick="setCategory('Drinks',this)">🥤 Drinks</button>
+    <button onclick="setCategory('Home',this)">🏠 Home</button>
+  </div>
+
+  <h2>Popular Products</h2>
+  <div id="products" class="products"></div>
+
+</div>
+
+<div id="cartbar" class="cartbar">
+  <div>
+    🛒 <span id="cartCount">0</span> items<br>
+    <b>₹<span id="cartTotal">0</span></b>
+  </div>
+  <button onclick="openCart()">View Cart →</button>
+</div>
+
+<div id="modal" class="modal">
+  <div class="box">
+    <button class="close" onclick="closeCart()">×</button>
+    <h2>Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <div id="summary"></div>
+
+    <div class="form">
+      <h2 style="margin-top:20px">Delivery Details</h2>
+      <input id="name" placeholder="Your Name">
+      <input id="phone" placeholder="Mobile Number" type="tel">
+      <textarea id="address" rows="3"
+        placeholder="Complete Delivery Address"></textarea>
+    </div>
+
+    <button class="checkout" onclick="placeOrder()">
+      🛵 Place Order
+    </button>
+  </div>
+</div>
+
+<script>
+const products=[
+ {id:1,name:"Aashirvaad Atta 5kg",price:285,cat:"Grocery",pic:"🌾"},
+ {id:2,name:"Tata Salt 1kg",price:28,cat:"Grocery",pic:"🧂"},
+ {id:3,name:"Fortune Sunflower Oil 1L",price:145,cat:"Grocery",pic:"🫗"},
+ {id:4,name:"Maggi Noodles 280g",price:65,cat:"Snacks",pic:"🍜"},
+ {id:5,name:"Parle-G Biscuits",price:20,cat:"Snacks",pic:"🍪"},
+ {id:6,name:"Lays Potato Chips",price:20,cat:"Snacks",pic:"🥔"},
+ {id:7,name:"Coca-Cola 750ml",price:45,cat:"Drinks",pic:"🥤"},
+ {id:8,name:"Amul Taaza Milk 1L",price:68,cat:"Drinks",pic:"🥛"},
+ {id:9,name:"Bisleri Water 1L",price:20,cat:"Drinks",pic:"💧"},
+ {id:10,name:"Surf Excel 1kg",price:145,cat:"Home",pic:"🧺"},
+ {id:11,name:"Vim Dishwash Bar",price:20,cat:"Home",pic:"🧽"},
+ {id:12,name:"Dettol Handwash",price:99,cat:"Home",pic:"🧴"}
+];
+
+let cart=[];
+let category="All";
+
+function setCategory(cat,btn){
+ category=cat;
+ document.querySelectorAll(".categories button")
+   .forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+ renderProducts();
 }
 
-.product h3{
-  font-size:16
+function renderProducts(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const box=document.getElementById("products");
+
+ const list=products.filter(p=>
+   (category==="All"||p.cat===category) &&
+   p.name.toLowerCase().includes(q)
+ );
+
+ if(!list.length){
+   box.innerHTML='<div class="empty">No products found</div>';
+   return;
+ }
+
+ box.innerHTML=list.map(p=>`
+   <div class="product">
+     <div class="pic">${p.pic}</div>
+     <h3>${p.name}</h3>
+     <small>Fast delivery</small>
+     <div class="price">₹${p.price}</div>
+     <button class="add" onclick="addToCart(${p.id})">
+       + Add
+     </button>
+   </div>
+ `).join("");
+}
+
+function addToCart(id){
+ const item=cart.find(x=>x.id===id);
+ if(item)item.qty++;
+ else cart.push({id:id,qty:1});
+ updateCart();
+}
+
+function changeQty(id,change){
+ const item=cart.find(x=>x.id===id);
+ if(!item)return;
+ item.qty+=change;
+ if(item.qty<=0)
+   cart=cart.filter(x=>x.id!==id);
+ updateCart();
+ renderCart();
+}
+
+function getTotal(){
+ return cart.reduce((sum,item)=>{
+   const p=products.find(x=>x.id===item.id);
+   return sum+(p.price*item.qty);
+ },0);
+}
+
+function updateCart(){
+ const count=cart.reduce((s,x)=>s+x.qty,0);
+ document.getElementById("cartCount").innerText=count;
+ document.getElementById("cartTotal").innerText=getTotal();
+ document.getElementById("cartbar").style.display=
+   count?"flex":"none";
+}
+
+function openCart(){
+ document.getElementById("modal").style.display="flex";
+ renderCart();
+}
+
+function closeCart(){
+ document.getElementById("modal").style.display="none";
+}
+
+function renderCart(){
+ const box=document.getElementById("cartItems");
+
+ if(!cart.length){
+   box.innerHTML='<div class="empty">Your cart is empty.</div>';
+   document.getElementById("summary").innerHTML="";
+   return;
+ }
+
+ box.innerHTML=cart.map(item=>{
+   const p=products.find(x=>x.id===item.id);
+   return `
+   <div class="cart-item">
+     <div>
+       <b>${p.pic} ${p.name}</b><br>
+       ₹${p.price} × ${item.qty}
+     </div>
+     <div class="qty">
+       <button onclick="changeQty(${p.id},-1)">−</button>
+       ${item.qty}
+       <button onclick="changeQty(${p.id},1)">+</button>
+     </div>
+   </div>`;
+ }).join("");
+
+ const total=getTotal();
+ const delivery=total>=299?0:20;
+ const grand=total+delivery;
+
+ document.getElementById("summary").innerHTML=`
+   <div style="padding-top:15px;line-height:28px">
+     <div>Subtotal: <b>₹${total}</b></div>
+     <div>Delivery: <b>${delivery?"₹20":"FREE"}</b></div>
+     <hr>
+     <div style="font-size:19px">
+       Total: <b>₹${grand}</b>
+     </div>
+   </div>`;
+}
+
+function placeOrder(){
+ if(!cart.length){
+   alert("Please add products first.");
+   return;
+ }
+
+ const name=document.getElementById("name").value.trim();
+ const phone=document.getElementById("phone").value.trim();
+ const address=document.getElementById("address").value.trim();
+
+ if(!name||!phone||!address){
+   alert("Please enter your name, mobile number and address.");
+   return;
+ }
+
+ let message="DootDelivery Order%0A%0A";
+ message+="Name: "+encodeURIComponent(name)+"%0A";
+ message+="Phone: "+encodeURIComponent(phone)+"%0A";
+ message+="Address: "+encodeURIComponent(address)+"%0A%0A";
+
+ cart.forEach(item=>{
+   const p=products.find(x=>x.id===item.id);
+   message+=encodeURIComponent(p.name)+" x "+item.qty+
+     " = ₹"+(p.price*item.qty)+"%0A";
+ });
+
+ const total=getTotal();
+ const delivery=total>=299?0:20;
+ message+="%0ATotal: ₹"+(total+delivery);
+
+ /*
+  IMPORTANT:
+  Replace 919999999999 below with YOUR WhatsApp number.
+  Example: 919876543210
+ */
+ const whatsapp="919999999999";
+
+ window.open(
+   "https://wa.me/"+whatsapp+"?text="+message,
+   "_blank"
+ );
+}
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+  </html>
