@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doot Delivery - Admin Panel</title>
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#f5f7fa;
+  color:#222;
+}
+header{
+  background:#16a34a;
+  color:white;
+  padding:18px;
+  font-size:24px;
+  font-weight:bold;
+}
+.container{
+  max-width:1100px;
+  margin:20px auto;
+  padding:15px;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 2px 10px #ddd;
+}
+input,select{
+  width:100%;
+  padding:12px;
+  margin:7px 0 14px;
+  border:1px solid #ccc;
+  border-radius:7px;
+  box-sizing:border-box;
+}
+button{
+  padding:12px 18px;
+  border:0;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.add{
+  background:#16a34a;
+  color:white;
+}
+.delete{
+  background:#dc2626;
+  color:white;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  padding:12px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
+}
+@media(max-width:700px){
+  table{font-size:13px}
+  .container{padding:10px}
+}
+</style>
+</head>
+
+<body>
+
+<header>🛒 Doot Delivery — Admin Panel</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Add Product</h2>
+
+<label>Product Name</label>
+<input id="name" placeholder="Example: Aashirvaad Atta 5kg">
+
+<label>Category</label>
+<select id="category">
+<option value="Grocery">Grocery</option>
+<option value="Fruits">Fruits</option>
+<option value="Vegetables">Vegetables</option>
+<option value="Dairy">Dairy</option>
+<option value="Beverages">Beverages</option>
+<option value="Snacks">Snacks</option>
+<option value="Personal Care">Personal Care</option>
+<option value="Household">Household</option>
+</select>
+
+<label>Price (₹)</label>
+<input id="price" type="number" placeholder="299">
+
+<label>Stock</label>
+<input id="stock" type="number" placeholder="20">
+
+<label>Delivery Time</label>
+<input id="deliverytime" placeholder="20-30 Min">
+
+<button class="add" onclick="addProduct()">+ Add Product</button>
+</div>
+
+<div class="card">
+<h2>Products</h2>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Category</th>
+<th>Price</th>
+<th>Stock</th>
+<th>Delivery</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="productList">
+<tr>
+<td colspan="6">Loading products...</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+/* PASTE YOUR FIREBASE CONFIG HERE */
+
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_API_KEY",
+  authDomain: "doot-delivery.firebaseapp.com",
+  projectId: "doot-delivery",
+  storageBucket: "doot-delivery.firebasestorage.app",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const productsRef = collection(db,"products");
+
+async function loadProducts(){
+
+  const snapshot = await getDocs(productsRef);
+
+  const list = document.getElementById("productList");
+
+  list.innerHTML="";
+
+  snapshot.forEach((item)=>{
+
+    const p=item.data();
+
+    list.innerHTML += `
+    <tr>
+      <td>${p.name || ""}</td>
+      <td>${p.category || ""}</td>
+      <td>₹${p.price || 0}</td>
+      <td>${p.stock || 0}</td>
+      <td>${p.deliverytime || ""}</td>
+      <td>
+        <button class="delete"
+        onclick="deleteProduct('${item.id}')">
+        Delete
+        </button>
+      </td>
+    </tr>
+    `;
+
+  });
+}
+
+window.addProduct = async function(){
+
+  const name=document.getElementById("name").value.trim();
+  const category=document.getElementById("category").value;
+  const price=Number(document.getElementById("price").value);
+  const stock=Number(document.getElementById("stock").value);
+  const deliverytime=document.getElementById("deliverytime").value.trim();
+
+  if(!name || !price){
+    alert("Please enter product name and price");
+    return;
+  }
+
+  await addDoc(productsRef,{
+    name:name,
+    category:category,
+    price:price,
+    stock:stock,
+    deliverytime:deliverytime
+  });
+
+  alert("Product added successfully!");
+
+  document.getElementById("name").value="";
+  document.getElementById("price").value="";
+  document.getElementById("stock").value="";
+  document.getElementById("deliverytime").value="";
+
+  loadProducts();
+}
+
+window.deleteProduct = async function(id){
+
+  if(!confirm("Delete this product?")) return;
+
+  await deleteDoc(doc(db,"products",id));
+
+  alert("Product deleted");
+
+  loadProducts();
+}
+
+loadProducts();
+
+</script>
+
+</body>
+  </html>
