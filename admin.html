@@ -7,235 +7,193 @@
 <title>DootDelivery Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial,sans-serif;
-  background:#f4f7f5;
-  color:#17231d;
+font-family:Arial,sans-serif;
+background:#f4f7f5;
+color:#17231d;
+}
+
+button,input,select,textarea{font:inherit}
+
+button{
+border:0;
+border-radius:10px;
+padding:11px 15px;
+font-weight:bold;
+cursor:pointer;
 }
 
 header{
-  background:#16a34a;
-  color:white;
-  padding:18px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-header h1{
-  font-size:22px;
-}
-
-header p{
-  margin-top:5px;
-  font-size:13px;
-  opacity:.9;
+background:#16a34a;
+color:white;
+padding:18px;
+position:sticky;
+top:0;
+z-index:10;
 }
 
 .container{
-  max-width:1000px;
-  margin:auto;
-  padding:18px;
+max-width:1100px;
+margin:auto;
+padding:18px;
 }
 
 .card{
-  background:white;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 2px 10px #00000012;
-}
-
-h2{
-  font-size:20px;
-  margin-bottom:15px;
-}
-
-input,textarea,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #ddd;
-  border-radius:9px;
-  margin-top:8px;
-  margin-bottom:12px;
-  outline:none;
-  font-size:15px;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:#16a34a;
-}
-
-button{
-  border:0;
-  border-radius:9px;
-  padding:11px 15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.green{
-  background:#16a34a;
-  color:white;
-}
-
-.red{
-  background:#dc2626;
-  color:white;
-}
-
-.gray{
-  background:#e5e7eb;
-  color:#17231d;
+background:white;
+border-radius:16px;
+padding:18px;
+margin-bottom:16px;
+box-shadow:0 2px 10px #00000012;
 }
 
 .login{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
 }
 
 .login-box{
-  width:100%;
-  max-width:420px;
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 5px 25px #00000015;
+width:100%;
+max-width:420px;
+background:white;
+padding:28px;
+border-radius:20px;
+box-shadow:0 5px 30px #00000015;
 }
 
 .login-logo{
-  text-align:center;
-  font-size:28px;
-  font-weight:bold;
-  color:#16a34a;
-  margin-bottom:5px;
+text-align:center;
+font-size:29px;
+font-weight:bold;
+color:#16a34a;
+margin-bottom:5px;
 }
 
 .login-sub{
-  text-align:center;
-  color:#777;
-  margin-bottom:20px;
+text-align:center;
+color:#777;
+margin-bottom:22px;
 }
+
+input,select,textarea{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:9px;
+margin-top:7px;
+margin-bottom:12px;
+outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:#16a34a;
+}
+
+.green{background:#16a34a;color:white}
+.red{background:#dc2626;color:white}
+.gray{background:#e5e7eb;color:#17231d}
+.blue{background:#2563eb;color:white}
 
 .error{
-  color:#dc2626;
-  font-size:14px;
-  margin-bottom:10px;
+color:#dc2626;
+font-size:14px;
+margin-bottom:10px;
 }
 
-.dashboard{
-  display:none;
+.dashboard{display:none}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
 }
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:16px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:16px;
 }
 
 .stat{
-  background:white;
-  padding:18px;
-  border-radius:14px;
-  box-shadow:0 2px 8px #0000000c;
+background:white;
+padding:18px;
+border-radius:14px;
+box-shadow:0 2px 8px #0000000c;
 }
 
 .stat b{
-  display:block;
-  font-size:25px;
-  margin-top:5px;
-  color:#16a34a;
+display:block;
+font-size:26px;
+margin-top:6px;
+color:#16a34a;
 }
 
-.product-row,
-.order-row{
-  border:1px solid #eee;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:10px;
+.product-row,.order-row{
+border:1px solid #eee;
+border-radius:12px;
+padding:14px;
+margin-bottom:10px;
 }
 
 .product-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
 }
 
 .product-info{
-  flex:1;
+flex:1;
+line-height:23px;
 }
 
 .product-info b{
-  display:block;
-  margin-bottom:5px;
+display:block;
+font-size:16px;
 }
 
 .actions{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
+display:flex;
+gap:7px;
+flex-wrap:wrap;
 }
 
 .order-status{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  background:#dcfce7;
-  color:#166534;
-  font-size:12px;
-  font-weight:bold;
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+background:#dcfce7;
+color:#166534;
+font-size:12px;
+font-weight:bold;
 }
 
 .order-details{
-  margin-top:10px;
-  line-height:24px;
-  color:#555;
+margin-top:10px;
+line-height:24px;
+color:#555;
 }
 
 .empty{
-  text-align:center;
-  padding:25px;
-  color:#777;
+text-align:center;
+padding:25px;
+color:#777;
 }
 
-.hidden{
-  display:none!important;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
+.hidden{display:none!important}
 
 @media(max-width:600px){
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  .product-row{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .actions{
-    width:100%;
-  }
+.stats{grid-template-columns:1fr}
+.product-row{flex-direction:column;align-items:flex-start}
+.actions{width:100%}
+.actions button{flex:1}
 }
 </style>
 </head>
@@ -245,40 +203,37 @@ button{
 <!-- LOGIN -->
 <div id="loginPage" class="login">
 
-  <div class="login-box">
+<div class="login-box">
 
-    <div class="login-logo">
-      🛵 DootDelivery
-    </div>
+<div class="login-logo">🛵 DootDelivery</div>
 
-    <div class="login-sub">
-      Admin Panel
-    </div>
+<div class="login-sub">
+Admin Panel
+</div>
 
-    <div id="loginError" class="error"></div>
+<div id="loginError" class="error"></div>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Admin Email"
-    >
+<input
+id="email"
+type="email"
+placeholder="Admin Email"
+>
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-    >
+<input
+id="password"
+type="password"
+placeholder="Password"
+>
 
-    <button
-      class="green"
-      style="width:100%"
-      onclick="adminLogin()"
-    >
-      Login
-    </button>
+<button
+class="green"
+style="width:100%"
+onclick="adminLogin()"
+>
+Login
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
@@ -286,208 +241,215 @@ button{
 <div id="dashboard" class="dashboard">
 
 <header>
-  <div class="topbar">
 
-    <div>
-      <h1>🛵 DootDelivery Admin</h1>
-      <p>Manage your local delivery website</p>
-    </div>
+<div class="topbar">
 
-    <button
-      class="gray"
-      onclick="adminLogout()"
-    >
-      Logout
-    </button>
+<div>
+<h1>🛵 DootDelivery Admin</h1>
+<p style="margin-top:5px">
+Manage your local delivery website
+</p>
+</div>
 
-  </div>
+<button
+class="gray"
+onclick="adminLogout()"
+>
+Logout
+</button>
+
+</div>
+
 </header>
 
 
 <div class="container">
 
-  <!-- STATS -->
-  <div class="stats">
+<!-- STATS -->
 
-    <div class="stat">
-      Products
-      <b id="productCount">0</b>
-    </div>
+<div class="stats">
 
-    <div class="stat">
-      Orders
-      <b id="orderCount">0</b>
-    </div>
+<div class="stat">
+Products
+<b id="productCount">0</b>
+</div>
 
-    <div class="stat">
-      Sales
-      <b>₹<span id="salesTotal">0</span></b>
-    </div>
+<div class="stat">
+Orders
+<b id="orderCount">0</b>
+</div>
 
-  </div>
-
-
-  <!-- PRODUCTS -->
-  <div class="card">
-
-    <div class="topbar">
-      <h2>Products</h2>
-
-      <button
-        class="green"
-        onclick="showAddProduct()"
-      >
-        + Add Product
-      </button>
-    </div>
-
-    <div id="productForm" class="hidden">
-
-      <input
-        id="productName"
-        placeholder="Product Name"
-      >
-
-      <input
-        id="productPrice"
-        type="number"
-        placeholder="Price ₹"
-      >
-
-      <select id="productCategory">
-
-        <option value="Grocery">
-          Grocery
-        </option>
-
-        <option value="Fruits & Vegetables">
-          Fruits & Vegetables
-        </option>
-
-        <option value="Kitchen">
-          Kitchen
-        </option>
-
-        <option value="Snacks">
-          Snacks
-        </option>
-
-        <option value="Personal Care">
-          Personal Care
-        </option>
-
-        <option value="Home">
-          Home
-        </option>
-
-      </select>
-
-      <input
-        id="productIcon"
-        placeholder="Emoji e.g. 🛒"
-        value="🛒"
-      >
-
-      <div class="actions">
-
-        <button
-          class="green"
-          onclick="addProduct()"
-        >
-          Save Product
-        </button>
-
-        <button
-          class="gray"
-          onclick="hideProductForm()"
-        >
-          Cancel
-        </button>
-
-      </div>
-
-    </div>
-
-    <br>
-
-    <div id="productsList"></div>
-
-  </div>
-
-
-  <!-- ORDERS -->
-  <div class="card">
-
-    <div class="topbar">
-
-      <h2>Orders</h2>
-
-      <button
-        class="gray"
-        onclick="loadOrders()"
-      >
-        🔄 Refresh
-      </button>
-
-    </div>
-
-    <div id="ordersList">
-      <div class="empty">
-        Loading orders...
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- WEBSITE -->
-  <div class="card">
-
-    <h2>Website</h2>
-
-    <p style="color:#666;line-height:24px">
-      Your customer website is connected to this repository.
-      Customers can browse products and place delivery orders.
-    </p>
-
-    <br>
-
-    <button
-      class="green"
-      onclick="openWebsite()"
-    >
-      🌐 Open Customer Website
-    </button>
-
-  </div>
+<div class="stat">
+Sales
+<b>₹<span id="salesTotal">0</span></b>
+</div>
 
 </div>
 
+
+<!-- PRODUCTS -->
+
+<div class="card">
+
+<div class="topbar">
+
+<h2>Products</h2>
+
+<button
+class="green"
+onclick="showAddProduct()"
+>
++ Add Product
+</button>
+
+</div>
+
+
+<div id="productForm" class="hidden">
+
+<input
+id="productName"
+placeholder="Product Name"
+>
+
+<input
+id="productUnit"
+placeholder="Unit e.g. 1 kg / 1 L / 500 g"
+>
+
+<input
+id="productPrice"
+type="number"
+placeholder="Selling Price ₹"
+>
+
+<input
+id="productOldPrice"
+type="number"
+placeholder="MRP / Old Price ₹"
+>
+
+<select id="productCategory">
+
+<option value="Grocery">Grocery</option>
+<option value="Fruits & Vegetables">Fruits & Vegetables</option>
+<option value="Dairy">Dairy</option>
+<option value="Cooking">Cooking</option>
+<option value="Snacks">Snacks</option>
+<option value="Beverages">Beverages</option>
+<option value="Household">Household</option>
+<option value="Personal Care">Personal Care</option>
+<option value="Kitchen">Kitchen</option>
+<option value="Home">Home</option>
+
+</select>
+
+<input
+id="productEmoji"
+placeholder="Emoji e.g. 🛒"
+value="🛒"
+>
+
+<div class="actions">
+
+<button
+class="green"
+onclick="addProduct()"
+>
+Save Product
+</button>
+
+<button
+class="gray"
+onclick="hideProductForm()"
+>
+Cancel
+</button>
+
+</div>
+
+</div>
+
+<br>
+
+<div id="productsList">
+<div class="empty">Loading products...</div>
+</div>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<div class="card">
+
+<div class="topbar">
+
+<h2>Orders</h2>
+
+<button
+class="gray"
+onclick="loadOrders()"
+>
+🔄 Refresh
+</button>
+
+</div>
+
+<div id="ordersList">
+<div class="empty">
+Loading orders...
+</div>
+</div>
+
+</div>
+
+
+<!-- WEBSITE -->
+
+<div class="card">
+
+<h2>🌐 Customer Website</h2>
+
+<p style="color:#666;line-height:24px;margin:10px 0 15px">
+Open the DootDelivery customer website.
+</p>
+
+<button
+class="green"
+onclick="openWebsite()"
+>
+Open Customer Website →
+</button>
+
+</div>
+
+</div>
 </div>
 
 
 <script type="module">
 
 import {
-  initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
+getAuth,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  updateDoc,
-  serverTimestamp
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc,
+updateDoc,
+serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -495,201 +457,239 @@ import {
 
 const firebaseConfig = {
 
-  apiKey:
-    "AIzaSyA0cx3zs7ronUP_Nh1dH-ZjVfDGrECMI_g",
+apiKey:"AIzaSyA0cx3zs7ronUP_Nh1dH-ZjVfDGrECMI_g",
 
-  authDomain:
-    "doot-delivery.firebaseapp.com",
+authDomain:"doot-delivery.firebaseapp.com",
 
-  projectId:
-    "doot-delivery",
+projectId:"doot-delivery",
 
-  storageBucket:
-    "doot-delivery.firebasestorage.app",
+storageBucket:"doot-delivery.firebasestorage.app",
 
-  messagingSenderId:
-    "771238210735",
+messagingSenderId:"771238210735",
 
-  appId:
-    "1:771238210735:web:82fc817bd02cdde8ed385a",
+appId:"1:771238210735:web:82fc817bd02cdde8ed385a",
 
-  measurementId:
-    "G-94ZTPMFMVC"
+measurementId:"G-94ZTPMFMVC"
 
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app=initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth=getAuth(app);
 
-const db = getFirestore(app);
+const db=getFirestore(app);
 
 
 /* LOGIN */
 
-window.adminLogin = async function(){
+window.adminLogin=async function(){
 
-  const email =
-    document.getElementById("email").value.trim();
+const email=document
+.getElementById("email")
+.value.trim();
 
-  const password =
-    document.getElementById("password").value;
+const password=document
+.getElementById("password")
+.value;
 
-  const error =
-    document.getElementById("loginError");
+const error=document
+.getElementById("loginError");
 
-  error.innerText = "";
+error.innerText="";
 
-  if(!email || !password){
+if(!email||!password){
 
-    error.innerText =
-      "Please enter email and password.";
+error.innerText=
+"Please enter email and password.";
 
-    return;
-  }
+return;
+}
 
-  try{
+try{
 
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-  }catch(e){
+}catch(e){
 
-    error.innerText =
-      "Login failed. Please check your email and password.";
+error.innerText=
+"Login failed. Please check your email and password.";
 
-  }
+}
 
 };
 
 
 /* LOGOUT */
 
-window.adminLogout = async function(){
+window.adminLogout=async function(){
 
-  await signOut(auth);
+await signOut(auth);
 
 };
 
 
-/* AUTH STATE */
+/* AUTH */
 
 onAuthStateChanged(auth,(user)=>{
 
-  if(user){
+if(user){
 
-    document.getElementById("loginPage")
-      .style.display="none";
+document
+.getElementById("loginPage")
+.style.display="none";
 
-    document.getElementById("dashboard")
-      .style.display="block";
+document
+.getElementById("dashboard")
+.style.display="block";
 
-    loadProducts();
+loadProducts();
 
-    loadOrders();
+loadOrders();
 
-  }else{
+}else{
 
-    document.getElementById("loginPage")
-      .style.display="flex";
+document
+.getElementById("loginPage")
+.style.display="flex";
 
-    document.getElementById("dashboard")
-      .style.display="none";
+document
+.getElementById("dashboard")
+.style.display="none";
 
-  }
+}
 
 });
 
 
 /* PRODUCT FORM */
 
-window.showAddProduct = function(){
+window.showAddProduct=function(){
 
-  document
-    .getElementById("productForm")
-    .classList.remove("hidden");
+document
+.getElementById("productForm")
+.classList
+.remove("hidden");
 
 };
 
 
-window.hideProductForm = function(){
+window.hideProductForm=function(){
 
-  document
-    .getElementById("productForm")
-    .classList.add("hidden");
+document
+.getElementById("productForm")
+.classList
+.add("hidden");
 
 };
 
 
 /* ADD PRODUCT */
 
-window.addProduct = async function(){
+window.addProduct=async function(){
 
-  const name =
-    document.getElementById("productName")
-    .value.trim();
+const name=document
+.getElementById("productName")
+.value.trim();
 
-  const price =
-    Number(
-      document.getElementById("productPrice")
-      .value
-    );
+const unit=document
+.getElementById("productUnit")
+.value.trim();
 
-  const category =
-    document.getElementById("productCategory")
-    .value;
+const price=Number(
+document
+.getElementById("productPrice")
+.value
+);
 
-  const icon =
-    document.getElementById("productIcon")
-    .value.trim() || "🛒";
+const old=Number(
+document
+.getElementById("productOldPrice")
+.value
+);
 
+const cat=document
+.getElementById("productCategory")
+.value;
 
-  if(!name || !price){
-
-    alert("Please enter product name and price.");
-
-    return;
-
-  }
-
-
-  try{
-
-    await addDoc(
-      collection(db,"products"),
-      {
-        name:name,
-        price:price,
-        cat:category,
-        icon:icon,
-        createdAt:serverTimestamp()
-      }
-    );
+const emoji=document
+.getElementById("productEmoji")
+.value.trim()||"🛒";
 
 
-    document.getElementById("productName")
-      .value="";
+if(!name||!price){
 
-    document.getElementById("productPrice")
-      .value="";
+alert(
+"Please enter product name and price."
+);
 
-    hideProductForm();
+return;
+}
 
-    loadProducts();
 
-    alert("Product added successfully.");
+try{
 
-  }catch(e){
+await addDoc(
+collection(db,"products"),
+{
 
-    alert(
-      "Product save failed. Please check Firebase Firestore."
-    );
+name:name,
 
-  }
+cat:cat,
+
+unit:unit||"1 pc",
+
+price:price,
+
+old:old||price,
+
+emoji:emoji,
+
+active:true,
+
+createdAt:serverTimestamp()
+
+}
+);
+
+
+document
+.getElementById("productName")
+.value="";
+
+document
+.getElementById("productUnit")
+.value="";
+
+document
+.getElementById("productPrice")
+.value="";
+
+document
+.getElementById("productOldPrice")
+.value="";
+
+hideProductForm();
+
+await loadProducts();
+
+alert(
+"Product added successfully."
+);
+
+}catch(e){
+
+console.error(e);
+
+alert(
+"Product save failed. Please check Firestore rules."
+);
+
+}
 
 };
 
@@ -698,256 +698,336 @@ window.addProduct = async function(){
 
 async function loadProducts(){
 
-  const box =
-    document.getElementById("productsList");
+const box=document
+.getElementById("productsList");
 
-  box.innerHTML =
-    '<div class="empty">Loading products...</div>';
+box.innerHTML=
+'<div class="empty">Loading products...</div>';
 
-  try{
+try{
 
-    const snapshot =
-      await getDocs(
-        collection(db,"products")
-      );
+const snapshot=await getDocs(
+collection(db,"products")
+);
 
-    document.getElementById("productCount")
-      .innerText=snapshot.size;
-
-
-    if(snapshot.empty){
-
-      box.innerHTML =
-        '<div class="empty">No products added yet.</div>';
-
-      return;
-
-    }
+document
+.getElementById("productCount")
+.innerText=snapshot.size;
 
 
-    box.innerHTML="";
+if(snapshot.empty){
+
+box.innerHTML=
+'<div class="empty">No products added yet.</div>';
+
+return;
+}
 
 
-    snapshot.forEach((item)=>{
+box.innerHTML="";
 
-      const p=item.data();
 
-      const row=document.createElement("div");
+snapshot.forEach((item)=>{
 
-      row.className="product-row";
+const p=item.data();
 
-      row.innerHTML=`
+const row=document.createElement("div");
 
-        <div class="product-info">
+row.className="product-row";
 
-          <b>
-            ${p.icon || "🛒"} ${p.name}
-          </b>
+row.innerHTML=`
 
-          <span>
-            ₹${p.price}
-          </span>
+<div class="product-info">
 
-          <br>
+<b>
+${p.emoji||"🛒"} ${escapeHTML(p.name||"Product")}
+</b>
 
-          <small>
-            ${p.cat || "General"}
-          </small>
+₹${p.price||0}
 
-        </div>
+${p.old&&p.old>p.price
+?` <del style="color:#999">₹${p.old}</del>`
+:""}
 
-        <div class="actions">
+<br>
 
-          <button
-            class="red"
-            onclick="deleteProduct('${item.id}')"
-          >
-            Delete
-          </button>
+<small>
+${escapeHTML(p.cat||"General")}
+ • ${escapeHTML(p.unit||"1 pc")}
+</small>
 
-        </div>
+</div>
 
-      `;
+<div class="actions">
 
-      box.appendChild(row);
+<button
+class="red"
+onclick="deleteProduct('${item.id}')"
+>
+Delete
+</button>
 
-    });
+</div>
 
-  }catch(e){
+`;
 
-    box.innerHTML=
-      '<div class="empty">Unable to load products.</div>';
+box.appendChild(row);
 
-  }
+});
+
+}catch(e){
+
+console.error(e);
+
+box.innerHTML=
+'<div class="empty">Unable to load products.</div>';
+
+}
 
 }
 
 
 /* DELETE PRODUCT */
 
-window.deleteProduct = async function(id){
+window.deleteProduct=async function(id){
 
-  if(!confirm("Delete this product?")) return;
+if(!confirm(
+"Delete this product?"
+)) return;
 
-  try{
+try{
 
-    await deleteDoc(
-      doc(db,"products",id)
-    );
+await deleteDoc(
+doc(db,"products",id)
+);
 
-    loadProducts();
+await loadProducts();
 
-  }catch(e){
+}catch(e){
 
-    alert("Unable to delete product.");
+alert(
+"Unable to delete product."
+);
 
-  }
+}
 
 };
 
 
 /* LOAD ORDERS */
 
-window.loadOrders = async function(){
+window.loadOrders=async function(){
 
-  const box =
-    document.getElementById("ordersList");
+const box=document
+.getElementById("ordersList");
 
-  box.innerHTML =
-    '<div class="empty">Loading orders...</div>';
+box.innerHTML=
+'<div class="empty">Loading orders...</div>';
 
-  try{
+try{
 
-    const snapshot =
-      await getDocs(
-        collection(db,"orders")
-      );
+const snapshot=await getDocs(
+collection(db,"orders")
+);
 
-
-    document.getElementById("orderCount")
-      .innerText=snapshot.size;
-
-
-    let totalSales=0;
-
-    if(snapshot.empty){
-
-      box.innerHTML=
-        '<div class="empty">
-          No orders yet.
-        </div>';
-
-      document.getElementById("salesTotal")
-        .innerText="0";
-
-      return;
-
-    }
+document
+.getElementById("orderCount")
+.innerText=snapshot.size;
 
 
-    box.innerHTML="";
+let sales=0;
+
+snapshot.forEach((item)=>{
+
+const o=item.data();
+
+if(
+o.status!=="Cancelled" &&
+o.status!=="Canceled"
+){
+
+sales+=Number(
+o.total||
+o.amount||
+0
+);
+
+}
+
+});
+
+document
+.getElementById("salesTotal")
+.innerText=
+Math.round(sales);
 
 
-    snapshot.forEach((item)=>{
+if(snapshot.empty){
 
-      const o=item.data();
+box.innerHTML=
+'<div class="empty">No orders yet.</div>';
 
-      const amount=
-        Number(o.total || o.amount || 0);
-
-      totalSales += amount;
-
-
-      const row =
-        document.createElement("div");
-
-      row.className="order-row";
-
-      row.innerHTML=`
-
-        <div class="topbar">
-
-          <b>
-            🛵 Order
-          </b>
-
-          <span class="order-status">
-            ${o.status || "New"}
-          </span>
-
-        </div>
-
-        <div class="order-details">
-
-          <b>Name:</b>
-          ${o.name || "-"}
-          <br>
-
-          <b>Mobile:</b>
-          ${o.phone || "-"}
-          <br>
-
-          <b>Address:</b>
-          ${o.address || "-"}
-          <br>
-
-          <b>Total:</b>
-          ₹${amount}
-
-          <br><br>
-
-          <button
-            class="green"
-            onclick="markOrderDelivered('${item.id}')"
-          >
-            ✓ Delivered
-          </button>
-
-        </div>
-
-      `;
-
-      box.appendChild(row);
-
-    });
+return;
+}
 
 
-    document.getElementById("salesTotal")
-      .innerText=totalSales;
+box.innerHTML="";
 
 
-  }catch(e){
+snapshot.forEach((item)=>{
 
-    box.innerHTML=
-      '<div class="empty">Unable to load orders.</div>';
+const o=item.data();
 
-  }
+const row=document.createElement("div");
+
+row.className="order-row";
+
+const status=o.status||"Pending";
+
+row.innerHTML=`
+
+<div class="topbar">
+
+<div>
+
+<b>
+Order #${item.id.substring(0,8)}
+</b>
+
+<br>
+
+<span class="order-status">
+${escapeHTML(status)}
+</span>
+
+</div>
+
+<select
+onchange="changeOrderStatus('${item.id}',this.value)"
+style="width:auto;margin:0"
+>
+
+<option ${status==="Pending"?"selected":""}>
+Pending
+</option>
+
+<option ${status==="Confirmed"?"selected":""}>
+Confirmed
+</option>
+
+<option ${status==="Preparing"?"selected":""}>
+Preparing
+</option>
+
+<option ${status==="Out for Delivery"?"selected":""}>
+Out for Delivery
+</option>
+
+<option ${status==="Delivered"?"selected":""}>
+Delivered
+</option>
+
+<option ${status==="Cancelled"?"selected":""}>
+Cancelled
+</option>
+
+</select>
+
+</div>
+
+
+<div class="order-details">
+
+<b>Customer:</b>
+${escapeHTML(
+o.customerName||
+o.name||
+"Customer"
+)}
+
+<br>
+
+<b>Phone:</b>
+${escapeHTML(
+o.phone||
+"Not provided"
+)}
+
+<br>
+
+<b>Address:</b>
+${escapeHTML(
+o.address||
+"Not provided"
+)}
+
+<br>
+
+<b>Total:</b>
+₹${o.total||o.amount||0}
+
+<br>
+
+<b>Payment:</b>
+${escapeHTML(
+o.paymentMethod||
+o.payment||
+"COD"
+)}
+
+<br>
+
+<b>Items:</b>
+${formatItems(o.items)}
+
+</div>
+
+`;
+
+box.appendChild(row);
+
+});
+
+}catch(e){
+
+console.error(e);
+
+box.innerHTML=
+'<div class="empty">Unable to load orders.</div>';
+
+}
 
 };
 
 
-/* MARK ORDER DELIVERED */
+/* CHANGE ORDER STATUS */
 
-window.markOrderDelivered =
-async function(id){
+window.changeOrderStatus=async function(
+id,
+status
+){
 
-  try{
+try{
 
-    await updateDoc(
-      doc(db,"orders",id),
-      {
-        status:"Delivered",
-        deliveredAt:serverTimestamp()
-      }
-    );
+await updateDoc(
+doc(db,"orders",id),
+{
+status:status,
+updatedAt:serverTimestamp()
+}
+);
 
-    loadOrders();
+await loadOrders();
 
-  }catch(e){
+}catch(e){
 
-    alert("Unable to update order.");
+console.error(e);
 
-  }
+alert(
+"Unable to update order."
+);
+
+}
 
 };
 
@@ -956,14 +1036,86 @@ async function(id){
 
 window.openWebsite=function(){
 
-  window.open(
-    "index.html",
-    "_blank"
-  );
+window.open(
+"index.html",
+"_blank"
+);
 
 };
+
+
+/* HTML SAFE TEXT */
+
+function escapeHTML(value){
+
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* FORMAT ITEMS */
+
+function formatItems(items){
+
+if(!items) return "—";
+
+if(Array.isArray(items)){
+
+return items.map(x=>{
+
+if(typeof x==="string")
+return escapeHTML(x);
+
+return escapeHTML(
+x.name||
+x.title||
+"Item"
+)+
+" × "+
+(
+x.qty||
+x.quantity||
+1
+);
+
+}).join(", ");
+
+}
+
+if(typeof items==="object"){
+
+return Object.values(items)
+.map(x=>{
+
+if(typeof x==="string")
+return escapeHTML(x);
+
+return escapeHTML(
+x.name||
+x.title||
+"Item"
+)+
+" × "+
+(
+x.qty||
+x.quantity||
+1
+);
+
+}).join(", ");
+
+}
+
+return escapeHTML(items);
+
+}
 
 </script>
 
 </body>
-          </html>
+</html>
