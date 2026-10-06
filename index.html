@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DootDelivery – Fast Local Delivery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Doot<span>Delivery</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="cart" onclick="showCart()">🛒 Cart <b id="cartCount">0</b></button>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <p class="badge">⚡ Fast local delivery</p>
+        <h1>Daily essentials,<br><span>delivered fast.</span></h1>
+        <p class="subtitle">Groceries, kitchen essentials and everyday products delivered to your doorstep.</p>
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Search products..." oninput="filterProducts()">
+          <button onclick="filterProducts()">Search</button>
+        </div>
+        <div class="trust">✓ Local delivery &nbsp; ✓ Easy ordering &nbsp; ✓ Doorstep service</div>
+      </div>
+      <div class="hero-card">
+        <div class="delivery-icon">🛵</div>
+        <h3>Fast Local Delivery</h3>
+        <p>Order online and get your essentials delivered in your local area.</p>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SHOP</p>
+          <h2>Popular products</h2>
+        </div>
+      </div>
+      <div id="products" class="products"></div>
+    </section>
+
+    <section id="how" class="how section">
+      <p class="eyebrow">SIMPLE PROCESS</p>
+      <h2>How DootDelivery works</h2>
+      <div class="steps">
+        <div><strong>1</strong><h3>Choose products</h3><p>Browse everyday essentials.</p></div>
+        <div><strong>2</strong><h3>Add to cart</h3><p>Select what you need.</p></div>
+        <div><strong>3</strong><h3>Place order</h3><p>Confirm your delivery details.</p></div>
+        <div><strong>4</strong><h3>Get delivery</h3><p>Receive your order locally.</p></div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact section">
+      <div>
+        <p class="eyebrow">CONTACT</p>
+        <h2>Need help with an order?</h2>
+        <p>Contact DootDelivery for product availability, delivery and order support.</p>
+      </div>
+      <a class="primary" href="mailto:contact@dootdelivery.in">Contact us</a>
+    </section>
+  </main>
+
+  <footer>
+    <b>DootDelivery</b> — Fast Local Delivery Website
+    <span>© 2026 DootDelivery</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
