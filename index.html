@@ -408,6 +408,10 @@ font-weight:bold;
 cursor:pointer;
 }
 
+.location-button:disabled{
+opacity:.6;
+}
+
 .location-status{
 font-size:13px;
 margin-top:8px;
@@ -790,6 +794,7 @@ placeholder="Complete Delivery Address"
 <button
 id="placeOrderButton"
 class="place-order"
+disabled
 >
 🛵 Place Order on WhatsApp
 </button>
@@ -897,10 +902,12 @@ const db =
 getFirestore(app);
 
 
-/* DOOT SETTINGS */
+/* DOOT DELIVERY SETTINGS */
 
 const DELIVERY_0_TO_2 = 30;
+
 const DELIVERY_2_TO_4 = 40;
+
 const DELIVERY_4_TO_6 = 50;
 
 const MAX_DELIVERY_KM = 6;
@@ -917,9 +924,11 @@ let cart = [];
 let currentCategory = "All";
 
 let shopLatitude = null;
+
 let shopLongitude = null;
 
 let customerLatitude = null;
+
 let customerLongitude = null;
 
 
@@ -974,6 +983,10 @@ return String(value ?? "")
 
 
 /* LOAD SHOP LOCATION */
+/*
+   IMPORTANT:
+   This function NEVER blocks product loading.
+*/
 
 async function loadShopLocation(){
 
@@ -988,33 +1001,52 @@ db,
 )
 );
 
-if(shopDoc.exists()){
+if(!shopDoc.exists()){
+
+console.log(
+"Shop delivery location not configured yet."
+);
+
+return;
+
+}
 
 const data =
 shopDoc.data();
 
-shopLatitude =
+const lat =
 Number(data.shopLatitude);
 
-shopLongitude =
+const lng =
 Number(data.shopLongitude);
 
 if(
-!Number.isFinite(shopLatitude) ||
-!Number.isFinite(shopLongitude)
+Number.isFinite(lat) &&
+Number.isFinite(lng)
 ){
 
-shopLatitude=null;
-shopLongitude=null;
+shopLatitude = lat;
 
-}
+shopLongitude = lng;
+
+console.log(
+"Shop location loaded:",
+shopLatitude,
+shopLongitude
+);
+
+}else{
+
+console.log(
+"Invalid shop location."
+);
 
 }
 
 }catch(error){
 
 console.error(
-"Shop location error:",
+"Shop location could not be loaded:",
 error
 );
 
@@ -1041,10 +1073,13 @@ products=[];
 
 snapshot.forEach((item)=>{
 
-const p=item.data();
+const p =
+item.data();
 
 if(p.active===false){
+
 return;
+
 }
 
 products.push({
@@ -1073,6 +1108,7 @@ renderProducts();
 
 updateCart();
 
+
 if(products.length===0){
 
 productsBox.innerHTML =
@@ -1082,7 +1118,10 @@ productsBox.innerHTML =
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Products error:",
+error
+);
 
 productsBox.innerHTML =
 '<div class="empty">Products could not be loaded. Please check Firestore rules.</div>';
@@ -1219,14 +1258,20 @@ productsBox.addEventListener(
 function(event){
 
 const button =
-event.target.closest("[data-add-id]");
+event.target.closest(
+"[data-add-id]"
+);
 
 if(!button){
+
 return;
+
 }
 
 const id =
-button.getAttribute("data-add-id");
+button.getAttribute(
+"data-add-id"
+);
 
 addToCart(id);
 
@@ -1245,7 +1290,9 @@ p=>p.id===id
 
 if(!product){
 
-alert("Product not found.");
+alert(
+"Product not found."
+);
 
 return;
 
@@ -1282,7 +1329,10 @@ updateCart();
 
 /* CHANGE QUANTITY */
 
-function changeQuantity(id,change){
+function changeQuantity(
+id,
+change
+){
 
 const item =
 cart.find(
@@ -1290,7 +1340,9 @@ item=>item.id===id
 );
 
 if(!item){
+
 return;
+
 }
 
 
@@ -1327,11 +1379,16 @@ p=>p.id===item.id
 );
 
 if(!product){
+
 return total;
+
 }
 
 return total +
-(product.price * item.quantity);
+(
+product.price *
+item.quantity
+);
 
 },
 0
@@ -1340,7 +1397,7 @@ return total +
 }
 
 
-/* DISTANCE CALCULATION */
+/* DISTANCE */
 
 function calculateDistanceKm(
 lat1,
@@ -1349,7 +1406,7 @@ lat2,
 lon2
 ){
 
-const R=6371;
+const R = 6371;
 
 const dLat =
 (lat2-lat1) *
@@ -1361,15 +1418,18 @@ Math.PI/180;
 
 const a =
 Math.sin(dLat/2) *
-Math.sin(dLat/2) +
-
+Math.sin(dLat/2)
++
 Math.cos(
 lat1*Math.PI/180
-) *
+)
+*
 Math.cos(
 lat2*Math.PI/180
-) *
-Math.sin(dLon/2) *
+)
+*
+Math.sin(dLon/2)
+*
 Math.sin(dLon/2);
 
 const c =
@@ -1384,7 +1444,7 @@ return R*c;
 }
 
 
-/* GET CUSTOMER DISTANCE */
+/* CUSTOMER DISTANCE */
 
 function getCustomerDistance(){
 
@@ -1508,6 +1568,8 @@ cartItems.innerHTML =
 
 summary.innerHTML="";
 
+placeOrderButton.disabled=true;
+
 return;
 
 }
@@ -1522,7 +1584,9 @@ p=>p.id===item.id
 );
 
 if(!product){
+
 return "";
+
 }
 
 
@@ -1552,7 +1616,9 @@ background:#eff7f1;
 border-radius:7px;
 font-size:24px;
 ">
-${escapeHTML(product.image || "🛒")}
+${escapeHTML(
+product.image || "🛒"
+)}
 </div>
 `;
 
@@ -1616,33 +1682,51 @@ getSubtotal();
 const delivery =
 getDeliveryCharge();
 
-let summaryHTML = `
+
+/* LOCATION NOT DETECTED */
+
+if(delivery===null){
+
+summary.innerHTML = `
 
 <div>
 Subtotal:
 <b>₹${subtotal}</b>
 </div>
-`;
-
-
-if(delivery===null){
-
-summaryHTML += `
 
 <div>
 Delivery:
-<b>Location Required</b>
+<b>
+Location Required
+</b>
 </div>
 
 <div class="delivery-note">
-📍 Please detect your location to calculate delivery charge.
+📍 Detect your delivery location to calculate the delivery charge.
 </div>
 
 `;
 
-}else if(delivery===-1){
+placeOrderButton.disabled=true;
 
-summaryHTML += `
+return;
+
+}
+
+
+/* ABOVE 6 KM */
+
+if(delivery===-1){
+
+const distance =
+getCustomerDistance();
+
+summary.innerHTML = `
+
+<div>
+Subtotal:
+<b>₹${subtotal}</b>
+</div>
 
 <div>
 Delivery:
@@ -1652,13 +1736,26 @@ Unavailable
 </div>
 
 <div class="unavailable">
-❌ Your location is more than 6 km away.
+
+❌ Your location is
+${distance.toFixed(2)} km away.
+
+<br>
+
 Delivery is available only within 6 km.
+
 </div>
 
 `;
 
-}else{
+placeOrderButton.disabled=true;
+
+return;
+
+}
+
+
+/* VALID DELIVERY */
 
 const distance =
 getCustomerDistance();
@@ -1666,18 +1763,35 @@ getCustomerDistance();
 const total =
 subtotal + delivery;
 
-summaryHTML += `
+summary.innerHTML = `
+
+<div>
+Subtotal:
+<b>₹${subtotal}</b>
+</div>
 
 <div>
 Delivery:
-<b>₹${delivery}</b>
+<b>
+₹${delivery}
+</b>
 </div>
 
 <div class="delivery-note">
+
 📍 Distance:
-<b>${distance.toFixed(2)} km</b>
+<b>
+${distance.toFixed(2)} km
+</b>
+
 <br>
-0–2 km ₹30 • 2–4 km ₹40 • 4–6 km ₹50
+
+0–2 km ₹30
+•
+2–4 km ₹40
+•
+4–6 km ₹50
+
 </div>
 
 <hr style="margin:10px 0">
@@ -1688,26 +1802,7 @@ Total: ₹${total}
 
 `;
 
-}
-
-summary.innerHTML =
-summaryHTML;
-
-
-/* DISABLE ORDER IF LOCATION NOT VALID */
-
-if(
-delivery===null ||
-delivery===-1
-){
-
-placeOrderButton.disabled=true;
-
-}else{
-
 placeOrderButton.disabled=false;
-
-}
 
 }
 
@@ -1719,24 +1814,34 @@ cartItems.addEventListener(
 function(event){
 
 const minus =
-event.target.closest("[data-minus-id]");
+event.target.closest(
+"[data-minus-id]"
+);
 
 const plus =
-event.target.closest("[data-plus-id]");
+event.target.closest(
+"[data-plus-id]"
+);
+
 
 if(minus){
 
 changeQuantity(
-minus.getAttribute("data-minus-id"),
+minus.getAttribute(
+"data-minus-id"
+),
 -1
 );
 
 }
 
+
 if(plus){
 
 changeQuantity(
-plus.getAttribute("data-plus-id"),
+plus.getAttribute(
+"data-plus-id"
+),
 1
 );
 
@@ -1749,7 +1854,9 @@ plus.getAttribute("data-plus-id"),
 /* CATEGORY BUTTONS */
 
 document
-.querySelectorAll(".categories button")
+.querySelectorAll(
+".categories button"
+)
 .forEach((button)=>{
 
 button.addEventListener(
@@ -1757,22 +1864,29 @@ button.addEventListener(
 function(){
 
 document
-.querySelectorAll(".categories button")
-.forEach(btn=>
-btn.classList.remove("active")
+.querySelectorAll(
+".categories button"
+)
+.forEach(
+btn=>
+btn.classList.remove(
+"active"
+)
 );
 
-button.classList.add("active");
+button.classList.add(
+"active"
+);
 
 currentCategory =
-button.getAttribute("data-category");
+button.getAttribute(
+"data-category"
+);
 
 renderProducts();
 
 }
 );
-
-});
 
 
 /* SEARCH */
@@ -1792,7 +1906,11 @@ function(){
 if(!navigator.geolocation){
 
 locationStatus.innerHTML =
-'<span class="location-error">Location is not supported on this device/browser.</span>';
+`
+<span class="location-error">
+Location is not supported by this browser.
+</span>
+`;
 
 return;
 
@@ -1805,7 +1923,12 @@ shopLongitude===null
 ){
 
 locationStatus.innerHTML =
-'<span class="location-error">Shop delivery location has not been configured yet.</span>';
+`
+<span class="location-error">
+Shop delivery location is not configured yet.
+Please set it from Admin Panel.
+</span>
+`;
 
 return;
 
@@ -1821,49 +1944,4 @@ locationStatus.innerText =
 "Please allow location permission...";
 
 
-navigator.geolocation.getCurrentPosition(
-
-function(position){
-
-customerLatitude =
-position.coords.latitude;
-
-customerLongitude =
-position.coords.longitude;
-
-
-const distance =
-getCustomerDistance();
-
-
-if(distance>MAX_DELIVERY_KM){
-
-locationStatus.innerHTML =
-`
-<span class="location-error">
-
-❌ Your distance is
-<b>${distance.toFixed(2)} km</b>.
-
-<br>
-
-Delivery is available only within 6 km.
-
-</span>
-`;
-
-}else{
-
-const charge =
-getDeliveryCharge();
-
-locationStatus.innerHTML =
-`
-<span class="location-success">
-
-✓ Delivery available.
-
-<br>
-
-Distance:
-<b>${distan
+navig
