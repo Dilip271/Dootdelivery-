@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#16a34a">
 
-<title>DootDelivery Admin Panel</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+name="theme-color"
+content="#16a34a"
+>
+
+<title>DootDelivery Admin</title>
 
 <style>
 
@@ -106,7 +115,6 @@ border-radius:9px;
 margin-top:7px;
 margin-bottom:12px;
 outline:none;
-background:white;
 }
 
 input:focus,
@@ -140,11 +148,6 @@ color:#dc2626;
 font-size:14px;
 margin-bottom:10px;
 min-height:18px;
-}
-
-.success{
-color:#166534;
-font-size:14px;
 }
 
 .dashboard{
@@ -234,7 +237,7 @@ color:#777;
 }
 
 .hidden{
-display:none !important;
+display:none!important;
 }
 
 .photo-preview{
@@ -256,26 +259,6 @@ border-radius:10px;
 background:#eff7f1;
 vertical-align:middle;
 margin-right:8px;
-}
-
-.emoji-thumb{
-width:60px;
-height:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:34px;
-border-radius:10px;
-background:#eff7f1;
-margin-right:8px;
-flex-shrink:0;
-}
-
-.product-left{
-display:flex;
-align-items:center;
-gap:5px;
-flex:1;
 }
 
 .order-items{
@@ -314,16 +297,10 @@ line-height:25px;
 margin-top:10px;
 }
 
-.loading{
-text-align:center;
-padding:20px;
-color:#777;
-}
-
-.order-meta{
-font-size:13px;
-color:#777;
-margin-top:4px;
+.success-message{
+color:#166534;
+font-size:14px;
+margin-top:8px;
 }
 
 @media(max-width:600px){
@@ -354,11 +331,14 @@ flex:1;
 <body>
 
 
-<!-- ===================================================== -->
-<!-- LOGIN PAGE -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
+<!-- LOGIN -->
+<!-- ================================================= -->
 
-<div id="loginPage" class="login">
+<div
+id="loginPage"
+class="login"
+>
 
 <div class="login-box">
 
@@ -370,7 +350,10 @@ flex:1;
 Admin Panel
 </div>
 
-<div id="loginError" class="error"></div>
+<div
+id="loginError"
+class="error"
+></div>
 
 <input
 id="email"
@@ -387,37 +370,27 @@ autocomplete="current-password"
 >
 
 <button
-id="loginButton"
 class="green"
 style="width:100%"
+id="loginButton"
 type="button"
-onclick="window.startAdminLogin()"
 >
 Login
 </button>
 
-<div
-id="loginDebug"
-style="
-margin-top:10px;
-text-align:center;
-font-size:13px;
-min-height:20px;
-color:#666;
-"
-></div>
-
 </div>
 
 </div>
 
 
-<!-- ===================================================== -->
+<!-- ================================================= -->
 <!-- DASHBOARD -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
 
-<div id="dashboard" class="dashboard">
-
+<div
+id="dashboard"
+class="dashboard"
+>
 
 <header>
 
@@ -425,7 +398,9 @@ color:#666;
 
 <div>
 
-<h1>🛵 DootDelivery Admin</h1>
+<h1>
+🛵 DootDelivery Admin
+</h1>
 
 <p style="margin-top:5px">
 Manage your local delivery website
@@ -434,8 +409,8 @@ Manage your local delivery website
 </div>
 
 <button
-id="logoutButton"
 class="gray"
+id="logoutButton"
 type="button"
 >
 Logout
@@ -449,9 +424,9 @@ Logout
 <div class="container">
 
 
-<!-- ===================================================== -->
+<!-- ================================================= -->
 <!-- STATS -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
 
 <div class="stats">
 
@@ -490,9 +465,9 @@ Sales
 </div>
 
 
-<!-- ===================================================== -->
+<!-- ================================================= -->
 <!-- DELIVERY SETTINGS -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
 
 <div class="card">
 
@@ -504,7 +479,9 @@ Sales
 class="small-note"
 style="margin-top:8px"
 >
-Set your shop/store location.
+
+Set your shop/store location once. Customer delivery distance will be calculated from this location.
+
 </p>
 
 
@@ -535,8 +512,8 @@ placeholder="Example: 91.7362"
 
 
 <button
-id="saveDeliveryLocation"
 class="green"
+id="saveDeliveryLocation"
 type="button"
 >
 📍 Save Shop Location
@@ -547,7 +524,8 @@ type="button"
 id="deliveryLocationMessage"
 class="small-note"
 style="margin-top:8px"
-></p>
+>
+</p>
 
 
 <div class="delivery-rules">
@@ -555,15 +533,19 @@ style="margin-top:8px"
 <b>Delivery Charges</b>
 
 <br>
+
 0–2 km → <b>₹30</b>
 
 <br>
+
 2–4 km → <b>₹40</b>
 
 <br>
+
 4–6 km → <b>₹50</b>
 
 <br>
+
 Above 6 km → <b>Delivery Unavailable</b>
 
 </div>
@@ -573,9 +555,9 @@ Above 6 km → <b>Delivery Unavailable</b>
 </div>
 
 
-<!-- ===================================================== -->
+<!-- ================================================= -->
 <!-- PRODUCTS -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
 
 <div class="card">
 
@@ -586,8 +568,8 @@ Products
 </h2>
 
 <button
-id="showAddProductButton"
 class="green"
+id="showAddProductButton"
 type="button"
 >
 + Add Product
@@ -599,39 +581,29 @@ type="button"
 <div
 id="productForm"
 class="hidden"
-style="margin-top:15px"
 >
-
 
 <input
 id="productName"
 placeholder="Product Name"
 >
 
-
 <input
 id="productUnit"
 placeholder="Unit e.g. 1 kg / 1 L / 500 g"
 >
 
-
 <input
 id="productPrice"
 type="number"
-min="0"
-step="0.01"
 placeholder="Selling Price ₹"
 >
-
 
 <input
 id="productOldPrice"
 type="number"
-min="0"
-step="0.01"
 placeholder="MRP / Old Price ₹"
 >
-
 
 <select id="productCategory">
 
@@ -710,17 +682,16 @@ alt="Product Photo Preview"
 <div class="actions">
 
 <button
-id="saveProductButton"
 class="green"
+id="saveProductButton"
 type="button"
 >
 Save Product
 </button>
 
-
 <button
-id="cancelProductButton"
 class="gray"
+id="cancelProductButton"
 type="button"
 >
 Cancel
@@ -745,9 +716,9 @@ Loading products...
 </div>
 
 
-<!-- ===================================================== -->
+<!-- ================================================= -->
 <!-- ORDERS -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
 
 <div class="card">
 
@@ -758,8 +729,8 @@ Orders
 </h2>
 
 <button
-id="refreshOrdersButton"
 class="gray"
+id="refreshOrdersButton"
 type="button"
 >
 🔄 Refresh
@@ -779,9 +750,9 @@ Loading orders...
 </div>
 
 
-<!-- ===================================================== -->
-<!-- CUSTOMER WEBSITE -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
+<!-- WEBSITE -->
+<!-- ================================================= -->
 
 <div class="card">
 
@@ -793,16 +764,17 @@ Loading orders...
 style="
 color:#666;
 line-height:24px;
-margin:10px 0 15px;
+margin:10px 0 15px
 "
 >
+
 Open the DootDelivery customer website.
+
 </p>
 
-
 <button
-id="openWebsiteButton"
 class="green"
+id="openWebsiteButton"
 type="button"
 >
 Open Customer Website →
@@ -816,306 +788,30 @@ Open Customer Website →
 </div>
 
 
-<!-- ===================================================== -->
-<!-- LOGIN FALLBACK -->
-<!-- SAME DEFAULT FIREBASE APP -->
-<!-- ===================================================== -->
-
-<script>
-
-window.startAdminLogin = async function(){
-
-const emailElement =
-document.getElementById("email");
-
-const passwordElement =
-document.getElementById("password");
-
-const errorElement =
-document.getElementById("loginError");
-
-const debugElement =
-document.getElementById("loginDebug");
-
-const button =
-document.getElementById("loginButton");
-
-
-const email =
-emailElement.value.trim();
-
-const password =
-passwordElement.value;
-
-
-errorElement.innerText="";
-debugElement.innerText="";
-
-
-if(!email || !password){
-
-errorElement.innerText =
-"Please enter email and password.";
-
-debugElement.innerText =
-"Please enter email and password.";
-
-debugElement.style.color =
-"#dc2626";
-
-return;
-
-}
-
-
-button.disabled=true;
-button.innerText="Logging in...";
-
-debugElement.innerText =
-"Connecting to Firebase...";
-
-debugElement.style.color =
-"#666";
-
-
-try{
-
-
-const appModule =
-await import(
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
-);
-
-
-const authModule =
-await import(
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
-);
-
-
-/* =====================================================
-   CORRECT FIREBASE CONFIG
-   ===================================================== */
-
-const firebaseConfig = {
-
-apiKey:
-"AIzaSyA0cx3zs7ronUP_Nh1d-H-ZjVfDGrECMI_g",
-
-authDomain:
-"doot-delivery.firebaseapp.com",
-
-projectId:
-"doot-delivery",
-
-storageBucket:
-"doot-delivery.firebasestorage.app",
-
-messagingSenderId:
-"771238210735",
-
-appId:
-"1:771238210735:web:82fc817bd02cdde8ed385a",
-
-measurementId:
-"G-94ZTPMFMVC"
-
-};
-
-
-/*
-IMPORTANT:
-Use the SAME DEFAULT Firebase app.
-Do NOT create a second named app.
-*/
-
-let loginApp;
-
-
-if(appModule.getApps().length > 0){
-
-loginApp =
-appModule.getApp();
-
-}else{
-
-loginApp =
-appModule.initializeApp(
-firebaseConfig
-);
-
-}
-
-
-const loginAuth =
-authModule.getAuth(loginApp);
-
-
-await authModule.signInWithEmailAndPassword(
-loginAuth,
-email,
-password
-);
-
-
-debugElement.style.color =
-"#166534";
-
-debugElement.innerText =
-"Login successful. Opening dashboard...";
-
-
-/*
-Do not reload into another Firebase app.
-The same default auth session is now available
-to the dashboard.
-*/
-
-setTimeout(function(){
-
-window.location.reload();
-
-},300);
-
-
-}catch(error){
-
-console.error(error);
-
-
-let message =
-"Login failed.";
-
-
-if(error.code ===
-"auth/invalid-credential"){
-
-message =
-"Invalid email or password.";
-
-}
-
-else if(error.code ===
-"auth/user-not-found"){
-
-message =
-"Admin account not found.";
-
-}
-
-else if(error.code ===
-"auth/wrong-password"){
-
-message =
-"Incorrect password.";
-
-}
-
-else if(error.code ===
-"auth/invalid-email"){
-
-message =
-"Invalid email address.";
-
-}
-
-else if(error.code ===
-"auth/too-many-requests"){
-
-message =
-"Too many login attempts. Please try again later.";
-
-}
-
-else if(error.code ===
-"auth/network-request-failed"){
-
-message =
-"Network error. Please check your internet connection.";
-
-}
-
-else if(error.code ===
-"auth/unauthorized-domain"){
-
-message =
-"Firebase Authorized Domains में dilip271.github.io add करें.";
-
-}
-
-else if(error.code ===
-"auth/api-key-not-valid"){
-
-message =
-"Firebase API key is not valid. Please check Firebase configuration.";
-
-}
-
-else if(error.message){
-
-message =
-error.message;
-
-}
-
-
-errorElement.innerText =
-message;
-
-debugElement.style.color =
-"#dc2626";
-
-debugElement.innerText =
-message;
-
-button.disabled=false;
-button.innerText="Login";
-
-}
-
-};
-
-</script>
-
-
-<!-- ===================================================== -->
-<!-- MAIN FIREBASE ADMIN CODE -->
-<!-- ===================================================== -->
+<!-- ================================================= -->
+<!-- FIREBASE -->
+<!-- ================================================= -->
 
 <script type="module">
 
-
-/* =====================================================
-   FIREBASE IMPORTS
-   ===================================================== */
-
 import {
-
-initializeApp,
-getApp,
-getApps
-
+initializeApp
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
-
 getAuth,
 signInWithEmailAndPassword,
 signOut,
 onAuthStateChanged
-
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 import {
-
 getFirestore,
 collection,
 addDoc,
@@ -1126,16 +822,14 @@ updateDoc,
 serverTimestamp,
 setDoc,
 getDoc
-
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* =====================================================
+/* =================================================
    FIREBASE CONFIG
-   ===================================================== */
+   ================================================= */
 
 const firebaseConfig = {
 
@@ -1163,15 +857,11 @@ measurementId:
 };
 
 
-/* =====================================================
-   SAME DEFAULT APP
-   ===================================================== */
+/* =================================================
+   FIREBASE APP
+   ================================================= */
 
 const app =
-getApps().length
-?
-getApp()
-:
 initializeApp(firebaseConfig);
 
 
@@ -1183,66 +873,80 @@ const db =
 getFirestore(app);
 
 
-/* =====================================================
+/* =================================================
    ELEMENTS
-   ===================================================== */
+   ================================================= */
 
 const loginPage =
-document.getElementById("loginPage");
+document.getElementById(
+"loginPage"
+);
 
 
 const dashboard =
-document.getElementById("dashboard");
+document.getElementById(
+"dashboard"
+);
 
 
 const loginError =
-document.getElementById("loginError");
+document.getElementById(
+"loginError"
+);
 
 
 const emailInput =
-document.getElementById("email");
+document.getElementById(
+"email"
+);
 
 
 const passwordInput =
-document.getElementById("password");
-
-
-const loginButton =
-document.getElementById("loginButton");
-
-
-const loginDebug =
-document.getElementById("loginDebug");
+document.getElementById(
+"password"
+);
 
 
 const productForm =
-document.getElementById("productForm");
+document.getElementById(
+"productForm"
+);
 
 
 const productImage =
-document.getElementById("productImage");
+document.getElementById(
+"productImage"
+);
 
 
 const photoPreview =
-document.getElementById("photoPreview");
+document.getElementById(
+"photoPreview"
+);
 
 
-/* =====================================================
+/* =================================================
    LOGIN
-   ===================================================== */
+   ================================================= */
 
 async function adminLogin(){
 
 const email =
 emailInput.value.trim();
 
+
 const password =
 passwordInput.value;
 
-loginError.innerText="";
+
+loginError.innerText =
+"";
 
 
-if(!email || !password){
+if(
+!email ||
+!password
+){
 
 loginError.innerText =
 "Please enter email and password.";
@@ -1252,19 +956,22 @@ return;
 }
 
 
-loginButton.disabled=true;
+const loginButton =
+document.getElementById(
+"loginButton"
+);
+
+
+loginButton.disabled =
+true;
+
 
 loginButton.innerText =
 "Logging in...";
 
-loginDebug.innerText =
-"Connecting to Firebase...";
-
-loginDebug.style.color =
-"#666";
-
 
 try{
+
 
 await signInWithEmailAndPassword(
 auth,
@@ -1273,87 +980,105 @@ password
 );
 
 
-loginDebug.style.color =
-"#166534";
-
-loginDebug.innerText =
-"Login successful. Opening dashboard...";
+loginError.innerText =
+"";
 
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Firebase Login Error:",
+error
+);
 
 
 let message =
 "Login failed.";
 
 
-if(error.code ===
-"auth/invalid-credential"){
+if(
+error.code ===
+"auth/invalid-credential"
+){
 
 message =
 "Invalid email or password.";
 
 }
 
-else if(error.code ===
-"auth/user-not-found"){
+else if(
+error.code ===
+"auth/user-not-found"
+){
 
 message =
 "Admin account not found.";
 
 }
 
-else if(error.code ===
-"auth/wrong-password"){
+else if(
+error.code ===
+"auth/wrong-password"
+){
 
 message =
 "Incorrect password.";
 
 }
 
-else if(error.code ===
-"auth/invalid-email"){
+else if(
+error.code ===
+"auth/invalid-email"
+){
 
 message =
 "Invalid email address.";
 
 }
 
-else if(error.code ===
-"auth/too-many-requests"){
+else if(
+error.code ===
+"auth/too-many-requests"
+){
 
 message =
 "Too many login attempts. Please try again later.";
 
 }
 
-else if(error.code ===
-"auth/network-request-failed"){
+else if(
+error.code ===
+"auth/network-request-failed"
+){
 
 message =
 "Network error. Please check your internet connection.";
 
 }
 
-else if(error.code ===
-"auth/unauthorized-domain"){
+else if(
+error.code ===
+"auth/unauthorized-domain"
+){
 
 message =
-"Firebase Authorized Domains में dilip271.github.io add करें.";
+"Firebase Authorized Domain is not configured.";
 
 }
 
-else if(error.code ===
-"auth/api-key-not-valid"){
+else if(
+error.code ===
+"auth/api-key-not-valid"
+){
 
 message =
-"Firebase API key is not valid.";
+"Firebase API key is invalid.";
 
 }
 
-else if(error.message){
+else if(
+error.message
+){
 
 message =
 error.message;
@@ -1364,27 +1089,26 @@ error.message;
 loginError.innerText =
 message;
 
-loginDebug.style.color =
-"#dc2626";
-
-loginDebug.innerText =
-message;
 
 }finally{
 
-loginButton.disabled=false;
+
+loginButton.disabled =
+false;
+
 
 loginButton.innerText =
 "Login";
 
-}
 
 }
 
+}
 
-/* =====================================================
+
+/* =================================================
    LOGOUT
-   ===================================================== */
+   ================================================= */
 
 async function adminLogout(){
 
@@ -1394,25 +1118,29 @@ await signOut(auth);
 
 }catch(error){
 
-console.error(error);
+console.error(
+error
+);
 
 }
 
 }
 
 
-/* =====================================================
+/* =================================================
    AUTH STATE
-   ===================================================== */
+   ================================================= */
 
 onAuthStateChanged(
 auth,
-function(user){
+(user)=>{
+
 
 if(user){
 
 loginPage.style.display =
 "none";
+
 
 dashboard.style.display =
 "block";
@@ -1430,6 +1158,7 @@ loadDeliveryLocation();
 loginPage.style.display =
 "flex";
 
+
 dashboard.style.display =
 "none";
 
@@ -1439,13 +1168,14 @@ dashboard.style.display =
 );
 
 
-/* =====================================================
+/* =================================================
    DELIVERY LOCATION
-   ===================================================== */
+   ================================================= */
 
 async function loadDeliveryLocation(){
 
 try{
+
 
 const locationDoc =
 await getDoc(
@@ -1457,7 +1187,9 @@ db,
 );
 
 
-if(locationDoc.exists()){
+if(
+locationDoc.exists()
+){
 
 const data =
 locationDoc.data();
@@ -1466,15 +1198,18 @@ locationDoc.data();
 document.getElementById(
 "shopLatitude"
 ).value =
-data.shopLatitude ?? "";
+data.shopLatitude ??
+"";
 
 
 document.getElementById(
 "shopLongitude"
 ).value =
-data.shopLongitude ?? "";
+data.shopLongitude ??
+"";
 
 }
+
 
 }catch(error){
 
@@ -1488,9 +1223,9 @@ error
 }
 
 
-/* =====================================================
+/* =================================================
    SAVE DELIVERY LOCATION
-   ===================================================== */
+   ================================================= */
 
 async function saveDeliveryLocation(){
 
@@ -1517,15 +1252,21 @@ document.getElementById(
 
 
 if(
-!Number.isFinite(latitude) ||
-!Number.isFinite(longitude)
+!Number.isFinite(
+latitude
+) ||
+!Number.isFinite(
+longitude
+)
 ){
 
 message.style.color =
 "#dc2626";
 
+
 message.innerText =
 "Please enter valid latitude and longitude.";
+
 
 return;
 
@@ -1540,8 +1281,10 @@ latitude > 90
 message.style.color =
 "#dc2626";
 
+
 message.innerText =
 "Invalid latitude.";
+
 
 return;
 
@@ -1556,8 +1299,10 @@ longitude > 180
 message.style.color =
 "#dc2626";
 
+
 message.innerText =
 "Invalid longitude.";
+
 
 return;
 
@@ -1570,13 +1315,16 @@ document.getElementById(
 );
 
 
-button.disabled=true;
+button.disabled =
+true;
+
 
 button.innerText =
 "Saving...";
 
 
 try{
+
 
 await setDoc(
 doc(
@@ -1605,62 +1353,628 @@ merge:true
 message.style.color =
 "#166534";
 
+
 message.innerText =
 "✓ Shop location saved successfully.";
 
 
 }catch(error){
 
-console.error(error);
+console.error(
+error
+);
 
 
 message.style.color =
 "#dc2626";
 
+
 message.innerText =
 "Unable to save shop location.";
 
+
 }finally{
 
-button.disabled=false;
+
+button.disabled =
+false;
+
 
 button.innerText =
 "📍 Save Shop Location";
 
-}
 
 }
 
+}
 
-/* =====================================================
-   PRODUCT FORM
-   ===================================================== */
+
+/* =================================================
+   SHOW PRODUCT FORM
+   ================================================= */
 
 function showAddProduct(){
 
-productForm.classList.remove(
+productForm
+.classList
+.remove(
 "hidden"
 );
 
 }
 
 
+/* =================================================
+   HIDE PRODUCT FORM
+   ================================================= */
+
 function hideProductForm(){
 
-productForm.classList.add(
+productForm
+.classList
+.add(
 "hidden"
 );
+
 
 clearProductForm();
 
 }
 
 
+/* =================================================
+   CLEAR PRODUCT FORM
+   ================================================= */
+
 function clearProductForm(){
 
 document.getElementById(
 "productName"
-).value="";
+).value =
+"";
 
 
-docum  
+document.getElementById(
+"productUnit"
+).value =
+"";
+
+
+document.getElementById(
+"productPrice"
+).value =
+"";
+
+
+document.getElementById(
+"productOldPrice"
+).value =
+"";
+
+
+document.getElementById(
+"productCategory"
+).value =
+"Grocery";
+
+
+document.getElementById(
+"productEmoji"
+).value =
+"🛒";
+
+
+productImage.value =
+"";
+
+
+photoPreview.src =
+"";
+
+
+photoPreview.style.display =
+"none";
+
+}
+
+
+/* =================================================
+   PHOTO PREVIEW
+   ================================================= */
+
+productImage.addEventListener(
+"change",
+function(){
+
+const file =
+productImage.files[0];
+
+
+if(!file){
+
+photoPreview.style.display =
+"none";
+
+return;
+
+}
+
+
+if(
+!file.type.startsWith(
+"image/"
+)
+){
+
+alert(
+"Please select an image."
+);
+
+
+productImage.value =
+"";
+
+
+return;
+
+}
+
+
+if(
+file.size >
+10 * 1024 * 1024
+){
+
+alert(
+"Please select an image below 10 MB."
+);
+
+
+productImage.value =
+"";
+
+
+return;
+
+}
+
+
+const reader =
+new FileReader();
+
+
+reader.onload =
+function(event){
+
+photoPreview.src =
+event.target.result;
+
+
+photoPreview.style.display =
+"block";
+
+};
+
+
+reader.readAsDataURL(
+file
+);
+
+}
+);
+
+
+/* =================================================
+   COMPRESS IMAGE
+   ================================================= */
+
+function compressImage(
+file
+){
+
+return new Promise(
+(
+resolve,
+reject
+)=>{
+
+
+const reader =
+new FileReader();
+
+
+reader.onload =
+function(event){
+
+
+const img =
+new Image();
+
+
+img.onload =
+function(){
+
+
+const maxSize =
+650;
+
+
+let width =
+img.width;
+
+
+let height =
+img.height;
+
+
+if(
+width >
+maxSize ||
+height >
+maxSize
+){
+
+const ratio =
+Math.min(
+maxSize /
+width,
+maxSize /
+height
+);
+
+
+width =
+Math.round(
+width *
+ratio
+);
+
+
+height =
+Math.round(
+height *
+ratio
+);
+
+}
+
+
+const canvas =
+document.createElement(
+"canvas"
+);
+
+
+canvas.width =
+width;
+
+
+canvas.height =
+height;
+
+
+const ctx =
+canvas.getContext(
+"2d"
+);
+
+
+ctx.fillStyle =
+"#ffffff";
+
+
+ctx.fillRect(
+0,
+0,
+width,
+height
+);
+
+
+ctx.drawImage(
+img,
+0,
+0,
+width,
+height
+);
+
+
+const data =
+canvas.toDataURL(
+"image/jpeg",
+0.58
+);
+
+
+resolve(
+data
+);
+
+
+};
+
+
+img.onerror =
+reject;
+
+
+img.src =
+event.target.result;
+
+};
+
+
+reader.onerror =
+reject;
+
+
+reader.readAsDataURL(
+file
+);
+
+}
+);
+
+}
+
+
+/* =================================================
+   ADD PRODUCT
+   ================================================= */
+
+async function addProduct(){
+
+const name =
+document.getElementById(
+"productName"
+).value.trim();
+
+
+const unit =
+document.getElementById(
+"productUnit"
+).value.trim();
+
+
+const price =
+Number(
+document.getElementById(
+"productPrice"
+).value
+);
+
+
+const old =
+Number(
+document.getElementById(
+"productOldPrice"
+).value
+);
+
+
+const cat =
+document.getElementById(
+"productCategory"
+).value;
+
+
+const emoji =
+document.getElementById(
+"productEmoji"
+).value.trim()
+||
+"🛒";
+
+
+const file =
+productImage.files[0];
+
+
+if(
+!name
+){
+
+alert(
+"Please enter product name."
+);
+
+
+return;
+
+}
+
+
+if(
+!price ||
+price <= 0
+){
+
+alert(
+"Please enter a valid selling price."
+);
+
+
+return;
+
+}
+
+
+const saveButton =
+document.getElementById(
+"saveProductButton"
+);
+
+
+saveButton.disabled =
+true;
+
+
+saveButton.innerText =
+"Saving...";
+
+
+try{
+
+
+let imageData =
+"";
+
+
+if(file){
+
+imageData =
+await compressImage(
+file
+);
+
+}
+
+
+if(
+imageData.length >
+900000
+){
+
+alert(
+"Photo is too large after compression. Please choose another photo."
+);
+
+
+return;
+
+}
+
+
+await addDoc(
+collection(
+db,
+"products"
+),
+{
+
+name:
+name,
+
+cat:
+cat,
+
+unit:
+unit ||
+"1 pc",
+
+price:
+price,
+
+old:
+old ||
+price,
+
+emoji:
+emoji,
+
+imageData:
+imageData,
+
+active:
+true,
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+hideProductForm();
+
+
+await loadProducts();
+
+
+alert(
+"Product added successfully."
+);
+
+
+}catch(error){
+
+console.error(
+error
+);
+
+
+alert(
+"Product save failed. Please check Firestore rules."
+);
+
+
+}finally{
+
+
+saveButton.disabled =
+false;
+
+
+saveButton.innerText =
+"Save Product";
+
+}
+
+}
+
+
+/* =================================================
+   ESCAPE HTML
+   ================================================= */
+
+function escapeHTML(
+value
+){
+
+return String(
+value ??
+""
+)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+/* =================================================
+   FORMAT ITEMS
+   ================================================= */
+
+function formatItems(
+items
+){
+
+if(
+!Array.isArray(
+items
+) ||
+!items.length  
