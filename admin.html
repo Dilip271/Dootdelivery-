@@ -2,328 +2,147 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#16a34a">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>DootDelivery Admin</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f4f7f5;color:#17231d}
-button,input,select,textarea{font:inherit}
-button{border:0;border-radius:10px;padding:11px 15px;font-weight:bold;cursor:pointer}
-header{background:#16a34a;color:white;padding:18px;position:sticky;top:0;z-index:10}
-.container{max-width:1100px;margin:auto;padding:18px}
-.card{background:white;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 2px 10px #00000012}
-.login{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
-.login-box{width:100%;max-width:420px;background:white;padding:28px;border-radius:20px;box-shadow:0 5px 30px #00000015}
-.login-logo{text-align:center;font-size:29px;font-weight:bold;color:#16a34a;margin-bottom:5px}
-.login-sub{text-align:center;color:#777;margin-bottom:22px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-top:7px;margin-bottom:12px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:#16a34a}
-.green{background:#16a34a;color:white}
-.red{background:#dc2626;color:white}
-.gray{background:#e5e7eb;color:#17231d}
-.error{color:#dc2626;font-size:14px;margin-bottom:10px}
-.dashboard{display:none}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.stat{background:white;padding:18px;border-radius:14px;box-shadow:0 2px 8px #0000000c}
-.stat b{display:block;font-size:26px;margin-top:6px;color:#16a34a}
-.product-row,.order-row{border:1px solid #eee;border-radius:12px;padding:14px;margin-bottom:10px}
-.product-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.product-info{flex:1;line-height:23px}
-.product-info b{display:block;font-size:16px}
-.actions{display:flex;gap:7px;flex-wrap:wrap}
-.order-status{display:inline-block;padding:5px 9px;border-radius:20px;background:#dcfce7;color:#166534;font-size:12px;font-weight:bold}
-.order-details{margin-top:10px;line-height:24px;color:#555}
-.empty{text-align:center;padding:25px;color:#777}
-.hidden{display:none!important}
-
-.photo-preview{
-display:none;
-width:120px;
-height:120px;
-object-fit:contain;
-background:#eff7f1;
-border-radius:12px;
-border:1px solid #ddd;
-margin:5px 0 12px;
-}
-
-.product-thumb{
-width:60px;
-height:60px;
-object-fit:contain;
-border-radius:10px;
-background:#eff7f1;
-vertical-align:middle;
-margin-right:8px;
-}
-
-@media(max-width:600px){
-.stats{grid-template-columns:1fr}
-.product-row{flex-direction:column;align-items:flex-start}
-.actions{width:100%}
-.actions button{flex:1}
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f5f6f8;color:#222}
+header{background:#ff6b00;color:#fff;padding:15px}
+.header{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:23px;font-weight:bold}
+.container{max-width:1200px;margin:auto;padding:15px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:15px;box-shadow:0 2px 8px #0001}
+input,select,textarea{width:100%;padding:11px;margin:6px 0 12px;border:1px solid #ddd;border-radius:8px}
+button{border:0;border-radius:8px;padding:10px 15px;background:#ff6b00;color:#fff;font-weight:bold}
+.logout{background:#fff;color:#ff6b00}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.stat{font-size:25px;font-weight:bold}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.tableWrap{overflow:auto}
+.product{display:flex;gap:12px;align-items:center;border-bottom:1px solid #eee;padding:10px}
+.thumb{width:70px;height:70px;object-fit:contain;background:#f3f3f3;border-radius:8px}
+.login{max-width:400px;margin:70px auto}
+.hidden{display:none}
+.order{border:1px solid #ddd;border-radius:10px;padding:12px;margin-bottom:10px}
+.small{font-size:13px;color:#666}
+.danger{background:#d93025}
+.green{background:#188038}
+.preview{max-width:160px;max-height:160px;display:block;margin:5px 0}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginPage" class="login">
-
-<div class="login-box">
-
-<div class="login-logo">
-🛵 DootDelivery
-</div>
-
-<div class="login-sub">
-Admin Panel
-</div>
-
-<div id="loginError" class="error"></div>
-
-<input
-id="email"
-type="email"
-placeholder="Admin Email"
->
-
-<input
-id="password"
-type="password"
-placeholder="Password"
->
-
-<button
-class="green"
-style="width:100%"
-onclick="adminLogin()"
->
-Login
-</button>
-
-</div>
-</div>
-
-
-<!-- DASHBOARD -->
-<div id="dashboard" class="dashboard">
-
 <header>
-
-<div class="topbar">
-
-<div>
-<h1>🛵 DootDelivery Admin</h1>
-
-<p style="margin-top:5px">
-Manage your local delivery website
-</p>
+<div class="header">
+<div class="logo">🛍️ DootDelivery Admin</div>
+<button id="logoutBtn" class="logout hidden">Logout</button>
 </div>
-
-<button
-class="gray"
-onclick="adminLogout()"
->
-Logout
-</button>
-
-</div>
-
 </header>
 
+<div id="loginBox" class="card login">
 
-<div class="container">
+<h2>Admin Login</h2>
 
-<!-- STATS -->
+<input id="email" type="email" placeholder="Email">
 
-<div class="stats">
+<input id="password" type="password" placeholder="Password">
 
-<div class="stat">
-Products
-<b id="productCount">0</b>
-</div>
+<button id="loginBtn">Login</button>
 
-<div class="stat">
-Orders
-<b id="orderCount">0</b>
-</div>
-
-<div class="stat">
-Sales
-<b>₹<span id="salesTotal">0</span></b>
-</div>
+<p id="loginError" style="color:red"></p>
 
 </div>
 
+<div id="adminPanel" class="container hidden">
 
-<!-- PRODUCTS -->
+<div class="grid">
+
+<div class="card">
+<div>Products</div>
+<div class="stat" id="productCount">0</div>
+</div>
+
+<div class="card">
+<div>Orders</div>
+<div class="stat" id="orderCount">0</div>
+</div>
+
+<div class="card">
+<div>Sales</div>
+<div class="stat" id="salesTotal">₹0</div>
+</div>
+
+</div>
 
 <div class="card">
 
-<div class="topbar">
+<h2>📍 Delivery Location</h2>
 
-<h2>Products</h2>
-
-<button
-class="green"
-onclick="showAddProduct()"
->
-+ Add Product
-</button>
-
-</div>
-
-
-<div id="productForm" class="hidden">
-
-<input
-id="productName"
-placeholder="Product Name"
->
-
-<input
-id="productUnit"
-placeholder="Unit e.g. 1 kg / 1 L / 500 g"
->
-
-<input
-id="productPrice"
-type="number"
-placeholder="Selling Price ₹"
->
-
-<input
-id="productOldPrice"
-type="number"
-placeholder="MRP / Old Price ₹"
->
-
-<select id="productCategory">
-
-<option value="Grocery">Grocery</option>
-<option value="Fruits & Vegetables">Fruits & Vegetables</option>
-<option value="Dairy">Dairy</option>
-<option value="Cooking">Cooking</option>
-<option value="Snacks">Snacks</option>
-<option value="Beverages">Beverages</option>
-<option value="Drinks">Drinks</option>
-<option value="Household">Household</option>
-<option value="Personal Care">Personal Care</option>
-<option value="Kitchen">Kitchen</option>
-<option value="Home">Home</option>
-
-</select>
-
-
-<input
-id="productEmoji"
-placeholder="Emoji fallback e.g. 🛒"
-value="🛒"
->
-
-
-<label>
-<b>Product Photo</b>
-</label>
-
-<input
-id="productImage"
-type="file"
-accept="image/*"
-onchange="previewProductImage(event)"
->
-
-<img
-id="photoPreview"
-class="photo-preview"
-alt="Product Photo Preview"
->
-
-
-<div class="actions">
-
-<button
-class="green"
-onclick="addProduct()"
->
-Save Product
-</button>
-
-<button
-class="gray"
-onclick="hideProductForm()"
->
-Cancel
-</button>
-
-</div>
-
-</div>
-
-<br>
-
-<div id="productsList">
-<div class="empty">
-Loading products...
-</div>
-</div>
-
-</div>
-
-
-<!-- ORDERS -->
-
-<div class="card">
-
-<div class="topbar">
-
-<h2>Orders</h2>
-
-<button
-class="gray"
-onclick="loadOrders()"
->
-🔄 Refresh
-</button>
-
-</div>
-
-<div id="ordersList">
-<div class="empty">
-Loading orders...
-</div>
-</div>
-
-</div>
-
-
-<!-- WEBSITE -->
-
-<div class="card">
-
-<h2>🌐 Customer Website</h2>
-
-<p style="color:#666;line-height:24px;margin:10px 0 15px">
-Open the DootDelivery customer website.
+<p class="small">
+Set your shop/store location once. Customer distance will be calculated from this location.
 </p>
 
-<button
-class="green"
-onclick="openWebsite()"
->
-Open Customer Website →
-</button>
+<label>Shop Latitude</label>
+<input id="shopLat" placeholder="Example: 26.1445">
+
+<label>Shop Longitude</label>
+<input id="shopLng" placeholder="Example: 91.7362">
+
+<button id="saveLocation">Save Delivery Location</button>
+
+<p id="locationMsg"></p>
+
+</div>
+
+<div class="card">
+
+<h2>➕ Add Product</h2>
+
+<input id="productName" placeholder="Product Name">
+
+<input id="productUnit" placeholder="Unit e.g. 1 KG, 500 GM, 1 PCS">
+
+<input id="productPrice" type="number" placeholder="Selling Price">
+
+<input id="productOld" type="number" placeholder="MRP / Old Price">
+
+<input id="productCategory" placeholder="Category e.g. Grocery">
+
+<input id="productEmoji" placeholder="Emoji e.g. 🥛">
+
+<label>Product Photo</label>
+
+<input id="productImage" type="file" accept="image/*">
+
+<img id="photoPreview" class="preview">
+
+<button id="addProduct">Add Product</button>
+
+<p id="productMsg"></p>
+
+</div>
+
+<div class="card">
+
+<h2>📦 Products</h2>
+
+<div id="productList"></div>
+
+</div>
+
+<div class="card">
+
+<h2>🛒 Orders</h2>
+
+<div id="ordersList">Loading...</div>
 
 </div>
 
 </div>
-</div>
-
 
 <script type="module">
 
@@ -334,8 +153,8 @@ initializeApp
 import {
 getAuth,
 signInWithEmailAndPassword,
-signOut,
-onAuthStateChanged
+onAuthStateChanged,
+signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
@@ -344,61 +163,40 @@ collection,
 addDoc,
 getDocs,
 deleteDoc,
-doc,
 updateDoc,
+doc,
+setDoc,
+getDoc,
 serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-const firebaseConfig = {
-
+const firebaseConfig={
 apiKey:"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
-
 authDomain:"doot-delivery.firebaseapp.com",
-
 projectId:"doot-delivery",
-
 storageBucket:"doot-delivery.firebasestorage.app",
-
 messagingSenderId:"771238210735",
-
 appId:"1:771238210735:web:82fc817bd02cdde8ed385a",
-
 measurementId:"G-94ZTPMFMVC"
-
 };
 
+const app=initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
-const auth = getAuth(app);
+const loginBox=document.getElementById("loginBox");
+const adminPanel=document.getElementById("adminPanel");
+const logoutBtn=document.getElementById("logoutBtn");
 
-const db = getFirestore(app);
+document.getElementById("loginBtn").onclick=async()=>{
 
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
-/* LOGIN */
+const error=document.getElementById("loginError");
 
-window.adminLogin = async function(){
-
-const email =
-document.getElementById("email").value.trim();
-
-const password =
-document.getElementById("password").value;
-
-const error =
-document.getElementById("loginError");
-
-error.innerText = "";
-
-if(!email || !password){
-
-error.innerText =
-"Please enter email and password.";
-
-return;
-
-}
+error.textContent="";
 
 try{
 
@@ -412,203 +210,185 @@ password
 
 console.error(e);
 
-error.innerText =
-"Login failed. Please check your email and password.";
+error.textContent=
+"Login failed. Please check email/password.";
 
 }
 
 };
 
+logoutBtn.onclick=()=>signOut(auth);
 
-/* LOGOUT */
-
-window.adminLogout = async function(){
-
-await signOut(auth);
-
-};
-
-
-/* AUTH */
-
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(auth,user=>{
 
 if(user){
 
-document.getElementById("loginPage").style.display="none";
-
-document.getElementById("dashboard").style.display="block";
+loginBox.classList.add("hidden");
+adminPanel.classList.remove("hidden");
+logoutBtn.classList.remove("hidden");
 
 loadProducts();
-
 loadOrders();
+loadLocation();
 
 }else{
 
-document.getElementById("loginPage").style.display="flex";
-
-document.getElementById("dashboard").style.display="none";
+loginBox.classList.remove("hidden");
+adminPanel.classList.add("hidden");
+logoutBtn.classList.add("hidden");
 
 }
 
 });
 
+async function loadLocation(){
 
-/* PRODUCT FORM */
+try{
 
-window.showAddProduct = function(){
+const snap=await getDoc(
+doc(db,"settings","delivery")
+);
 
-document
-.getElementById("productForm")
-.classList
-.remove("hidden");
+if(snap.exists()){
 
-};
+const data=snap.data();
 
+document.getElementById("shopLat").value=
+data.shopLat||"";
 
-window.hideProductForm = function(){
-
-document
-.getElementById("productForm")
-.classList
-.add("hidden");
-
-clearProductForm();
-
-};
-
-
-function clearProductForm(){
-
-document.getElementById("productName").value="";
-
-document.getElementById("productUnit").value="";
-
-document.getElementById("productPrice").value="";
-
-document.getElementById("productOldPrice").value="";
-
-document.getElementById("productEmoji").value="🛒";
-
-document.getElementById("productImage").value="";
-
-document.getElementById("photoPreview").src="";
-
-document.getElementById("photoPreview").style.display="none";
+document.getElementById("shopLng").value=
+data.shopLng||"";
 
 }
 
+}catch(e){
 
-/* PHOTO PREVIEW */
+console.error(e);
 
-window.previewProductImage = function(event){
+}
 
-const file =
-event.target.files[0];
+}
 
-const preview =
-document.getElementById("photoPreview");
+document.getElementById("saveLocation").onclick=async()=>{
 
-if(!file){
+const lat=Number(
+document.getElementById("shopLat").value
+);
 
-preview.style.display="none";
+const lng=Number(
+document.getElementById("shopLng").value
+);
 
+const msg=document.getElementById("locationMsg");
+
+if(
+!Number.isFinite(lat) ||
+!Number.isFinite(lng)
+){
+
+msg.style.color="red";
+msg.textContent="Please enter valid latitude and longitude.";
 return;
 
 }
 
-if(!file.type.startsWith("image/")){
+try{
 
-alert("Please select an image.");
+await setDoc(
+doc(db,"settings","delivery"),
+{
+shopLat:lat,
+shopLng:lng,
+updatedAt:serverTimestamp()
+},
+{merge:true}
+);
 
-event.target.value="";
+msg.style.color="green";
+msg.textContent="✓ Delivery location saved.";
 
-return;
+}catch(e){
+
+console.error(e);
+
+msg.style.color="red";
+msg.textContent="Unable to save location.";
 
 }
 
-if(file.size > 10 * 1024 * 1024){
+};
 
-alert("Please select an image below 10 MB.");
+let selectedImageData="";
 
-event.target.value="";
+document.getElementById("productImage").addEventListener(
+"change",
+async e=>{
 
-return;
+const file=e.target.files[0];
+
+if(!file)return;
+
+try{
+
+selectedImageData=await compressImage(file);
+
+document.getElementById("photoPreview").src=
+selectedImageData;
+
+}catch(err){
+
+alert(err.message);
 
 }
 
-const reader =
-new FileReader();
-
-reader.onload=function(e){
-
-preview.src=e.target.result;
-
-preview.style.display="block";
-
-};
-
-reader.readAsDataURL(file);
-
-};
-
-
-/* COMPRESS PHOTO */
+});
 
 function compressImage(file){
 
 return new Promise((resolve,reject)=>{
 
-const reader =
-new FileReader();
+const reader=new FileReader();
 
-reader.onload=function(e){
+reader.onload=e=>{
 
-const img =
-new Image();
+const img=new Image();
 
-img.onload=function(){
+img.onload=()=>{
 
-const maxSize=650;
+const max=650;
 
 let width=img.width;
-
 let height=img.height;
 
-if(width>maxSize || height>maxSize){
+if(width>height){
 
-const ratio =
-Math.min(
-maxSize/width,
-maxSize/height
-);
+if(width>max){
 
-width =
-Math.round(width*ratio);
-
-height =
-Math.round(height*ratio);
+height=Math.round(height*max/width);
+width=max;
 
 }
 
-const canvas =
-document.createElement("canvas");
+}else{
+
+if(height>max){
+
+width=Math.round(width*max/height);
+height=max;
+
+}
+
+}
+
+const canvas=document.createElement("canvas");
 
 canvas.width=width;
-
 canvas.height=height;
 
-const ctx =
-canvas.getContext("2d");
+const ctx=canvas.getContext("2d");
 
 ctx.fillStyle="#ffffff";
-
-ctx.fillRect(
-0,
-0,
-width,
-height
-);
+ctx.fillRect(0,0,width,height);
 
 ctx.drawImage(
 img,
@@ -618,23 +398,38 @@ width,
 height
 );
 
-const data =
-canvas.toDataURL(
+const data=canvas.toDataURL(
 "image/jpeg",
 0.58
 );
+
+if(data.length>900000){
+
+reject(
+new Error(
+"Image is too large. Please select a smaller photo."
+)
+);
+
+return;
+
+}
 
 resolve(data);
 
 };
 
-img.onerror=reject;
+img.onerror=()=>reject(
+new Error("Unable to read image.")
+);
 
 img.src=e.target.result;
 
 };
 
-reader.onerror=reject;
+reader.onerror=()=>reject(
+new Error("Unable to read file.")
+);
 
 reader.readAsDataURL(file);
 
@@ -642,233 +437,170 @@ reader.readAsDataURL(file);
 
 }
 
+document.getElementById("addProduct").onclick=async()=>{
 
-/* ADD PRODUCT */
+const name=document.getElementById("productName").value.trim();
+const unit=document.getElementById("productUnit").value.trim();
+const price=Number(document.getElementById("productPrice").value);
+const old=Number(document.getElementById("productOld").value)||0;
+const cat=document.getElementById("productCategory").value.trim()||"Other";
+const emoji=document.getElementById("productEmoji").value.trim()||"🛒";
 
-window.addProduct = async function(){
+const msg=document.getElementById("productMsg");
 
-const name =
-document.getElementById("productName")
-.value.trim();
+if(!name){
 
-const unit =
-document.getElementById("productUnit")
-.value.trim();
-
-const price =
-Number(
-document.getElementById("productPrice")
-.value
-);
-
-const old =
-Number(
-document.getElementById("productOldPrice")
-.value
-);
-
-const cat =
-document.getElementById("productCategory")
-.value;
-
-const emoji =
-document.getElementById("productEmoji")
-.value.trim() || "🛒";
-
-const file =
-document.getElementById("productImage")
-.files[0];
-
-
-if(!name || !price){
-
-alert(
-"Please enter product name and price."
-);
-
+msg.style.color="red";
+msg.textContent="Enter product name.";
 return;
 
 }
 
+if(!Number.isFinite(price)||price<=0){
+
+msg.style.color="red";
+msg.textContent="Enter valid selling price.";
+return;
+
+}
 
 try{
-
-let imageData="";
-
-if(file){
-
-imageData =
-await compressImage(file);
-
-}
-
-
-/*
-Firestore document size limit is about 1 MB.
-Keep compressed image below this limit.
-*/
-
-if(imageData.length > 900000){
-
-alert(
-"Photo is still too large. Please choose a smaller photo."
-);
-
-return;
-
-}
-
 
 await addDoc(
 collection(db,"products"),
 {
 
 name:name,
-
-cat:cat,
-
-unit:unit || "1 pc",
-
+unit:unit,
 price:price,
-
-old:old || price,
-
+old:old,
+cat:cat,
 emoji:emoji,
-
-imageData:imageData,
-
+imageData:selectedImageData||"",
 active:true,
-
 createdAt:serverTimestamp()
 
 }
 );
 
+msg.style.color="green";
+msg.textContent="✓ Product added successfully.";
 
-hideProductForm();
+document.getElementById("productName").value="";
+document.getElementById("productUnit").value="";
+document.getElementById("productPrice").value="";
+document.getElementById("productOld").value="";
+document.getElementById("productCategory").value="";
+document.getElementById("productEmoji").value="";
+document.getElementById("productImage").value="";
+document.getElementById("photoPreview").src="";
+selectedImageData="";
 
-await loadProducts();
-
-alert(
-"Product added successfully."
-);
-
+loadProducts();
 
 }catch(e){
 
 console.error(e);
 
-alert(
-"Product save failed. Please check Firestore rules or choose a smaller photo."
-);
+msg.style.color="red";
+msg.textContent="Unable to add product.";
 
 }
 
 };
-
-
-/* LOAD PRODUCTS */
 
 async function loadProducts(){
 
-const box =
-document.getElementById("productsList");
+const list=document.getElementById("productList");
 
-box.innerHTML =
-'<div class="empty">Loading products...</div>';
-
+list.innerHTML="Loading...";
 
 try{
 
-const snapshot =
-await getDocs(
+const snap=await getDocs(
 collection(db,"products")
 );
 
+const products=snap.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
 
-document
-.getElementById("productCount")
-.innerText =
-snapshot.size;
+document.getElementById("productCount").textContent=
+products.length;
 
+list.innerHTML="";
 
-if(snapshot.empty){
+if(!products.length){
 
-box.innerHTML =
-'<div class="empty">No products added yet.</div>';
-
+list.innerHTML="<p>No products added.</p>";
 return;
 
 }
 
+products.forEach(p=>{
 
-box.innerHTML="";
+const div=document.createElement("div");
+div.className="product";
 
+if(p.imageData){
 
-snapshot.forEach((item)=>{
+const img=document.createElement("img");
 
-const p=item.data();
+img.className="thumb";
+img.src=p.imageData;
 
-const row =
-document.createElement("div");
+div.appendChild(img);
 
-row.className="product-row";
+}else{
 
+const emoji=document.createElement("div");
 
-const photo =
-p.imageData
-?
-`<img class="product-thumb" src="${p.imageData}" alt="">`
-:
-"";
+emoji.className="thumb";
+emoji.style.display="flex";
+emoji.style.alignItems="center";
+emoji.style.justifyContent="center";
+emoji.style.fontSize="35px";
+emoji.textContent=p.emoji||"🛒";
 
+div.appendChild(emoji);
 
-row.innerHTML = `
-
-<div class="product-info">
-
-<b>
-${photo}
-${escapeHTML(p.emoji || "🛒")}
-${escapeHTML(p.name || "Product")}
-</b>
-
-₹${p.price || 0}
-
-${
-p.old && p.old > p.price
-?
-` <del style="color:#999">
-₹${p.old}
-</del>`
-:
-""
 }
 
-<br>
+const info=document.createElement("div");
 
-<small>
-${escapeHTML(p.cat || "General")}
- •
-${escapeHTML(p.unit || "1 pc")}
-</small>
+info.style.flex="1";
 
-</div>
-
-<div class="actions">
-
-<button
-class="red"
-onclick="deleteProduct('${item.id}')"
->
-Delete
-</button>
-
-</div>
-
+info.innerHTML=`
+<b>${escapeHtml(p.name)}</b><br>
+<span class="small">
+${escapeHtml(p.unit||"")} |
+₹${Number(p.price||0)} |
+${escapeHtml(p.cat||"Other")}
+</span>
 `;
 
-box.appendChild(row);
+const del=document.createElement("button");
+
+del.className="danger";
+del.textContent="Delete";
+
+del.onclick=async()=>{
+
+if(!confirm("Delete this product?"))return;
+
+await deleteDoc(
+doc(db,"products",p.id)
+);
+
+loadProducts();
+
+};
+
+div.appendChild(info);
+div.appendChild(del);
+
+list.appendChild(div);
 
 });
 
@@ -876,294 +608,171 @@ box.appendChild(row);
 
 console.error(e);
 
-box.innerHTML =
-'<div class="empty">
-Unable to load products.
-</div>';
+list.innerHTML="Unable to load products.";
 
 }
 
 }
 
+async function loadOrders(){
 
-/* DELETE PRODUCT */
+const list=document.getElementById("ordersList");
 
-window.deleteProduct = async function(id){
-
-if(!confirm(
-"Delete this product?"
-)) return;
-
+list.innerHTML="Loading...";
 
 try{
 
-await deleteDoc(
-doc(db,"products",id)
-);
-
-await loadProducts();
-
-}catch(e){
-
-alert(
-"Unable to delete product."
-);
-
-}
-
-};
-
-
-/* LOAD ORDERS */
-
-window.loadOrders = async function(){
-
-const box =
-document.getElementById("ordersList");
-
-box.innerHTML =
-'<div class="empty">
-Loading orders...
-</div>';
-
-
-try{
-
-const snapshot =
-await getDocs(
+const snap=await getDocs(
 collection(db,"orders")
 );
 
+const orders=snap.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
 
-document
-.getElementById("orderCount")
-.innerText =
-snapshot.size;
+orders.sort((a,b)=>{
 
+const ta=a.createdAt?.seconds||0;
+const tb=b.createdAt?.seconds||0;
 
-let sales=0;
-
-
-snapshot.forEach((item)=>{
-
-const o=item.data();
-
-if(
-o.status!=="Cancelled" &&
-o.status!=="Canceled"
-){
-
-sales += Number(
-o.total ||
-o.amount ||
-0
-);
-
-}
+return tb-ta;
 
 });
 
+document.getElementById("orderCount").textContent=
+orders.length;
 
-document
-.getElementById("salesTotal")
-.innerText =
-Math.round(sales);
+let sales=0;
 
+orders.forEach(o=>{
 
-if(snapshot.empty){
+sales+=Number(o.total||0);
 
-box.innerHTML =
-'<div class="empty">
-No orders yet.
-</div>';
+});
 
+document.getElementById("salesTotal").textContent=
+"₹"+sales;
+
+list.innerHTML="";
+
+if(!orders.length){
+
+list.innerHTML="<p>No orders yet.</p>";
 return;
 
 }
 
+orders.forEach(o=>{
 
-box.innerHTML="";
+const div=document.createElement("div");
 
+div.className="order";
 
-snapshot.forEach((item)=>{
+let items="";
 
-const o=item.data();
+(o.items||[]).forEach(item=>{
 
-const row =
-document.createElement("div");
-
-row.className="order-row";
-
-const status =
-o.status || "Pending";
-
-
-row.innerHTML = `
-
-<div class="topbar">
-
+items+=`
 <div>
-
-<b>
-Order #${item.id.substring(0,8)}
-</b>
-
-<br>
-
-<span class="order-status">
-${escapeHTML(status)}
-</span>
-
+${escapeHtml(item.name)}
+ × ${item.qty}
+ = ₹${Number(item.amount||0)}
 </div>
-
-
-<select
-onchange="changeOrderStatus('${item.id}',this.value)"
-style="width:auto;margin:0"
->
-
-<option ${status==="Pending"?"selected":""}>
-Pending
-</option>
-
-<option ${status==="Confirmed"?"selected":""}>
-Confirmed
-</option>
-
-<option ${status==="Preparing"?"selected":""}>
-Preparing
-</option>
-
-<option ${status==="Out for Delivery"?"selected":""}>
-Out for Delivery
-</option>
-
-<option ${status==="Delivered"?"selected":""}>
-Delivered
-</option>
-
-<option ${status==="Cancelled"?"selected":""}>
-Cancelled
-</option>
-
-</select>
-
-</div>
-
-
-<div class="order-details">
-
-<b>Customer:</b>
-${escapeHTML(
-o.customerName ||
-o.name ||
-"Customer"
-)}
-
-<br>
-
-<b>Phone:</b>
-${escapeHTML(
-o.phone ||
-"Not provided"
-)}
-
-<br>
-
-<b>Address:</b>
-${escapeHTML(
-o.address ||
-"Not provided"
-)}
-
-<br>
-
-<b>Total:</b>
-₹${o.total || o.amount || 0}
-
-<br>
-
-<b>Payment:</b>
-${escapeHTML(
-o.paymentMethod ||
-o.payment ||
-"COD"
-)}
-
-<br>
-
-<b>Items:</b>
-${formatItems(o.items)}
-
-</div>
-
 `;
-
-box.appendChild(row);
 
 });
 
-}catch(e){
+const statusOptions=[
+"Pending",
+"Confirmed",
+"Preparing",
+"Out for Delivery",
+"Delivered",
+"Cancelled"
+];
 
-console.error(e);
+const select=document.createElement("select");
 
-box.innerHTML =
-'<div class="empty">
-Unable to load orders.
-</div>';
+statusOptions.forEach(status=>{
+
+const option=document.createElement("option");
+
+option.value=status;
+option.textContent=status;
+
+if(status===(o.status||"Pending")){
+
+option.selected=true;
 
 }
 
-};
+select.appendChild(option);
 
+});
 
-/* CHANGE STATUS */
-
-window.changeOrderStatus =
-async function(id,status){
-
-try{
+select.onchange=async()=>{
 
 await updateDoc(
-doc(db,"orders",id),
+doc(db,"orders",o.id),
 {
-status:status,
+status:select.value,
 updatedAt:serverTimestamp()
 }
 );
 
-await loadOrders();
+};
+
+const title=document.createElement("h3");
+
+title.textContent=
+"Order #"+o.id.substring(0,8);
+
+div.appendChild(title);
+
+const customer=document.createElement("div");
+
+customer.innerHTML=`
+<b>Customer:</b> ${escapeHtml(o.customerName||"")}<br>
+<b>Phone:</b> ${escapeHtml(o.phone||"")}<br>
+<b>Address:</b> ${escapeHtml(o.address||"")}<br>
+<b>Distance:</b> ${o.deliveryDistanceKm||"-"} km<br><br>
+
+<b>Items:</b><br>
+${items}
+
+<br>
+<b>Subtotal:</b> ₹${Number(o.subtotal||0)}<br>
+<b>Delivery:</b> ₹${Number(o.deliveryCharge||0)}<br>
+<b>Total:</b> ₹${Number(o.total||0)}
+`;
+
+div.appendChild(customer);
+
+const label=document.createElement("p");
+
+label.innerHTML="<b>Status:</b>";
+
+div.appendChild(label);
+div.appendChild(select);
+
+list.appendChild(div);
+
+});
 
 }catch(e){
 
 console.error(e);
 
-alert(
-"Unable to update order."
-);
+list.innerHTML="Unable to load orders.";
 
 }
 
-};
+}
 
+function escapeHtml(value){
 
-/* WEBSITE */
-
-window.openWebsite=function(){
-
-window.open(
-"index.html",
-"_blank"
-);
-
-};
-
-
-/* HTML SAFE */
-
-function escapeHTML(value){
-
-return String(value ?? "")
+return String(value||"")
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -1172,69 +781,7 @@ return String(value ?? "")
 
 }
 
-
-/* FORMAT ITEMS */
-
-function formatItems(items){
-
-if(!items) return "—";
-
-if(Array.isArray(items)){
-
-return items.map(x=>{
-
-if(typeof x==="string")
-return escapeHTML(x);
-
-return escapeHTML(
-x.name ||
-x.title ||
-"Item"
-)
-+
-" × "
-+
-(
-x.qty ||
-x.quantity ||
-1
-);
-
-}).join(", ");
-
-}
-
-if(typeof items==="object"){
-
-return Object.values(items)
-.map(x=>{
-
-if(typeof x==="string")
-return escapeHTML(x);
-
-return escapeHTML(
-x.name ||
-x.title ||
-"Item"
-)
-+
-" × "
-+
-(
-x.qty ||
-x.quantity ||
-1
-);
-
-}).join(", ");
-
-}
-
-return escapeHTML(items);
-
-}
-
 </script>
 
 </body>
-                           </html>
+ </html>
