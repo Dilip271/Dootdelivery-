@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +45,11 @@ border-radius:10px;
 padding:11px 15px;
 font-weight:bold;
 cursor:pointer;
+}
+
+button:disabled{
+opacity:.6;
+cursor:not-allowed;
 }
 
 header{
@@ -291,6 +297,12 @@ line-height:25px;
 margin-top:10px;
 }
 
+.success-message{
+color:#166534;
+font-size:14px;
+margin-top:8px;
+}
+
 @media(max-width:600px){
 
 .stats{
@@ -345,12 +357,14 @@ class="error"
 id="email"
 type="email"
 placeholder="Admin Email"
+autocomplete="username"
 >
 
 <input
 id="password"
 type="password"
 placeholder="Password"
+autocomplete="current-password"
 >
 
 <button
@@ -443,7 +457,7 @@ Sales
 </div>
 
 
-<!-- NEW DELIVERY LOCATION -->
+<!-- DELIVERY SETTINGS -->
 
 <div class="card">
 
@@ -789,10 +803,12 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+/* FIREBASE CONFIG */
+
 const firebaseConfig = {
 
 apiKey:
-"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfD3DGrECMI_g",
+"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
 
 authDomain:
 "doot-delivery.firebaseapp.com",
@@ -864,7 +880,6 @@ passwordInput.value;
 
 loginError.innerText="";
 
-
 if(!email || !password){
 
 loginError.innerText =
@@ -875,6 +890,14 @@ return;
 }
 
 
+const loginButton =
+document.getElementById("loginButton");
+
+loginButton.disabled=true;
+
+loginButton.innerText="Logging in...";
+
+
 try{
 
 await signInWithEmailAndPassword(
@@ -883,12 +906,55 @@ email,
 password
 );
 
+loginError.innerText="";
+
 }catch(error){
 
-console.error(error);
+console.error(
+"Firebase Login Error:",
+error
+);
 
-loginError.innerText =
-"Login failed. Please check your email and password.";
+let message =
+"Login failed.";
+
+if(error.code==="auth/invalid-credential"){
+message =
+"Invalid email or password.";
+}
+
+else if(error.code==="auth/user-not-found"){
+message =
+"Admin account not found.";
+}
+
+else if(error.code==="auth/wrong-password"){
+message =
+"Incorrect password.";
+}
+
+else if(error.code==="auth/invalid-email"){
+message =
+"Invalid email address.";
+}
+
+else if(error.code==="auth/too-many-requests"){
+message =
+"Too many login attempts. Please try again later.";
+}
+
+else if(error.code==="auth/network-request-failed"){
+message =
+"Network error. Please check your internet connection.";
+}
+
+loginError.innerText=message;
+
+}finally{
+
+loginButton.disabled=false;
+
+loginButton.innerText="Login";
 
 }
 
@@ -899,7 +965,15 @@ loginError.innerText =
 
 async function adminLogout(){
 
+try{
+
 await signOut(auth);
+
+}catch(error){
+
+console.error(error);
+
+}
 
 }
 
@@ -1050,6 +1124,16 @@ return;
 }
 
 
+const button =
+document.getElementById(
+"saveDeliveryLocation"
+);
+
+button.disabled=true;
+
+button.innerText="Saving...";
+
+
 try{
 
 await setDoc(
@@ -1091,6 +1175,13 @@ message.style.color =
 
 message.innerText =
 "Unable to save shop location.";
+
+}finally{
+
+button.disabled=false;
+
+button.innerText =
+"📍 Save Shop Location";
 
 }
 
@@ -1506,6 +1597,63 @@ saveButton.innerText =
 }
 
 
+/* ESCAPE HTML */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* FORMAT ORDER ITEMS */
+
+function formatItems(items){
+
+if(
+!Array.isArray(items) ||
+!items.length
+){
+
+return "No items";
+
+}
+
+
+return items.map(
+function(item){
+
+const name =
+escapeHTML(
+item.name ||
+"Product"
+);
+
+const qty =
+Number(item.qty || 0);
+
+const price =
+Number(item.price || 0);
+
+return (
+name +
+" × " +
+qty +
+" — ₹" +
+(price * qty)
+);
+
+}
+).join("<br>");
+
+}
+
+
 /* LOAD PRODUCTS */
 
 async function loadProducts(){
@@ -1708,7 +1856,9 @@ event.target.closest(
 );
 
 if(!button){
+
 return;
+
 }
 
 deleteProduct(
@@ -1999,7 +2149,6 @@ box.appendChild(row);
 }
 );
 
-
 }catch(error){
 
 console.error(error);
@@ -2054,4 +2203,139 @@ alert(
 
 document
 .getElementById("ordersList")
-.addEventListen
+.addEventListener(
+"change",
+function(event){
+
+const select =
+event.target.closest(
+"[data-status-id]"
+);
+
+if(!select){
+
+return;
+
+}
+
+changeOrderStatus(
+select.getAttribute(
+"data-status-id"
+),
+select.value
+);
+
+}
+);
+
+
+/* BUTTON EVENTS */
+
+document
+.getElementById("loginButton")
+.addEventListener(
+"click",
+adminLogin
+);
+
+
+document
+.getElementById("password")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+
+adminLogin();
+
+}
+
+}
+);
+
+
+document
+.getElementById("email")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+
+adminLogin();
+
+}
+
+}
+);
+
+
+document
+.getElementById("logoutButton")
+.addEventListener(
+"click",
+adminLogout
+);
+
+
+document
+.getElementById("showAddProductButton")
+.addEventListener(
+"click",
+showAddProduct
+);
+
+
+document
+.getElementById("cancelProductButton")
+.addEventListener(
+"click",
+hideProductForm
+);
+
+
+document
+.getElementById("saveProductButton")
+.addEventListener(
+"click",
+addProduct
+);
+
+
+document
+.getElementById("saveDeliveryLocation")
+.addEventListener(
+"click",
+saveDeliveryLocation
+);
+
+
+document
+.getElementById("refreshOrdersButton")
+.addEventListener(
+"click",
+loadOrders
+);
+
+
+document
+.getElementById("openWebsiteButton")
+.addEventListener(
+"click",
+function(){
+
+window.open(
+"https://dilip271.github.io/Dootdelivery-/",
+"_blank"
+);
+
+}
+);
+
+
+</script>
+
+</body>
+
+</html>
