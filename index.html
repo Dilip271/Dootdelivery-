@@ -1,1517 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
-
-<meta
-name="theme-color"
-content="#16a34a"
->
-
-<title>
-Doot Delivery - Fast Local Delivery
-</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DootDelivery</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-body{
-font-family:Arial,sans-serif;
-background:#f5f7f6;
-color:#17231d;
-padding-bottom:90px;
-}
-
-
-/* HEADER */
-
-header{
-background:#16a34a;
-color:white;
-padding:16px 16px 20px;
-}
-
-.logo{
-margin-bottom:15px;
-}
-
-.brand-row{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.scooter{
-width:62px;
-height:62px;
-background:white;
-border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:38px;
-box-shadow:0 3px 10px #0003;
-}
-
-.brand{
-line-height:1;
-}
-
-.brand-name{
-font-size:31px;
-font-weight:900;
-letter-spacing:-1px;
-}
-
-.brand-name .hindi{
-color:white;
-}
-
-.brand-name .english{
-color:#eaffef;
-}
-
-.delivery{
-font-size:20px;
-font-weight:800;
-color:#ffd43b;
-margin-top:5px;
-}
-
-.tagline{
-margin-left:74px;
-margin-top:7px;
-line-height:1.4;
-}
-
-.tagline-hindi{
-display:block;
-font-size:16px;
-font-weight:800;
-}
-
-.tagline-english{
-display:block;
-font-size:13px;
-font-weight:700;
-}
-
-
-/* SEARCH */
-
-.search{
-background:white;
-border-radius:14px;
-padding:13px 15px;
-display:flex;
-align-items:center;
-gap:9px;
-}
-
-.search input{
-border:none;
-outline:none;
-width:100%;
-font-size:16px;
-}
-
-
-/* MAIN */
-
-.container{
-max-width:750px;
-margin:auto;
-padding:15px;
-}
-
-
-/* FAST DELIVERY */
-
-.fast-box{
-background:white;
-padding:17px;
-border-radius:16px;
-margin-bottom:15px;
-box-shadow:0 2px 10px #0000000b;
-font-size:16px;
-line-height:1.5;
-}
-
-.fast-title{
-color:#16a34a;
-font-weight:800;
-font-size:19px;
-}
-
-
-/* CATEGORIES */
-
-.categories{
-display:flex;
-gap:10px;
-overflow-x:auto;
-padding:5px 0 15px;
-}
-
-.categories button{
-border:1px solid #ddd;
-background:white;
-padding:11px 16px;
-border-radius:22px;
-white-space:nowrap;
-font-size:15px;
-}
-
-.categories button.active{
-background:#16a34a;
-color:white;
-border-color:#16a34a;
-}
-
-
-/* PRODUCTS */
-
-.heading{
-font-size:23px;
-margin:7px 0 15px;
-}
-
-.products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:13px;
-}
-
-.product{
-background:white;
-border-radius:17px;
-padding:12px;
-box-shadow:0 2px 10px #0000000d;
-}
-
-.product-image{
-height:125px;
-background:#eff7f1;
-border-radius:13px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:58px;
-margin-bottom:11px;
-overflow:hidden;
-}
-
-.product-image img{
-width:100%;
-height:100%;
-object-fit:contain;
-border-radius:13px;
-}
-
-.product h3{
-font-size:16px;
-line-height:1.3;
-min-height:41px;
-}
-
-.product small{
-color:#777;
-}
-
-.price{
-font-size:19px;
-font-weight:bold;
-margin:8px 0;
-}
-
-.old-price{
-color:#999;
-font-size:13px;
-margin-left:5px;
-}
-
-.add-btn{
-width:100%;
-padding:10px;
-border:1.5px solid #16a34a;
-background:white;
-color:#16a34a;
-border-radius:10px;
-font-weight:bold;
-font-size:15px;
-}
-
-.add-btn:active{
-background:#16a34a;
-color:white;
-}
-
-
-/* CART BAR */
-
-.cart-bar{
-position:fixed;
-display:none;
-left:14px;
-right:14px;
-bottom:15px;
-max-width:700px;
-margin:auto;
-background:#17231d;
-color:white;
-padding:13px 16px;
-border-radius:15px;
-align-items:center;
-justify-content:space-between;
-z-index:100;
-box-shadow:0 4px 20px #0005;
-}
-
-.cart-button{
-background:#16a34a;
-color:white;
-border:none;
-padding:11px 16px;
-border-radius:9px;
-font-weight:bold;
-}
-
-
-/* MODAL */
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:#0008;
-z-index:200;
-padding:15px;
-}
-
-.modal-box{
-background:white;
-width:100%;
-max-width:520px;
-max-height:92vh;
-overflow:auto;
-margin:auto;
-border-radius:18px;
-padding:20px;
-}
-
-.close{
-float:right;
-width:35px;
-height:35px;
-border:none;
-border-radius:50%;
-background:#eee;
-font-size:23px;
-}
-
-.cart-title{
-font-size:23px;
-margin-bottom:15px;
-}
-
-.cart-item{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-padding:13px 0;
-border-bottom:1px solid #eee;
-}
-
-.qty button{
-width:31px;
-height:31px;
-border:none;
-border-radius:7px;
-background:#e8f5ec;
-font-size:18px;
-}
-
-.summary{
-padding-top:15px;
-line-height:29px;
-font-size:16px;
-}
-
-.total{
-font-size:20px;
-font-weight:bold;
-}
-
-
-/* FORM */
-
-.form-title{
-margin-top:20px;
-margin-bottom:5px;
-}
-
-.form input,
-.form textarea{
-width:100%;
-padding:13px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:10px;
-font-size:15px;
-outline:none;
-}
-
-.place-order{
-width:100%;
-padding:14px;
-margin-top:16px;
-border:none;
-background:#16a34a;
-color:white;
-border-radius:11px;
-font-size:17px;
-font-weight:bold;
-}
-
-.empty{
-text-align:center;
-padding:30px;
-color:#777;
-}
-
-
-/* DESKTOP */
-
-@media(min-width:600px){
-
-.products{
-grid-template-columns:repeat(3,1fr);
-}
-
-}
-
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f7f9;color:#222}
+header{background:#ff6b00;color:#fff;padding:14px 16px;position:sticky;top:0;z-index:20}
+.header{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-size:25px;font-weight:800}
+.cartBtn{border:0;background:#fff;color:#ff6b00;padding:10px 14px;border-radius:10px;font-weight:bold}
+.container{max-width:1100px;margin:auto;padding:15px}
+.search{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;font-size:16px;margin-bottom:12px}
+.categories{display:flex;gap:8px;overflow-x:auto;margin-bottom:15px}
+.catBtn{border:0;padding:9px 14px;border-radius:20px;background:#fff;white-space:nowrap}
+.catBtn.active{background:#ff6b00;color:#fff}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.card{background:#fff;border-radius:14px;padding:10px;box-shadow:0 2px 8px #00000012}
+.photo{width:100%;height:150px;object-fit:contain;border-radius:10px;background:#f5f5f5}
+.emoji{height:150px;display:flex;align-items:center;justify-content:center;font-size:70px;background:#f5f5f5;border-radius:10px}
+.name{font-weight:bold;margin-top:9px}
+.unit{font-size:13px;color:#777;margin:4px 0}
+.price{font-size:19px;font-weight:bold}
+.old{text-decoration:line-through;color:#999;font-size:13px;margin-left:5px}
+.add{width:100%;margin-top:8px;border:0;background:#ff6b00;color:white;padding:10px;border-radius:9px;font-weight:bold}
+.qty{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.qty button{width:34px;height:34px;border:0;border-radius:8px;background:#ff6b00;color:#fff;font-size:20px}
+.empty{text-align:center;padding:40px;color:#777}
+
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:50;overflow:auto}
+.modalBox{background:#fff;width:min(600px,94%);margin:30px auto;padding:18px;border-radius:16px}
+.close{float:right;border:0;background:#eee;border-radius:50%;width:32px;height:32px}
+.cartItem{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee;padding:12px 0}
+.form input,.form textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:9px;font-size:15px}
+.form textarea{min-height:80px}
+.summary{background:#f7f7f7;padding:12px;border-radius:10px;margin-top:12px}
+.row{display:flex;justify-content:space-between;margin:8px 0}
+.total{font-size:20px;font-weight:bold;border-top:1px solid #ddd;padding-top:10px}
+.locationBtn{width:100%;padding:12px;border:1px solid #ff6b00;background:#fff;color:#ff6b00;border-radius:9px;font-weight:bold;margin-top:6px}
+.orderBtn{width:100%;padding:14px;background:#25d366;color:#fff;border:0;border-radius:10px;font-size:17px;font-weight:bold;margin-top:12px}
+.distanceInfo{font-size:13px;margin-top:8px}
+.error{color:#d00}
+.success{color:green}
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- HEADER -->
-
 <header>
-
-<div class="logo">
-
-<div class="brand-row">
-
-<div class="scooter">
-🛵
+<div class="header">
+<div class="logo">🛍️ DootDelivery</div>
+<button class="cartBtn" id="openCart">🛒 Cart <span id="cartCount">0</span></button>
 </div>
-
-<div class="brand">
-
-<div class="brand-name">
-
-<span class="hindi">
-दूत
-</span>
-
-<span class="english">
-Doot
-</span>
-
-</div>
-
-<div class="delivery">
-Delivery
-</div>
-
-</div>
-
-</div>
-
-
-<div class="tagline">
-
-<span class="tagline-hindi">
-दूत आपके दरवाजे तक
-</span>
-
-<span class="tagline-english">
-Doot at Your Doorstep
-</span>
-
-</div>
-
-</div>
-
-
-<div class="search">
-
-🔍
-
-<input
-id="searchInput"
-type="text"
-placeholder="Search groceries, snacks, drinks..."
-oninput="renderProducts()"
->
-
-</div>
-
 </header>
-
-
-<!-- MAIN -->
 
 <div class="container">
 
+<input class="search" id="search" placeholder="Search products...">
 
-<div class="fast-box">
+<div class="categories" id="categories"></div>
 
-📍
-
-<span class="fast-title">
-Fast Delivery
-</span>
-
-<br>
-
-Order now and get your products delivered locally
-in <b>10–30 minutes.</b>
+<div class="products" id="products"></div>
 
 </div>
 
+<div class="modal" id="cartModal">
+<div class="modalBox">
 
-<!-- CATEGORY -->
+<button class="close" id="closeCart">×</button>
+<h2>🛒 Your Cart</h2>
 
-<div class="categories">
+<div id="cartItems"></div>
 
-<button
-class="active"
-onclick="setCategory('All',this)"
->
-All
-</button>
-
-<button
-onclick="setCategory('Grocery',this)"
->
-🛒 Grocery
-</button>
-
-<button
-onclick="setCategory('Snacks',this)"
->
-🍪 Snacks
-</button>
-
-<button
-onclick="setCategory('Drinks',this)"
->
-🥤 Drinks
-</button>
-
-<button
-onclick="setCategory('Home',this)"
->
-🏠 Home
-</button>
-
+<div class="summary">
+<div class="row">
+<span>Subtotal</span>
+<b id="subtotal">₹0</b>
 </div>
 
-
-<h2 class="heading">
-Popular Products
-</h2>
-
-
-<div
-id="products"
-class="products"
->
-
-<div class="empty">
-Loading products...
+<div class="row">
+<span>Delivery</span>
+<b id="deliveryCharge">₹0</b>
 </div>
 
+<div class="row total">
+<span>Total</span>
+<b id="grandTotal">₹0</b>
 </div>
 
+<div id="distanceInfo" class="distanceInfo"></div>
 </div>
-
-
-<!-- CART BAR -->
-
-<div
-id="cartBar"
-class="cart-bar"
->
-
-<div>
-
-🛒
-
-<span id="cartCount">
-0
-</span>
-
-items
-
-<br>
-
-<b>
-₹<span id="cartTotal">0</span>
-</b>
-
-</div>
-
-
-<button
-class="cart-button"
-onclick="openCart()"
->
-View Cart →
-</button>
-
-</div>
-
-
-<!-- CART MODAL -->
-
-<div
-id="cartModal"
-class="modal"
->
-
-<div class="modal-box">
-
-<button
-class="close"
-onclick="closeCart()"
->
-×
-</button>
-
-
-<h2 class="cart-title">
-🛒 Your Cart
-</h2>
-
-
-<div id="cartItems">
-</div>
-
-
-<div
-id="summary"
-class="summary"
->
-</div>
-
-
-<h3 class="form-title">
-Delivery Details
-</h3>
-
 
 <div class="form">
 
-<input
-id="customerName"
-type="text"
-placeholder="Your Name"
->
+<h3>Delivery Details</h3>
 
-<input
-id="customerPhone"
-type="tel"
-placeholder="Mobile Number"
->
+<input id="customerName" placeholder="Your Name">
 
-<textarea
-id="customerAddress"
-rows="4"
-placeholder="Complete Delivery Address"
-></textarea>
+<input id="customerPhone" type="tel" placeholder="Mobile Number">
+
+<textarea id="customerAddress" placeholder="Complete Delivery Address"></textarea>
+
+<button class="locationBtn" id="locationBtn">
+📍 Use My Current Location
+</button>
+
+<div id="locationStatus" class="distanceInfo"></div>
 
 </div>
 
-
-<button
-class="place-order"
-onclick="placeOrder()"
->
-🛵 Place Order on WhatsApp
+<button class="orderBtn" id="orderBtn">
+Order on WhatsApp
 </button>
 
 </div>
-
 </div>
-
 
 <script type="module">
 
-
-/* FIREBASE */
-
 import {
 initializeApp
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 getFirestore,
 collection,
-getDocs
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+getDocs,
+addDoc,
+serverTimestamp,
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig={
-
-apiKey:
-"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
-
-authDomain:
-"doot-delivery.firebaseapp.com",
-
-projectId:
-"doot-delivery",
-
-storageBucket:
-"doot-delivery.firebasestorage.app",
-
-messagingSenderId:
-"771238210735",
-
-appId:
-"1:771238210735:web:82fc817bd02cdde8ed385a",
-
-measurementId:
-"G-94ZTPMFMVC"
-
+apiKey:"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
+authDomain:"doot-delivery.firebaseapp.com",
+projectId:"doot-delivery",
+storageBucket:"doot-delivery.firebasestorage.app",
+messagingSenderId:"771238210735",
+appId:"1:771238210735:web:82fc817bd02cdde8ed385a",
+measurementId:"G-94ZTPMFMVC"
 };
 
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-const app =
-initializeApp(firebaseConfig);
-
-
-const db =
-getFirestore(app);
-
-
-/*
-IMPORTANT:
-
-NO DEFAULT PRODUCTS HERE.
-
-Only products added from Admin Panel
-will appear on customer website.
-*/
+const WHATSAPP="919678274671";
 
 let products=[];
-
 let cart=[];
+let selectedCategory="All";
 
-let currentCategory="All";
+let customerLat=null;
+let customerLng=null;
+let shopLat=null;
+let shopLng=null;
 
+const productsEl=document.getElementById("products");
+const categoriesEl=document.getElementById("categories");
+const searchEl=document.getElementById("search");
 
-/* LOAD PRODUCTS FROM FIRESTORE */
-
-async function loadProducts(){
-
-const box =
-document.getElementById("products");
-
-box.innerHTML =
-'<div class="empty">Loading products...</div>';
-
+async function loadShopLocation(){
 
 try{
 
-const snapshot =
-await getDocs(
-collection(db,"products")
-);
+const snap=await getDoc(doc(db,"settings","delivery"));
 
+if(snap.exists()){
 
-products=[];
+const d=snap.data();
 
+shopLat=Number(d.shopLat);
+shopLng=Number(d.shopLng);
 
-snapshot.forEach((item)=>{
-
-const p=item.data();
-
-
-/*
-Only active products appear.
-*/
-
-if(p.active===false){
-return;
 }
 
+}catch(e){
 
-products.push({
+console.log("Shop location error",e);
 
-id:item.id,
+}
 
-name:p.name || "Product",
+}
 
-price:Number(p.price) || 0,
+async function loadProducts(){
 
-old:Number(p.old) || 0,
+productsEl.innerHTML='<div class="empty">Loading products...</div>';
 
-category:p.cat || "Home",
+try{
 
-unit:p.unit || "",
+const snap=await getDocs(collection(db,"products"));
 
-image:p.emoji || "🛒",
+products=snap.docs
+.map(d=>({
+id:d.id,
+...d.data()
+}))
+.filter(p=>p.active!==false);
 
-imageData:p.imageData || ""
-
-});
-
-});
-
-
+renderCategories();
 renderProducts();
 
-updateCart();
+}catch(e){
 
+console.error(e);
 
-if(products.length===0){
-
-box.innerHTML =
-'<div class="empty">No products available yet.</div>';
-
-}
-
-
-}catch(error){
-
-console.error(
-"Product loading error:",
-error
-);
-
-
-box.innerHTML =
-'<div class="empty">Products could not be loaded. Please check Firestore rules.</div>';
+productsEl.innerHTML='<div class="empty">Unable to load products.</div>';
 
 }
 
 }
 
+function renderCategories(){
 
-/* CATEGORY */
+const cats=["All",...new Set(products.map(p=>p.cat||"Other"))];
 
-window.setCategory =
-function(category,button){
+categoriesEl.innerHTML="";
 
-currentCategory=category;
+cats.forEach(cat=>{
 
+const btn=document.createElement("button");
 
-document
-.querySelectorAll(
-".categories button"
-)
-.forEach(function(btn){
+btn.className="catBtn "+(cat===selectedCategory?"active":"");
 
-btn.classList.remove("active");
+btn.textContent=cat;
 
-});
+btn.onclick=()=>{
 
-
-button.classList.add("active");
-
-
+selectedCategory=cat;
+renderCategories();
 renderProducts();
 
 };
 
-
-/* SHOW PRODUCTS */
-
-window.renderProducts =
-function(){
-
-const search =
-document
-.getElementById("searchInput")
-.value
-.toLowerCase();
-
-
-const box =
-document.getElementById("products");
-
-
-const filtered =
-products.filter(function(product){
-
-const categoryMatch =
-currentCategory==="All" ||
-product.category===currentCategory;
-
-
-const searchMatch =
-product.name
-.toLowerCase()
-.includes(search);
-
-
-return (
-categoryMatch &&
-searchMatch
-);
+categoriesEl.appendChild(btn);
 
 });
 
+}
 
-if(filtered.length===0){
+function renderProducts(){
 
-box.innerHTML =
-'<div class="empty">No products found.</div>';
+const search=searchEl.value.toLowerCase().trim();
+
+const list=products.filter(p=>{
+
+const matchCat=
+selectedCategory==="All" ||
+(p.cat||"Other")===selectedCategory;
+
+const matchSearch=
+!search ||
+(p.name||"").toLowerCase().includes(search) ||
+(p.cat||"").toLowerCase().includes(search);
+
+return matchCat&&matchSearch;
+
+});
+
+productsEl.innerHTML="";
+
+if(!list.length){
+
+productsEl.innerHTML='<div class="empty">No products found.</div>';
 
 return;
 
 }
 
+list.forEach(p=>{
 
-box.innerHTML =
-filtered
-.map(function(product){
+const card=document.createElement("div");
+card.className="card";
 
+if(p.imageData){
 
-let imageHTML;
-
-
-if(product.imageData){
-
-imageHTML = `
-
-<img
-src="${product.imageData}"
-alt="${escapeHTML(product.name)}"
->
-
-`;
+const img=document.createElement("img");
+img.className="photo";
+img.src=p.imageData;
+img.alt=p.name||"Product";
+card.appendChild(img);
 
 }else{
 
-imageHTML =
-escapeHTML(
-product.image || "🛒"
-);
+const emoji=document.createElement("div");
+emoji.className="emoji";
+emoji.textContent=p.emoji||"🛒";
+card.appendChild(emoji);
 
 }
 
+const name=document.createElement("div");
+name.className="name";
+name.textContent=p.name||"Product";
 
-return `
+const unit=document.createElement("div");
+unit.className="unit";
+unit.textContent=p.unit||"";
 
-<div class="product">
+const price=document.createElement("span");
+price.className="price";
+price.textContent="₹"+Number(p.price||0);
 
-<div class="product-image">
+card.appendChild(name);
+card.appendChild(unit);
+card.appendChild(price);
 
-${imageHTML}
+if(Number(p.old)>Number(p.price)){
 
-</div>
+const old=document.createElement("span");
+old.className="old";
+old.textContent="₹"+Number(p.old);
+card.appendChild(old);
 
-
-<h3>
-${escapeHTML(product.name)}
-</h3>
-
-
-<small>
-
-⚡ Fast delivery
-
-${
-product.unit
-?
-" • "+escapeHTML(product.unit)
-:
-""
 }
 
-</small>
-
-
-<div class="price">
-
-₹${product.price}
-
-${
-product.old > product.price
-?
-`
-<del class="old-price">
-₹${product.old}
-</del>
-`
-:
-""
-}
-
-</div>
-
-
-<button
-class="add-btn"
-onclick="addToCart(${JSON.stringify(product.id)})"
->
-+ Add
-</button>
-
-
-</div>
-
-`;
-
-})
-.join("");
-
-};
-
-
-/* ADD TO CART */
-
-window.addToCart =
-function(id){
-
-const existing =
-cart.find(function(item){
-
-return item.id===id;
-
-});
-
+const existing=cart.find(x=>x.id===p.id);
 
 if(existing){
 
-existing.quantity++;
+const qty=document.createElement("div");
+qty.className="qty";
+
+const minus=document.createElement("button");
+minus.textContent="−";
+
+const count=document.createElement("b");
+count.textContent=existing.qty;
+
+const plus=document.createElement("button");
+plus.textContent="+";
+
+minus.onclick=()=>{
+changeQty(p.id,-1);
+};
+
+plus.onclick=()=>{
+changeQty(p.id,1);
+};
+
+qty.append(minus,count,plus);
+card.appendChild(qty);
+
+}else{
+
+const add=document.createElement("button");
+add.className="add";
+add.textContent="+ Add";
+
+add.onclick=()=>{
+addToCart(p.id);
+};
+
+card.appendChild(add);
+
+}
+
+productsEl.appendChild(card);
+
+});
+
+}
+
+function addToCart(id){
+
+const p=products.find(x=>x.id===id);
+
+if(!p)return;
+
+const existing=cart.find(x=>x.id===id);
+
+if(existing){
+
+existing.qty++;
 
 }else{
 
 cart.push({
-
-id:id,
-
-quantity:1
-
+id:p.id,
+name:p.name||"Product",
+price:Number(p.price)||0,
+unit:p.unit||"",
+qty:1
 });
 
 }
 
-
-updateCart();
-
-};
-
-
-/* CHANGE QUANTITY */
-
-window.changeQuantity =
-function(id,change){
-
-const item =
-cart.find(function(item){
-
-return item.id===id;
-
-});
-
-
-if(!item){
-return;
-}
-
-
-item.quantity += change;
-
-
-if(item.quantity<=0){
-
-cart =
-cart.filter(function(item){
-
-return item.id!==id;
-
-});
-
-}
-
-
-updateCart();
-
+renderProducts();
 renderCart();
 
-};
+}
 
+function changeQty(id,change){
 
-/* SUBTOTAL */
+const item=cart.find(x=>x.id===id);
+
+if(!item)return;
+
+item.qty+=change;
+
+if(item.qty<=0){
+
+cart=cart.filter(x=>x.id!==id);
+
+}
+
+renderProducts();
+renderCart();
+
+}
 
 function getSubtotal(){
 
 return cart.reduce(
-function(total,item){
-
-const product =
-products.find(function(p){
-
-return p.id===item.id;
-
-});
-
-
-if(!product){
-return total;
-}
-
-
-return total +
-product.price *
-item.quantity;
-
-},
+(sum,item)=>sum+(item.price*item.qty),
 0
 );
 
 }
 
+/*
+DISTANCE DELIVERY RULE
 
-/* UPDATE CART */
+0–2 km = ₹30
+>2–4 km = ₹40
+>4–6 km = ₹50
+>6 km = unavailable
+*/
 
-window.updateCart =
-function(){
+function getDistanceKm(){
 
-const count =
-cart.reduce(
-function(total,item){
+if(
+customerLat===null ||
+customerLng===null ||
+shopLat===null ||
+shopLng===null
+){
 
-return total +
-item.quantity;
-
-},
-0
-);
-
-
-const subtotal =
-getSubtotal();
-
-
-document
-.getElementById("cartCount")
-.innerText=count;
-
-
-document
-.getElementById("cartTotal")
-.innerText=subtotal;
-
-
-document
-.getElementById("cartBar")
-.style.display =
-count>0
-?
-"flex"
-:
-"none";
-
-};
-
-
-/* OPEN CART */
-
-window.openCart =
-function(){
-
-document
-.getElementById("cartModal")
-.style.display="flex";
-
-
-renderCart();
-
-};
-
-
-/* CLOSE CART */
-
-window.closeCart =
-function(){
-
-document
-.getElementById("cartModal")
-.style.display="none";
-
-};
-
-
-/* RENDER CART */
-
-window.renderCart =
-function(){
-
-const box =
-document.getElementById("cartItems");
-
-
-if(cart.length===0){
-
-box.innerHTML =
-'<div class="empty">Your cart is empty.</div>';
-
-
-document
-.getElementById("summary")
-.innerHTML="";
-
-return;
+return null;
 
 }
 
+const R=6371;
 
-box.innerHTML =
-cart
-.map(function(item){
+const dLat=(customerLat-shopLat)*Math.PI/180;
+const dLng=(customerLng-shopLng)*Math.PI/180;
 
-const product =
-products.find(function(p){
+const a=
+Math.sin(dLat/2)**2+
+Math.cos(shopLat*Math.PI/180)*
+Math.cos(customerLat*Math.PI/180)*
+Math.sin(dLng/2)**2;
 
-return p.id===item.id;
+const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 
-});
+return R*c;
 
+}
 
-let productImage;
+function getDeliveryCharge(){
 
+const km=getDistanceKm();
 
-if(product.imageData){
+if(km===null)return null;
 
-productImage = `
+if(km<=2)return 30;
 
-<img
-src="${product.imageData}"
-style="
-width:35px;
-height:35px;
-object-fit:contain;
-vertical-align:middle;
-border-radius:6px;
-"
->
+if(km<=4)return 40;
 
+if(km<=6)return 50;
+
+return -1;
+
+}
+
+function renderCart(){
+
+const cartItems=document.getElementById("cartItems");
+
+cartItems.innerHTML="";
+
+let count=0;
+
+cart.forEach(item=>{
+
+count+=item.qty;
+
+const div=document.createElement("div");
+div.className="cartItem";
+
+div.innerHTML=`
+<div>
+<b>${escapeHtml(item.name)}</b>
+<div style="font-size:13px;color:#777">
+${item.unit||""}
+</div>
+</div>
+
+<div style="text-align:right">
+<b>₹${item.price*item.qty}</b>
+<div style="margin-top:5px">
+<button onclick="window.cartChange('${item.id}',-1)">−</button>
+<b style="margin:0 8px">${item.qty}</b>
+<button onclick="window.cartChange('${item.id}',1)">+</button>
+</div>
+</div>
 `;
+
+cartItems.appendChild(div);
+
+});
+
+document.getElementById("cartCount").textContent=count;
+
+const subtotal=getSubtotal();
+
+document.getElementById("subtotal").textContent="₹"+subtotal;
+
+const charge=getDeliveryCharge();
+
+if(charge===null){
+
+document.getElementById("deliveryCharge").textContent="Select location";
+
+document.getElementById("grandTotal").textContent="₹"+subtotal;
+
+document.getElementById("distanceInfo").innerHTML=
+"📍 Please use your current location to calculate delivery charge.";
+
+}else if(charge===-1){
+
+document.getElementById("deliveryCharge").textContent="Unavailable";
+
+document.getElementById("grandTotal").textContent="—";
+
+document.getElementById("distanceInfo").innerHTML=
+'<span class="error">❌ Delivery is available only within 6 km.</span>';
 
 }else{
 
-productImage =
-escapeHTML(
-product.image || "🛒"
-);
+document.getElementById("deliveryCharge").textContent="₹"+charge;
+
+document.getElementById("grandTotal").textContent=
+"₹"+(subtotal+charge);
+
+const km=getDistanceKm();
+
+document.getElementById("distanceInfo").innerHTML=
+`📍 Delivery distance: <b>${km.toFixed(2)} km</b>`;
 
 }
 
-
-return `
-
-<div class="cart-item">
-
-<div>
-
-<b>
-
-${productImage}
-
-${escapeHTML(product.name)}
-
-</b>
-
-<br>
-
-₹${product.price}
-×
-${item.quantity}
-
-</div>
-
-
-<div class="qty">
-
-<button
-onclick="changeQuantity(
-${JSON.stringify(product.id)},
--1
-)"
->
-−
-</button>
-
-${item.quantity}
-
-<button
-onclick="changeQuantity(
-${JSON.stringify(product.id)},
-1
-)"
->
-+
-</button>
-
-</div>
-
-</div>
-
-`;
-
-})
-.join("");
-
-
-const subtotal =
-getSubtotal();
-
-
-const deliveryCharge =
-subtotal>=299
-?
-0
-:
-20;
-
-
-const grandTotal =
-subtotal +
-deliveryCharge;
-
-
-document
-.getElementById("summary")
-.innerHTML = `
-
-<div>
-Subtotal:
-<b>₹${subtotal}</b>
-</div>
-
-<div>
-Delivery:
-<b>
-${
-deliveryCharge===0
-?
-"FREE"
-:
-"₹20"
 }
-</b>
-</div>
 
-<hr>
+window.cartChange=function(id,change){
 
-<div class="total">
-Total:
-₹${grandTotal}
-</div>
-
-`;
+changeQty(id,change);
 
 };
 
+function escapeHtml(value){
 
-/* PLACE ORDER */
-
-window.placeOrder =
-function(){
-
-if(cart.length===0){
-
-alert(
-"Please add products to your cart first."
-);
-
-return;
-
-}
-
-
-const name =
-document
-.getElementById("customerName")
-.value
-.trim();
-
-
-const phone =
-document
-.getElementById("customerPhone")
-.value
-.trim();
-
-
-const address =
-document
-.getElementById("customerAddress")
-.value
-.trim();
-
-
-if(
-!name ||
-!phone ||
-!address
-){
-
-alert(
-"Please enter your name, mobile number and complete address."
-);
-
-return;
-
-}
-
-
-let message =
-"🛵 *DOOT DELIVERY ORDER*%0A";
-
-
-message +=
-"%0A👤 Name: " +
-encodeURIComponent(name);
-
-
-message +=
-"%0A📱 Mobile: " +
-encodeURIComponent(phone);
-
-
-message +=
-"%0A📍 Address: " +
-encodeURIComponent(address);
-
-
-message +=
-"%0A%0A🛒 *ORDER DETAILS*%0A";
-
-
-cart.forEach(function(item){
-
-const product =
-products.find(function(p){
-
-return p.id===item.id;
-
-});
-
-
-const itemTotal =
-product.price *
-item.quantity;
-
-
-message +=
-encodeURIComponent(
-product.name
-)
-+
-" × "
-+
-item.quantity
-+
-" = ₹"
-+
-itemTotal
-+
-"%0A";
-
-});
-
-
-const subtotal =
-getSubtotal();
-
-
-const deliveryCharge =
-subtotal>=299
-?
-0
-:
-20;
-
-
-const grandTotal =
-subtotal +
-deliveryCharge;
-
-
-message +=
-"%0A💰 Subtotal: ₹" +
-subtotal;
-
-
-message +=
-"%0A🚚 Delivery: " +
-(
-deliveryCharge===0
-?
-"FREE"
-:
-"₹20"
-);
-
-
-message +=
-"%0A💵 *TOTAL: ₹" +
-grandTotal +
-"*";
-
-
-const whatsappNumber =
-"919678274671";
-
-
-const whatsappURL =
-"https://wa.me/" +
-whatsappNumber +
-"?text=" +
-message;
-
-
-window.open(
-whatsappURL,
-"_blank"
-);
-
-};
-
-
-/* SAFE HTML */
-
-function escapeHTML(value){
-
-return String(value ?? "")
+return String(value||"")
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -1520,12 +572,251 @@ return String(value ?? "")
 
 }
 
+searchEl.addEventListener("input",renderProducts);
 
-/* START */
+document.getElementById("openCart").onclick=()=>{
 
-loadProducts();
+document.getElementById("cartModal").style.display="block";
+renderCart();
+
+};
+
+document.getElementById("closeCart").onclick=()=>{
+
+document.getElementById("cartModal").style.display="none";
+
+};
+
+window.onclick=e=>{
+
+if(e.target===document.getElementById("cartModal")){
+
+document.getElementById("cartModal").style.display="none";
+
+}
+
+};
+
+document.getElementById("locationBtn").onclick=()=>{
+
+const status=document.getElementById("locationStatus");
+
+if(!navigator.geolocation){
+
+status.innerHTML='<span class="error">Location not supported.</span>';
+return;
+
+}
+
+status.textContent="Getting your location...";
+
+navigator.geolocation.getCurrentPosition(
+
+position=>{
+
+customerLat=position.coords.latitude;
+customerLng=position.coords.longitude;
+
+const km=getDistanceKm();
+
+if(km===null){
+
+status.textContent="Location received.";
+
+}else if(km>6){
+
+status.innerHTML=
+`<span class="error">❌ You are ${km.toFixed(2)} km away. Delivery available only within 6 km.</span>`;
+
+}else{
+
+status.innerHTML=
+`<span class="success">✓ Location confirmed — ${km.toFixed(2)} km</span>`;
+
+}
+
+renderCart();
+
+},
+
+error=>{
+
+status.innerHTML=
+'<span class="error">Please allow location access to calculate delivery charge.</span>';
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:15000,
+maximumAge:0
+}
+
+);
+
+};
+
+document.getElementById("orderBtn").onclick=async()=>{
+
+if(!cart.length){
+
+alert("Please add products to cart.");
+return;
+
+}
+
+const name=document.getElementById("customerName").value.trim();
+const phone=document.getElementById("customerPhone").value.trim();
+const address=document.getElementById("customerAddress").value.trim();
+
+if(!name){
+
+alert("Please enter your name.");
+return;
+
+}
+
+if(!phone || phone.length<10){
+
+alert("Please enter a valid mobile number.");
+return;
+
+}
+
+if(!address){
+
+alert("Please enter delivery address.");
+return;
+
+}
+
+if(customerLat===null || customerLng===null){
+
+alert("Please use your current location first.");
+return;
+
+}
+
+if(shopLat===null || shopLng===null){
+
+alert("Delivery location is not configured yet.");
+return;
+
+}
+
+const km=getDistanceKm();
+
+if(km>6){
+
+alert(
+"Sorry, delivery is available only within 6 km. Your distance is "+
+km.toFixed(2)+" km."
+);
+
+return;
+
+}
+
+const deliveryCharge=getDeliveryCharge();
+
+const subtotal=getSubtotal();
+
+const total=subtotal+deliveryCharge;
+
+const orderItems=cart.map(item=>({
+id:item.id,
+name:item.name,
+unit:item.unit,
+price:item.price,
+qty:item.qty,
+amount:item.price*item.qty
+}));
+
+const button=document.getElementById("orderBtn");
+
+button.disabled=true;
+button.textContent="Saving Order...";
+
+try{
+
+const orderRef=await addDoc(collection(db,"orders"),{
+
+customerName:name,
+phone:phone,
+address:address,
+
+customerLat:customerLat,
+customerLng:customerLng,
+
+deliveryDistanceKm:Number(km.toFixed(2)),
+
+items:orderItems,
+
+subtotal:subtotal,
+deliveryCharge:deliveryCharge,
+total:total,
+
+paymentMethod:"WhatsApp / COD",
+status:"Pending",
+
+createdAt:serverTimestamp()
+
+});
+
+let message=
+`*🛍️ DOOT DELIVERY ORDER*%0A%0A`+
+`*Order ID:* ${orderRef.id}%0A`+
+`*Customer:* ${encodeURIComponent(name)}%0A`+
+`*Mobile:* ${encodeURIComponent(phone)}%0A`+
+`*Address:* ${encodeURIComponent(address)}%0A%0A`+
+`*ITEMS:*%0A`;
+
+orderItems.forEach(item=>{
+
+message+=
+`• ${encodeURIComponent(item.name)} x ${item.qty} = ₹${item.amount}%0A`;
+
+});
+
+message+=
+`%0A*Subtotal:* ₹${subtotal}%0A`+
+`*Delivery (${km.toFixed(2)} km):* ₹${deliveryCharge}%0A`+
+`*TOTAL:* ₹${total}%0A%0A`+
+`Payment: COD / WhatsApp`;
+
+cart=[];
+
+renderProducts();
+renderCart();
+
+document.getElementById("cartModal").style.display="none";
+
+window.open(
+"https://wa.me/"+WHATSAPP+"?text="+message,
+"_blank"
+);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Order save nahi ho saka. Please try again."
+);
+
+}finally{
+
+button.disabled=false;
+button.textContent="Order on WhatsApp";
+
+}
+
+};
+
+await loadShopLocation();
+await loadProducts();
 
 </script>
 
 </body>
-  </html>
+</html>
