@@ -1,128 +1,855 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>DootDelivery</title>
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+name="theme-color"
+content="#16a34a"
+>
+
+<title>Doot Delivery - Fast Local Delivery</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f6f7f9;color:#222}
-header{background:#ff6b00;color:#fff;padding:14px 16px;position:sticky;top:0;z-index:20}
-.header{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{font-size:25px;font-weight:800}
-.cartBtn{border:0;background:#fff;color:#ff6b00;padding:10px 14px;border-radius:10px;font-weight:bold}
-.container{max-width:1100px;margin:auto;padding:15px}
-.search{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;font-size:16px;margin-bottom:12px}
-.categories{display:flex;gap:8px;overflow-x:auto;margin-bottom:15px}
-.catBtn{border:0;padding:9px 14px;border-radius:20px;background:#fff;white-space:nowrap}
-.catBtn.active{background:#ff6b00;color:#fff}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
-.card{background:#fff;border-radius:14px;padding:10px;box-shadow:0 2px 8px #00000012}
-.photo{width:100%;height:150px;object-fit:contain;border-radius:10px;background:#f5f5f5}
-.emoji{height:150px;display:flex;align-items:center;justify-content:center;font-size:70px;background:#f5f5f5;border-radius:10px}
-.name{font-weight:bold;margin-top:9px}
-.unit{font-size:13px;color:#777;margin:4px 0}
-.price{font-size:19px;font-weight:bold}
-.old{text-decoration:line-through;color:#999;font-size:13px;margin-left:5px}
-.add{width:100%;margin-top:8px;border:0;background:#ff6b00;color:white;padding:10px;border-radius:9px;font-weight:bold}
-.qty{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
-.qty button{width:34px;height:34px;border:0;border-radius:8px;background:#ff6b00;color:#fff;font-size:20px}
-.empty{text-align:center;padding:40px;color:#777}
 
-.modal{display:none;position:fixed;inset:0;background:#0008;z-index:50;overflow:auto}
-.modalBox{background:#fff;width:min(600px,94%);margin:30px auto;padding:18px;border-radius:16px}
-.close{float:right;border:0;background:#eee;border-radius:50%;width:32px;height:32px}
-.cartItem{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee;padding:12px 0}
-.form input,.form textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:9px;font-size:15px}
-.form textarea{min-height:80px}
-.summary{background:#f7f7f7;padding:12px;border-radius:10px;margin-top:12px}
-.row{display:flex;justify-content:space-between;margin:8px 0}
-.total{font-size:20px;font-weight:bold;border-top:1px solid #ddd;padding-top:10px}
-.locationBtn{width:100%;padding:12px;border:1px solid #ff6b00;background:#fff;color:#ff6b00;border-radius:9px;font-weight:bold;margin-top:6px}
-.orderBtn{width:100%;padding:14px;background:#25d366;color:#fff;border:0;border-radius:10px;font-size:17px;font-weight:bold;margin-top:12px}
-.distanceInfo{font-size:13px;margin-top:8px}
-.error{color:#d00}
-.success{color:green}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f7f6;
+color:#17231d;
+padding-bottom:90px;
+}
+
+button,
+input,
+textarea,
+select{
+font:inherit;
+}
+
+/* HEADER */
+
+header{
+background:#16a34a;
+color:white;
+padding:16px 16px 20px;
+}
+
+.logo{
+margin-bottom:15px;
+}
+
+.brand-row{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.scooter{
+width:62px;
+height:62px;
+background:white;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+box-shadow:0 3px 10px #0003;
+}
+
+.brand{
+line-height:1;
+}
+
+.brand-name{
+font-size:31px;
+font-weight:900;
+letter-spacing:-1px;
+}
+
+.brand-name .hindi{
+color:white;
+}
+
+.brand-name .english{
+color:#eaffef;
+}
+
+.delivery{
+font-size:20px;
+font-weight:800;
+color:#ffd43b;
+margin-top:5px;
+}
+
+.tagline{
+margin-left:74px;
+margin-top:7px;
+line-height:1.4;
+}
+
+.tagline-hindi{
+display:block;
+font-size:16px;
+font-weight:800;
+}
+
+.tagline-english{
+display:block;
+font-size:13px;
+font-weight:700;
+}
+
+/* SEARCH */
+
+.search{
+background:white;
+border-radius:14px;
+padding:13px 15px;
+display:flex;
+align-items:center;
+gap:9px;
+}
+
+.search input{
+border:none;
+outline:none;
+width:100%;
+font-size:16px;
+}
+
+/* MAIN */
+
+.container{
+max-width:750px;
+margin:auto;
+padding:15px;
+}
+
+/* FAST DELIVERY */
+
+.fast-box{
+background:white;
+padding:17px;
+border-radius:16px;
+margin-bottom:15px;
+box-shadow:0 2px 10px #0000000b;
+font-size:16px;
+line-height:1.5;
+}
+
+.fast-title{
+color:#16a34a;
+font-weight:800;
+font-size:19px;
+}
+
+/* CATEGORIES */
+
+.categories{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:5px 0 15px;
+scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+display:none;
+}
+
+.categories button{
+border:1px solid #ddd;
+background:white;
+padding:11px 16px;
+border-radius:22px;
+white-space:nowrap;
+font-size:15px;
+}
+
+.categories button.active{
+background:#16a34a;
+color:white;
+border-color:#16a34a;
+}
+
+/* PRODUCTS */
+
+.heading{
+font-size:23px;
+margin:7px 0 15px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:13px;
+}
+
+.product{
+background:white;
+border-radius:17px;
+padding:12px;
+box-shadow:0 2px 10px #0000000d;
+}
+
+.product-image{
+height:125px;
+background:#eff7f1;
+border-radius:13px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:58px;
+margin-bottom:11px;
+overflow:hidden;
+}
+
+.product-image img{
+width:100%;
+height:100%;
+object-fit:contain;
+border-radius:13px;
+}
+
+.product h3{
+font-size:16px;
+line-height:1.3;
+min-height:41px;
+}
+
+.product small{
+color:#777;
+}
+
+.price{
+font-size:19px;
+font-weight:bold;
+margin:8px 0;
+}
+
+.old-price{
+color:#999;
+font-size:13px;
+margin-left:5px;
+}
+
+.add-btn{
+width:100%;
+padding:10px;
+border:1.5px solid #16a34a;
+background:white;
+color:#16a34a;
+border-radius:10px;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+}
+
+.add-btn:active{
+background:#16a34a;
+color:white;
+}
+
+/* CART BAR */
+
+.cart-bar{
+position:fixed;
+display:none;
+left:14px;
+right:14px;
+bottom:15px;
+max-width:700px;
+margin:auto;
+background:#17231d;
+color:white;
+padding:13px 16px;
+border-radius:15px;
+align-items:center;
+justify-content:space-between;
+z-index:100;
+box-shadow:0 4px 20px #0005;
+}
+
+.cart-button{
+background:#16a34a;
+color:white;
+border:none;
+padding:11px 16px;
+border-radius:9px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#0008;
+z-index:200;
+padding:15px;
+}
+
+.modal-box{
+background:white;
+width:100%;
+max-width:520px;
+max-height:92vh;
+overflow:auto;
+margin:auto;
+border-radius:18px;
+padding:20px;
+}
+
+.close{
+float:right;
+width:35px;
+height:35px;
+border:none;
+border-radius:50%;
+background:#eee;
+font-size:23px;
+cursor:pointer;
+}
+
+.cart-title{
+font-size:23px;
+margin-bottom:15px;
+}
+
+.cart-item{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+padding:13px 0;
+border-bottom:1px solid #eee;
+}
+
+.cart-product{
+display:flex;
+align-items:center;
+gap:8px;
+flex:1;
+}
+
+.cart-product img{
+width:42px;
+height:42px;
+object-fit:contain;
+border-radius:7px;
+background:#eff7f1;
+}
+
+.qty{
+display:flex;
+align-items:center;
+gap:7px;
+}
+
+.qty button{
+width:31px;
+height:31px;
+border:none;
+border-radius:7px;
+background:#e8f5ec;
+font-size:18px;
+cursor:pointer;
+}
+
+.summary{
+padding-top:15px;
+line-height:29px;
+font-size:16px;
+}
+
+.total{
+font-size:20px;
+font-weight:bold;
+}
+
+.delivery-note{
+font-size:13px;
+color:#777;
+margin-top:4px;
+}
+
+/* LOCATION */
+
+.location-box{
+background:#f7faf8;
+border:1px solid #dcefe1;
+padding:12px;
+border-radius:10px;
+margin-top:10px;
+}
+
+.location-button{
+width:100%;
+padding:12px;
+border:none;
+background:#e8f5ec;
+color:#166534;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.location-status{
+font-size:13px;
+margin-top:8px;
+line-height:19px;
+}
+
+.location-success{
+color:#166534;
+}
+
+.location-error{
+color:#dc2626;
+}
+
+.unavailable{
+background:#fee2e2;
+color:#991b1b;
+padding:10px;
+border-radius:9px;
+font-weight:bold;
+margin-top:10px;
+}
+
+/* FORM */
+
+.form-title{
+margin-top:20px;
+margin-bottom:5px;
+}
+
+.form input,
+.form textarea{
+width:100%;
+padding:13px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+outline:none;
+}
+
+.form input:focus,
+.form textarea:focus{
+border-color:#16a34a;
+}
+
+.place-order{
+width:100%;
+padding:14px;
+margin-top:16px;
+border:none;
+background:#16a34a;
+color:white;
+border-radius:11px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.place-order:disabled{
+opacity:.6;
+cursor:not-allowed;
+}
+
+/* SUCCESS */
+
+.success-box{
+text-align:center;
+padding:25px 10px;
+}
+
+.success-icon{
+font-size:55px;
+margin-bottom:10px;
+}
+
+.success-box h2{
+color:#16a34a;
+margin-bottom:10px;
+}
+
+.success-box p{
+color:#555;
+line-height:1.5;
+}
+
+/* DESKTOP */
+
+@media(min-width:600px){
+
+.products{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header>
-<div class="header">
-<div class="logo">🛍️ DootDelivery</div>
-<button class="cartBtn" id="openCart">🛒 Cart <span id="cartCount">0</span></button>
+
+<div class="logo">
+
+<div class="brand-row">
+
+<div class="scooter">
+🛵
 </div>
+
+<div class="brand">
+
+<div class="brand-name">
+
+<span class="hindi">
+दूत
+</span>
+
+<span class="english">
+Doot
+</span>
+
+</div>
+
+<div class="delivery">
+Delivery
+</div>
+
+</div>
+
+</div>
+
+<div class="tagline">
+
+<span class="tagline-hindi">
+दूत आपके दरवाजे तक
+</span>
+
+<span class="tagline-english">
+Doot at Your Doorstep
+</span>
+
+</div>
+
+</div>
+
+<div class="search">
+
+🔍
+
+<input
+id="searchInput"
+type="text"
+placeholder="Search groceries, snacks, drinks..."
+>
+
+</div>
+
 </header>
+
+
+<!-- MAIN -->
 
 <div class="container">
 
-<input class="search" id="search" placeholder="Search products...">
+<div class="fast-box">
 
-<div class="categories" id="categories"></div>
+📍
 
-<div class="products" id="products"></div>
+<span class="fast-title">
+Fast Delivery
+</span>
+
+<br>
+
+Order now and get your products delivered locally
+in <b>10–30 minutes.</b>
 
 </div>
 
-<div class="modal" id="cartModal">
-<div class="modalBox">
 
-<button class="close" id="closeCart">×</button>
-<h2>🛒 Your Cart</h2>
+<!-- CATEGORIES -->
 
-<div id="cartItems"></div>
+<div class="categories">
 
-<div class="summary">
-<div class="row">
-<span>Subtotal</span>
-<b id="subtotal">₹0</b>
+<button
+class="active"
+data-category="All"
+>
+All
+</button>
+
+<button
+data-category="Grocery"
+>
+🛒 Grocery
+</button>
+
+<button
+data-category="Snacks"
+>
+🍪 Snacks
+</button>
+
+<button
+data-category="Drinks"
+>
+🥤 Drinks
+</button>
+
+<button
+data-category="Dairy"
+>
+🥛 Dairy
+</button>
+
+<button
+data-category="Beverages"
+>
+🥤 Beverages
+</button>
+
+<button
+data-category="Fruits & Vegetables"
+>
+🥦 Fruits & Vegetables
+</button>
+
+<button
+data-category="Household"
+>
+🏠 Household
+</button>
+
 </div>
 
-<div class="row">
-<span>Delivery</span>
-<b id="deliveryCharge">₹0</b>
+
+<h2 class="heading">
+Popular Products
+</h2>
+
+
+<div
+id="products"
+class="products"
+>
+
+<div class="empty">
+Loading products...
 </div>
 
-<div class="row total">
-<span>Total</span>
-<b id="grandTotal">₹0</b>
 </div>
 
-<div id="distanceInfo" class="distanceInfo"></div>
 </div>
+
+
+<!-- CART BAR -->
+
+<div
+id="cartBar"
+class="cart-bar"
+>
+
+<div>
+
+🛒
+
+<span id="cartCount">
+0
+</span>
+
+items
+
+<br>
+
+<b>
+₹<span id="cartTotal">0</span>
+</b>
+
+</div>
+
+<button
+id="viewCartButton"
+class="cart-button"
+>
+View Cart →
+</button>
+
+</div>
+
+
+<!-- CART MODAL -->
+
+<div
+id="cartModal"
+class="modal"
+>
+
+<div class="modal-box">
+
+<button
+id="closeCartButton"
+class="close"
+>
+×
+</button>
+
+
+<h2 class="cart-title">
+🛒 Your Cart
+</h2>
+
+
+<div id="cartItems">
+</div>
+
+
+<div
+id="summary"
+class="summary"
+>
+</div>
+
+
+<!-- LOCATION -->
+
+<div class="location-box">
+
+<button
+id="locationButton"
+class="location-button"
+>
+📍 Detect My Delivery Location
+</button>
+
+<div
+id="locationStatus"
+class="location-status"
+>
+Location is required to calculate delivery charge.
+</div>
+
+</div>
+
+
+<h3 class="form-title">
+Delivery Details
+</h3>
+
 
 <div class="form">
 
-<h3>Delivery Details</h3>
+<input
+id="customerName"
+type="text"
+placeholder="Your Name"
+>
 
-<input id="customerName" placeholder="Your Name">
+<input
+id="customerPhone"
+type="tel"
+placeholder="Mobile Number"
+inputmode="numeric"
+maxlength="10"
+>
 
-<input id="customerPhone" type="tel" placeholder="Mobile Number">
+<textarea
+id="customerAddress"
+rows="4"
+placeholder="Complete Delivery Address"
+></textarea>
 
-<textarea id="customerAddress" placeholder="Complete Delivery Address"></textarea>
+</div>
 
-<button class="locationBtn" id="locationBtn">
-📍 Use My Current Location
+
+<button
+id="placeOrderButton"
+class="place-order"
+>
+🛵 Place Order on WhatsApp
 </button>
 
-<div id="locationStatus" class="distanceInfo"></div>
+</div>
 
 </div>
 
-<button class="orderBtn" id="orderBtn">
-Order on WhatsApp
+
+<!-- SUCCESS MODAL -->
+
+<div
+id="successModal"
+class="modal"
+>
+
+<div class="modal-box">
+
+<div class="success-box">
+
+<div class="success-icon">
+✅
+</div>
+
+<h2>
+Order Placed!
+</h2>
+
+<p>
+Your order has been received successfully.
+</p>
+
+<p style="margin-top:8px">
+Order ID:
+<b id="successOrderId"></b>
+</p>
+
+<button
+id="successCloseButton"
+class="place-order"
+>
+Continue Shopping
 </button>
 
 </div>
+
 </div>
+
+</div>
+
 
 <script type="module">
 
+/* FIREBASE */
+
 import {
 initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 getFirestore,
@@ -132,438 +859,111 @@ addDoc,
 serverTimestamp,
 doc,
 getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig={
-apiKey:"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
-authDomain:"doot-delivery.firebaseapp.com",
-projectId:"doot-delivery",
-storageBucket:"doot-delivery.firebasestorage.app",
-messagingSenderId:"771238210735",
-appId:"1:771238210735:web:82fc817bd02cdde8ed385a",
-measurementId:"G-94ZTPMFMVC"
-};
-
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-
-const WHATSAPP="919678274671";
-
-let products=[];
-let cart=[];
-let selectedCategory="All";
-
-let customerLat=null;
-let customerLng=null;
-let shopLat=null;
-let shopLng=null;
-
-const productsEl=document.getElementById("products");
-const categoriesEl=document.getElementById("categories");
-const searchEl=document.getElementById("search");
-
-async function loadShopLocation(){
-
-try{
-
-const snap=await getDoc(doc(db,"settings","delivery"));
-
-if(snap.exists()){
-
-const d=snap.data();
-
-shopLat=Number(d.shopLat);
-shopLng=Number(d.shopLng);
-
 }
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-}catch(e){
 
-console.log("Shop location error",e);
+const firebaseConfig = {
 
-}
+apiKey:
+"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
 
-}
+authDomain:
+"doot-delivery.firebaseapp.com",
 
-async function loadProducts(){
+projectId:
+"doot-delivery",
 
-productsEl.innerHTML='<div class="empty">Loading products...</div>';
+storageBucket:
+"doot-delivery.firebasestorage.app",
 
-try{
+messagingSenderId:
+"771238210735",
 
-const snap=await getDocs(collection(db,"products"));
+appId:
+"1:771238210735:web:82fc817bd02cdde8ed385a",
 
-products=snap.docs
-.map(d=>({
-id:d.id,
-...d.data()
-}))
-.filter(p=>p.active!==false);
-
-renderCategories();
-renderProducts();
-
-}catch(e){
-
-console.error(e);
-
-productsEl.innerHTML='<div class="empty">Unable to load products.</div>';
-
-}
-
-}
-
-function renderCategories(){
-
-const cats=["All",...new Set(products.map(p=>p.cat||"Other"))];
-
-categoriesEl.innerHTML="";
-
-cats.forEach(cat=>{
-
-const btn=document.createElement("button");
-
-btn.className="catBtn "+(cat===selectedCategory?"active":"");
-
-btn.textContent=cat;
-
-btn.onclick=()=>{
-
-selectedCategory=cat;
-renderCategories();
-renderProducts();
+measurementId:
+"G-94ZTPMFMVC"
 
 };
 
-categoriesEl.appendChild(btn);
 
-});
+const app =
+initializeApp(firebaseConfig);
 
-}
+const db =
+getFirestore(app);
 
-function renderProducts(){
 
-const search=searchEl.value.toLowerCase().trim();
+/* DOOT SETTINGS */
 
-const list=products.filter(p=>{
+const DELIVERY_0_TO_2 = 30;
+const DELIVERY_2_TO_4 = 40;
+const DELIVERY_4_TO_6 = 50;
 
-const matchCat=
-selectedCategory==="All" ||
-(p.cat||"Other")===selectedCategory;
+const MAX_DELIVERY_KM = 6;
 
-const matchSearch=
-!search ||
-(p.name||"").toLowerCase().includes(search) ||
-(p.cat||"").toLowerCase().includes(search);
+const WHATSAPP_NUMBER = "919678274671";
 
-return matchCat&&matchSearch;
 
-});
+/* VARIABLES */
 
-productsEl.innerHTML="";
+let products = [];
 
-if(!list.length){
+let cart = [];
 
-productsEl.innerHTML='<div class="empty">No products found.</div>';
+let currentCategory = "All";
 
-return;
+let shopLatitude = null;
+let shopLongitude = null;
 
-}
+let customerLatitude = null;
+let customerLongitude = null;
 
-list.forEach(p=>{
 
-const card=document.createElement("div");
-card.className="card";
+/* ELEMENTS */
 
-if(p.imageData){
+const productsBox =
+document.getElementById("products");
 
-const img=document.createElement("img");
-img.className="photo";
-img.src=p.imageData;
-img.alt=p.name||"Product";
-card.appendChild(img);
+const searchInput =
+document.getElementById("searchInput");
 
-}else{
+const cartBar =
+document.getElementById("cartBar");
 
-const emoji=document.createElement("div");
-emoji.className="emoji";
-emoji.textContent=p.emoji||"🛒";
-card.appendChild(emoji);
+const cartCount =
+document.getElementById("cartCount");
 
-}
+const cartTotal =
+document.getElementById("cartTotal");
 
-const name=document.createElement("div");
-name.className="name";
-name.textContent=p.name||"Product";
+const cartModal =
+document.getElementById("cartModal");
 
-const unit=document.createElement("div");
-unit.className="unit";
-unit.textContent=p.unit||"";
+const cartItems =
+document.getElementById("cartItems");
 
-const price=document.createElement("span");
-price.className="price";
-price.textContent="₹"+Number(p.price||0);
+const summary =
+document.getElementById("summary");
 
-card.appendChild(name);
-card.appendChild(unit);
-card.appendChild(price);
+const placeOrderButton =
+document.getElementById("placeOrderButton");
 
-if(Number(p.old)>Number(p.price)){
+const locationButton =
+document.getElementById("locationButton");
 
-const old=document.createElement("span");
-old.className="old";
-old.textContent="₹"+Number(p.old);
-card.appendChild(old);
+const locationStatus =
+document.getElementById("locationStatus");
 
-}
 
-const existing=cart.find(x=>x.id===p.id);
+/* ESCAPE HTML */
 
-if(existing){
+function escapeHTML(value){
 
-const qty=document.createElement("div");
-qty.className="qty";
-
-const minus=document.createElement("button");
-minus.textContent="−";
-
-const count=document.createElement("b");
-count.textContent=existing.qty;
-
-const plus=document.createElement("button");
-plus.textContent="+";
-
-minus.onclick=()=>{
-changeQty(p.id,-1);
-};
-
-plus.onclick=()=>{
-changeQty(p.id,1);
-};
-
-qty.append(minus,count,plus);
-card.appendChild(qty);
-
-}else{
-
-const add=document.createElement("button");
-add.className="add";
-add.textContent="+ Add";
-
-add.onclick=()=>{
-addToCart(p.id);
-};
-
-card.appendChild(add);
-
-}
-
-productsEl.appendChild(card);
-
-});
-
-}
-
-function addToCart(id){
-
-const p=products.find(x=>x.id===id);
-
-if(!p)return;
-
-const existing=cart.find(x=>x.id===id);
-
-if(existing){
-
-existing.qty++;
-
-}else{
-
-cart.push({
-id:p.id,
-name:p.name||"Product",
-price:Number(p.price)||0,
-unit:p.unit||"",
-qty:1
-});
-
-}
-
-renderProducts();
-renderCart();
-
-}
-
-function changeQty(id,change){
-
-const item=cart.find(x=>x.id===id);
-
-if(!item)return;
-
-item.qty+=change;
-
-if(item.qty<=0){
-
-cart=cart.filter(x=>x.id!==id);
-
-}
-
-renderProducts();
-renderCart();
-
-}
-
-function getSubtotal(){
-
-return cart.reduce(
-(sum,item)=>sum+(item.price*item.qty),
-0
-);
-
-}
-
-/*
-DISTANCE DELIVERY RULE
-
-0–2 km = ₹30
->2–4 km = ₹40
->4–6 km = ₹50
->6 km = unavailable
-*/
-
-function getDistanceKm(){
-
-if(
-customerLat===null ||
-customerLng===null ||
-shopLat===null ||
-shopLng===null
-){
-
-return null;
-
-}
-
-const R=6371;
-
-const dLat=(customerLat-shopLat)*Math.PI/180;
-const dLng=(customerLng-shopLng)*Math.PI/180;
-
-const a=
-Math.sin(dLat/2)**2+
-Math.cos(shopLat*Math.PI/180)*
-Math.cos(customerLat*Math.PI/180)*
-Math.sin(dLng/2)**2;
-
-const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-
-return R*c;
-
-}
-
-function getDeliveryCharge(){
-
-const km=getDistanceKm();
-
-if(km===null)return null;
-
-if(km<=2)return 30;
-
-if(km<=4)return 40;
-
-if(km<=6)return 50;
-
-return -1;
-
-}
-
-function renderCart(){
-
-const cartItems=document.getElementById("cartItems");
-
-cartItems.innerHTML="";
-
-let count=0;
-
-cart.forEach(item=>{
-
-count+=item.qty;
-
-const div=document.createElement("div");
-div.className="cartItem";
-
-div.innerHTML=`
-<div>
-<b>${escapeHtml(item.name)}</b>
-<div style="font-size:13px;color:#777">
-${item.unit||""}
-</div>
-</div>
-
-<div style="text-align:right">
-<b>₹${item.price*item.qty}</b>
-<div style="margin-top:5px">
-<button onclick="window.cartChange('${item.id}',-1)">−</button>
-<b style="margin:0 8px">${item.qty}</b>
-<button onclick="window.cartChange('${item.id}',1)">+</button>
-</div>
-</div>
-`;
-
-cartItems.appendChild(div);
-
-});
-
-document.getElementById("cartCount").textContent=count;
-
-const subtotal=getSubtotal();
-
-document.getElementById("subtotal").textContent="₹"+subtotal;
-
-const charge=getDeliveryCharge();
-
-if(charge===null){
-
-document.getElementById("deliveryCharge").textContent="Select location";
-
-document.getElementById("grandTotal").textContent="₹"+subtotal;
-
-document.getElementById("distanceInfo").innerHTML=
-"📍 Please use your current location to calculate delivery charge.";
-
-}else if(charge===-1){
-
-document.getElementById("deliveryCharge").textContent="Unavailable";
-
-document.getElementById("grandTotal").textContent="—";
-
-document.getElementById("distanceInfo").innerHTML=
-'<span class="error">❌ Delivery is available only within 6 km.</span>';
-
-}else{
-
-document.getElementById("deliveryCharge").textContent="₹"+charge;
-
-document.getElementById("grandTotal").textContent=
-"₹"+(subtotal+charge);
-
-const km=getDistanceKm();
-
-document.getElementById("distanceInfo").innerHTML=
-`📍 Delivery distance: <b>${km.toFixed(2)} km</b>`;
-
-}
-
-}
-
-window.cartChange=function(id,change){
-
-changeQty(id,change);
-
-};
-
-function escapeHtml(value){
-
-return String(value||"")
+return String(value ?? "")
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -572,251 +972,898 @@ return String(value||"")
 
 }
 
-searchEl.addEventListener("input",renderProducts);
 
-document.getElementById("openCart").onclick=()=>{
+/* LOAD SHOP LOCATION */
 
-document.getElementById("cartModal").style.display="block";
-renderCart();
-
-};
-
-document.getElementById("closeCart").onclick=()=>{
-
-document.getElementById("cartModal").style.display="none";
-
-};
-
-window.onclick=e=>{
-
-if(e.target===document.getElementById("cartModal")){
-
-document.getElementById("cartModal").style.display="none";
-
-}
-
-};
-
-document.getElementById("locationBtn").onclick=()=>{
-
-const status=document.getElementById("locationStatus");
-
-if(!navigator.geolocation){
-
-status.innerHTML='<span class="error">Location not supported.</span>';
-return;
-
-}
-
-status.textContent="Getting your location...";
-
-navigator.geolocation.getCurrentPosition(
-
-position=>{
-
-customerLat=position.coords.latitude;
-customerLng=position.coords.longitude;
-
-const km=getDistanceKm();
-
-if(km===null){
-
-status.textContent="Location received.";
-
-}else if(km>6){
-
-status.innerHTML=
-`<span class="error">❌ You are ${km.toFixed(2)} km away. Delivery available only within 6 km.</span>`;
-
-}else{
-
-status.innerHTML=
-`<span class="success">✓ Location confirmed — ${km.toFixed(2)} km</span>`;
-
-}
-
-renderCart();
-
-},
-
-error=>{
-
-status.innerHTML=
-'<span class="error">Please allow location access to calculate delivery charge.</span>';
-
-},
-
-{
-enableHighAccuracy:true,
-timeout:15000,
-maximumAge:0
-}
-
-);
-
-};
-
-document.getElementById("orderBtn").onclick=async()=>{
-
-if(!cart.length){
-
-alert("Please add products to cart.");
-return;
-
-}
-
-const name=document.getElementById("customerName").value.trim();
-const phone=document.getElementById("customerPhone").value.trim();
-const address=document.getElementById("customerAddress").value.trim();
-
-if(!name){
-
-alert("Please enter your name.");
-return;
-
-}
-
-if(!phone || phone.length<10){
-
-alert("Please enter a valid mobile number.");
-return;
-
-}
-
-if(!address){
-
-alert("Please enter delivery address.");
-return;
-
-}
-
-if(customerLat===null || customerLng===null){
-
-alert("Please use your current location first.");
-return;
-
-}
-
-if(shopLat===null || shopLng===null){
-
-alert("Delivery location is not configured yet.");
-return;
-
-}
-
-const km=getDistanceKm();
-
-if(km>6){
-
-alert(
-"Sorry, delivery is available only within 6 km. Your distance is "+
-km.toFixed(2)+" km."
-);
-
-return;
-
-}
-
-const deliveryCharge=getDeliveryCharge();
-
-const subtotal=getSubtotal();
-
-const total=subtotal+deliveryCharge;
-
-const orderItems=cart.map(item=>({
-id:item.id,
-name:item.name,
-unit:item.unit,
-price:item.price,
-qty:item.qty,
-amount:item.price*item.qty
-}));
-
-const button=document.getElementById("orderBtn");
-
-button.disabled=true;
-button.textContent="Saving Order...";
+async function loadShopLocation(){
 
 try{
 
-const orderRef=await addDoc(collection(db,"orders"),{
+const shopDoc =
+await getDoc(
+doc(
+db,
+"settings",
+"delivery"
+)
+);
 
-customerName:name,
-phone:phone,
-address:address,
+if(shopDoc.exists()){
 
-customerLat:customerLat,
-customerLng:customerLng,
+const data =
+shopDoc.data();
 
-deliveryDistanceKm:Number(km.toFixed(2)),
+shopLatitude =
+Number(data.shopLatitude);
 
-items:orderItems,
+shopLongitude =
+Number(data.shopLongitude);
 
-subtotal:subtotal,
-deliveryCharge:deliveryCharge,
-total:total,
+if(
+!Number.isFinite(shopLatitude) ||
+!Number.isFinite(shopLongitude)
+){
 
-paymentMethod:"WhatsApp / COD",
-status:"Pending",
+shopLatitude=null;
+shopLongitude=null;
 
-createdAt:serverTimestamp()
+}
+
+}
+
+}catch(error){
+
+console.error(
+"Shop location error:",
+error
+);
+
+}
+
+}
+
+
+/* LOAD PRODUCTS */
+
+async function loadProducts(){
+
+productsBox.innerHTML =
+'<div class="empty">Loading products...</div>';
+
+try{
+
+const snapshot =
+await getDocs(
+collection(db,"products")
+);
+
+products=[];
+
+snapshot.forEach((item)=>{
+
+const p=item.data();
+
+if(p.active===false){
+return;
+}
+
+products.push({
+
+id:item.id,
+
+name:p.name || "Product",
+
+price:Number(p.price) || 0,
+
+old:Number(p.old) || 0,
+
+category:p.cat || "Home",
+
+unit:p.unit || "",
+
+image:p.emoji || "🛒",
+
+imageData:p.imageData || ""
 
 });
 
-let message=
-`*🛍️ DOOT DELIVERY ORDER*%0A%0A`+
-`*Order ID:* ${orderRef.id}%0A`+
-`*Customer:* ${encodeURIComponent(name)}%0A`+
-`*Mobile:* ${encodeURIComponent(phone)}%0A`+
-`*Address:* ${encodeURIComponent(address)}%0A%0A`+
-`*ITEMS:*%0A`;
-
-orderItems.forEach(item=>{
-
-message+=
-`• ${encodeURIComponent(item.name)} x ${item.qty} = ₹${item.amount}%0A`;
-
 });
-
-message+=
-`%0A*Subtotal:* ₹${subtotal}%0A`+
-`*Delivery (${km.toFixed(2)} km):* ₹${deliveryCharge}%0A`+
-`*TOTAL:* ₹${total}%0A%0A`+
-`Payment: COD / WhatsApp`;
-
-cart=[];
 
 renderProducts();
-renderCart();
 
-document.getElementById("cartModal").style.display="none";
+updateCart();
 
-window.open(
-"https://wa.me/"+WHATSAPP+"?text="+message,
-"_blank"
-);
+if(products.length===0){
+
+productsBox.innerHTML =
+'<div class="empty">No products available yet.</div>';
+
+}
 
 }catch(error){
 
 console.error(error);
 
-alert(
-"Order save nahi ho saka. Please try again."
-);
-
-}finally{
-
-button.disabled=false;
-button.textContent="Order on WhatsApp";
+productsBox.innerHTML =
+'<div class="empty">Products could not be loaded. Please check Firestore rules.</div>';
 
 }
 
-};
+}
 
-await loadShopLocation();
-await loadProducts();
 
-</script>
+/* RENDER PRODUCTS */
 
-</body>
-</html>
+function renderProducts(){
+
+const search =
+searchInput.value
+.trim()
+.toLowerCase();
+
+const filtered =
+products.filter((product)=>{
+
+const categoryMatch =
+currentCategory==="All" ||
+product.category===currentCategory;
+
+const searchMatch =
+product.name
+.toLowerCase()
+.includes(search);
+
+return categoryMatch && searchMatch;
+
+});
+
+
+if(filtered.length===0){
+
+productsBox.innerHTML =
+'<div class="empty">No products found.</div>';
+
+return;
+
+}
+
+
+productsBox.innerHTML =
+filtered.map((product)=>{
+
+let imageHTML;
+
+if(product.imageData){
+
+imageHTML =
+`
+<img
+src="${product.imageData}"
+alt="${escapeHTML(product.name)}"
+>
+`;
+
+}else{
+
+imageHTML =
+escapeHTML(
+product.image || "🛒"
+);
+
+}
+
+
+return `
+
+<div class="product">
+
+<div class="product-image">
+
+${imageHTML}
+
+</div>
+
+<h3>
+${escapeHTML(product.name)}
+</h3>
+
+<small>
+⚡ Fast delivery
+${
+product.unit
+?
+" • "+escapeHTML(product.unit)
+:
+""
+}
+</small>
+
+<div class="price">
+
+₹${product.price}
+
+${
+product.old > product.price
+?
+`
+<del class="old-price">
+₹${product.old}
+</del>
+`
+:
+""
+}
+
+</div>
+
+<button
+class="add-btn"
+data-add-id="${escapeHTML(product.id)}"
+>
++ Add
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* PRODUCT BUTTON */
+
+productsBox.addEventListener(
+"click",
+function(event){
+
+const button =
+event.target.closest("[data-add-id]");
+
+if(!button){
+return;
+}
+
+const id =
+button.getAttribute("data-add-id");
+
+addToCart(id);
+
+}
+);
+
+
+/* ADD TO CART */
+
+function addToCart(id){
+
+const product =
+products.find(
+p=>p.id===id
+);
+
+if(!product){
+
+alert("Product not found.");
+
+return;
+
+}
+
+
+const existing =
+cart.find(
+item=>item.id===id
+);
+
+
+if(existing){
+
+existing.quantity++;
+
+}else{
+
+cart.push({
+
+id:id,
+
+quantity:1
+
+});
+
+}
+
+
+updateCart();
+
+}
+
+
+/* CHANGE QUANTITY */
+
+function changeQuantity(id,change){
+
+const item =
+cart.find(
+item=>item.id===id
+);
+
+if(!item){
+return;
+}
+
+
+item.quantity += change;
+
+
+if(item.quantity<=0){
+
+cart =
+cart.filter(
+item=>item.id!==id
+);
+
+}
+
+
+updateCart();
+
+renderCart();
+
+}
+
+
+/* SUBTOTAL */
+
+function getSubtotal(){
+
+return cart.reduce(
+(total,item)=>{
+
+const product =
+products.find(
+p=>p.id===item.id
+);
+
+if(!product){
+return total;
+}
+
+return total +
+(product.price * item.quantity);
+
+},
+0
+);
+
+}
+
+
+/* DISTANCE CALCULATION */
+
+function calculateDistanceKm(
+lat1,
+lon1,
+lat2,
+lon2
+){
+
+const R=6371;
+
+const dLat =
+(lat2-lat1) *
+Math.PI/180;
+
+const dLon =
+(lon2-lon1) *
+Math.PI/180;
+
+const a =
+Math.sin(dLat/2) *
+Math.sin(dLat/2) +
+
+Math.cos(
+lat1*Math.PI/180
+) *
+Math.cos(
+lat2*Math.PI/180
+) *
+Math.sin(dLon/2) *
+Math.sin(dLon/2);
+
+const c =
+2 *
+Math.atan2(
+Math.sqrt(a),
+Math.sqrt(1-a)
+);
+
+return R*c;
+
+}
+
+
+/* GET CUSTOMER DISTANCE */
+
+function getCustomerDistance(){
+
+if(
+customerLatitude===null ||
+customerLongitude===null ||
+shopLatitude===null ||
+shopLongitude===null
+){
+
+return null;
+
+}
+
+return calculateDistanceKm(
+shopLatitude,
+shopLongitude,
+customerLatitude,
+customerLongitude
+);
+
+}
+
+
+/* DELIVERY CHARGE */
+
+function getDeliveryCharge(){
+
+const distance =
+getCustomerDistance();
+
+if(distance===null){
+
+return null;
+
+}
+
+if(distance<=2){
+
+return DELIVERY_0_TO_2;
+
+}
+
+if(distance<=4){
+
+return DELIVERY_2_TO_4;
+
+}
+
+if(distance<=6){
+
+return DELIVERY_4_TO_6;
+
+}
+
+return -1;
+
+}
+
+
+/* UPDATE CART */
+
+function updateCart(){
+
+const count =
+cart.reduce(
+(total,item)=>
+total + item.quantity,
+0
+);
+
+const subtotal =
+getSubtotal();
+
+cartCount.innerText =
+count;
+
+cartTotal.innerText =
+subtotal;
+
+cartBar.style.display =
+count>0
+?
+"flex"
+:
+"none";
+
+}
+
+
+/* OPEN CART */
+
+function openCart(){
+
+cartModal.style.display =
+"flex";
+
+renderCart();
+
+}
+
+
+/* CLOSE CART */
+
+function closeCart(){
+
+cartModal.style.display =
+"none";
+
+}
+
+
+/* RENDER CART */
+
+function renderCart(){
+
+if(cart.length===0){
+
+cartItems.innerHTML =
+'<div class="empty">Your cart is empty.</div>';
+
+summary.innerHTML="";
+
+return;
+
+}
+
+
+cartItems.innerHTML =
+cart.map((item)=>{
+
+const product =
+products.find(
+p=>p.id===item.id
+);
+
+if(!product){
+return "";
+}
+
+
+let imageHTML;
+
+if(product.imageData){
+
+imageHTML =
+`
+<img
+src="${product.imageData}"
+alt=""
+>
+`;
+
+}else{
+
+imageHTML =
+`
+<div style="
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#eff7f1;
+border-radius:7px;
+font-size:24px;
+">
+${escapeHTML(product.image || "🛒")}
+</div>
+`;
+
+}
+
+
+return `
+
+<div class="cart-item">
+
+<div class="cart-product">
+
+${imageHTML}
+
+<div>
+
+<b>
+${escapeHTML(product.name)}
+</b>
+
+<br>
+
+<span>
+₹${product.price} × ${item.quantity}
+</span>
+
+</div>
+
+</div>
+
+<div class="qty">
+
+<button
+data-minus-id="${escapeHTML(product.id)}"
+>
+−
+</button>
+
+<b>
+${item.quantity}
+</b>
+
+<button
+data-plus-id="${escapeHTML(product.id)}"
+>
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+
+const subtotal =
+getSubtotal();
+
+const delivery =
+getDeliveryCharge();
+
+let summaryHTML = `
+
+<div>
+Subtotal:
+<b>₹${subtotal}</b>
+</div>
+`;
+
+
+if(delivery===null){
+
+summaryHTML += `
+
+<div>
+Delivery:
+<b>Location Required</b>
+</div>
+
+<div class="delivery-note">
+📍 Please detect your location to calculate delivery charge.
+</div>
+
+`;
+
+}else if(delivery===-1){
+
+summaryHTML += `
+
+<div>
+Delivery:
+<b style="color:#dc2626">
+Unavailable
+</b>
+</div>
+
+<div class="unavailable">
+❌ Your location is more than 6 km away.
+Delivery is available only within 6 km.
+</div>
+
+`;
+
+}else{
+
+const distance =
+getCustomerDistance();
+
+const total =
+subtotal + delivery;
+
+summaryHTML += `
+
+<div>
+Delivery:
+<b>₹${delivery}</b>
+</div>
+
+<div class="delivery-note">
+📍 Distance:
+<b>${distance.toFixed(2)} km</b>
+<br>
+0–2 km ₹30 • 2–4 km ₹40 • 4–6 km ₹50
+</div>
+
+<hr style="margin:10px 0">
+
+<div class="total">
+Total: ₹${total}
+</div>
+
+`;
+
+}
+
+summary.innerHTML =
+summaryHTML;
+
+
+/* DISABLE ORDER IF LOCATION NOT VALID */
+
+if(
+delivery===null ||
+delivery===-1
+){
+
+placeOrderButton.disabled=true;
+
+}else{
+
+placeOrderButton.disabled=false;
+
+}
+
+}
+
+
+/* CART BUTTONS */
+
+cartItems.addEventListener(
+"click",
+function(event){
+
+const minus =
+event.target.closest("[data-minus-id]");
+
+const plus =
+event.target.closest("[data-plus-id]");
+
+if(minus){
+
+changeQuantity(
+minus.getAttribute("data-minus-id"),
+-1
+);
+
+}
+
+if(plus){
+
+changeQuantity(
+plus.getAttribute("data-plus-id"),
+1
+);
+
+}
+
+}
+);
+
+
+/* CATEGORY BUTTONS */
+
+document
+.querySelectorAll(".categories button")
+.forEach((button)=>{
+
+button.addEventListener(
+"click",
+function(){
+
+document
+.querySelectorAll(".categories button")
+.forEach(btn=>
+btn.classList.remove("active")
+);
+
+button.classList.add("active");
+
+currentCategory =
+button.getAttribute("data-category");
+
+renderProducts();
+
+}
+);
+
+});
+
+
+/* SEARCH */
+
+searchInput.addEventListener(
+"input",
+renderProducts
+);
+
+
+/* LOCATION */
+
+locationButton.addEventListener(
+"click",
+function(){
+
+if(!navigator.geolocation){
+
+locationStatus.innerHTML =
+'<span class="location-error">Location is not supported on this device/browser.</span>';
+
+return;
+
+}
+
+
+if(
+shopLatitude===null ||
+shopLongitude===null
+){
+
+locationStatus.innerHTML =
+'<span class="location-error">Shop delivery location has not been configured yet.</span>';
+
+return;
+
+}
+
+
+locationButton.disabled=true;
+
+locationButton.innerText =
+"📍 Detecting Location...";
+
+locationStatus.innerText =
+"Please allow location permission...";
+
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+customerLatitude =
+position.coords.latitude;
+
+customerLongitude =
+position.coords.longitude;
+
+
+const distance =
+getCustomerDistance();
+
+
+if(distance>MAX_DELIVERY_KM){
+
+locationStatus.innerHTML =
+`
+<span class="location-error">
+
+❌ Your distance is
+<b>${distance.toFixed(2)} km</b>.
+
+<br>
+
+Delivery is available only within 6 km.
+
+</span>
+`;
+
+}else{
+
+const charge =
+getDeliveryCharge();
+
+locationStatus.innerHTML =
+`
+<span class="location-success">
+
+✓ Delivery available.
+
+<br>
+
+Distance:
+<b>${distan
