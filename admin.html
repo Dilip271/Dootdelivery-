@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -371,9 +370,16 @@ autocomplete="current-password"
 class="green"
 style="width:100%"
 id="loginButton"
+type="button"
+onclick="if(window.startAdminLogin){window.startAdminLogin();}else{var d=document.getElementById('loginDebug');if(d){d.style.color='#dc2626';d.innerText='Login system is loading. Please wait 2 seconds and tap Login again.';}}"
 >
 Login
 </button>
+
+<div
+id="loginDebug"
+style="margin-top:10px;text-align:center;font-size:13px;min-height:18px;color:#666"
+></div>
 
 </div>
 
@@ -765,6 +771,303 @@ Open Customer Website →
 </div>
 
 
+<!-- LOGIN FALLBACK -->
+
+<script>
+
+window.startAdminLogin = async function(){
+
+const emailElement =
+document.getElementById("email");
+
+const passwordElement =
+document.getElementById("password");
+
+const errorElement =
+document.getElementById("loginError");
+
+const debugElement =
+document.getElementById("loginDebug");
+
+const button =
+document.getElementById("loginButton");
+
+const email =
+emailElement
+?
+emailElement.value.trim()
+:
+"";
+
+const password =
+passwordElement
+?
+passwordElement.value
+:
+"";
+
+
+if(!email || !password){
+
+if(errorElement){
+errorElement.innerText =
+"Please enter email and password.";
+}
+
+if(debugElement){
+debugElement.style.color =
+"#dc2626";
+
+debugElement.innerText =
+"Please enter email and password.";
+}
+
+return;
+
+}
+
+
+if(button){
+
+button.disabled=true;
+
+button.innerText =
+"Logging in...";
+
+}
+
+
+if(debugElement){
+
+debugElement.style.color =
+"#666";
+
+debugElement.innerText =
+"Connecting to Firebase...";
+
+}
+
+
+try{
+
+const appModule =
+await import(
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
+);
+
+const authModule =
+await import(
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
+);
+
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
+
+authDomain:
+"doot-delivery.firebaseapp.com",
+
+projectId:
+"doot-delivery",
+
+storageBucket:
+"doot-delivery.firebasestorage.app",
+
+messagingSenderId:
+"771238210735",
+
+appId:
+"1:771238210735:web:82fc817bd02cdde8ed385a",
+
+measurementId:
+"G-94ZTPMFMVC"
+
+};
+
+
+let loginApp;
+
+
+try{
+
+loginApp =
+appModule.getApp(
+"DootDeliveryLoginFallback"
+);
+
+}catch(e){
+
+loginApp =
+appModule.initializeApp(
+firebaseConfig,
+"DootDeliveryLoginFallback"
+);
+
+}
+
+
+const loginAuth =
+authModule.getAuth(
+loginApp
+);
+
+
+await
+authModule.signInWithEmailAndPassword(
+loginAuth,
+email,
+password
+);
+
+
+if(debugElement){
+
+debugElement.style.color =
+"#166534";
+
+debugElement.innerText =
+"Login successful. Opening dashboard...";
+
+}
+
+
+window.location.reload();
+
+
+}catch(error){
+
+console.error(
+"DootDelivery Login Error:",
+error
+);
+
+
+let message =
+"Login failed: " +
+(
+error.code ||
+error.message ||
+"Unknown error"
+);
+
+
+if(
+error.code ===
+"auth/invalid-credential"
+){
+
+message =
+"Invalid email or password.";
+
+}
+
+else if(
+error.code ===
+"auth/user-not-found"
+){
+
+message =
+"Admin account not found.";
+
+}
+
+else if(
+error.code ===
+"auth/wrong-password"
+){
+
+message =
+"Incorrect password.";
+
+}
+
+else if(
+error.code ===
+"auth/invalid-email"
+){
+
+message =
+"Invalid email address.";
+
+}
+
+else if(
+error.code ===
+"auth/too-many-requests"
+){
+
+message =
+"Too many login attempts. Please try again later.";
+
+}
+
+else if(
+error.code ===
+"auth/network-request-failed"
+){
+
+message =
+"Network error. Please check your internet connection.";
+
+}
+
+else if(
+error.code ===
+"auth/unauthorized-domain"
+){
+
+message =
+"This website is not authorized in Firebase. Please check Authorized Domains.";
+
+}
+
+else if(error.message){
+
+message =
+error.message;
+
+}
+
+
+if(errorElement){
+
+errorElement.innerText =
+message;
+
+}
+
+
+if(debugElement){
+
+debugElement.style.color =
+"#dc2626";
+
+debugElement.innerText =
+message;
+
+}
+
+
+if(button){
+
+button.disabled=false;
+
+button.innerText =
+"Login";
+
+}
+
+}
+
+};
+
+</script>
+
+
+<!-- ORIGINAL FIREBASE MODULE -->
+
 <script type="module">
 
 
@@ -870,7 +1173,18 @@ document.getElementById("photoPreview");
 
 /* LOGIN */
 
+let adminLoginRunning = false;
+
 async function adminLogin(){
+
+if(adminLoginRunning){
+
+return;
+
+}
+
+adminLoginRunning = true;
+
 
 const email =
 emailInput.value.trim();
@@ -878,12 +1192,16 @@ emailInput.value.trim();
 const password =
 passwordInput.value;
 
+
 loginError.innerText="";
+
 
 if(!email || !password){
 
 loginError.innerText =
 "Please enter email and password.";
+
+adminLoginRunning=false;
 
 return;
 
@@ -891,22 +1209,56 @@ return;
 
 
 const loginButton =
-document.getElementById("loginButton");
+document.getElementById(
+"loginButton"
+);
+
+const loginDebug =
+document.getElementById(
+"loginDebug"
+);
+
 
 loginButton.disabled=true;
 
-loginButton.innerText="Logging in...";
+loginButton.innerText =
+"Logging in...";
+
+
+if(loginDebug){
+
+loginDebug.style.color =
+"#666";
+
+loginDebug.innerText =
+"Connecting to Firebase...";
+
+}
 
 
 try{
 
-await signInWithEmailAndPassword(
+await
+signInWithEmailAndPassword(
 auth,
 email,
 password
 );
 
+
 loginError.innerText="";
+
+
+if(loginDebug){
+
+loginDebug.style.color =
+"#166534";
+
+loginDebug.innerText =
+"Login successful. Opening dashboard...";
+
+}
+
 
 }catch(error){
 
@@ -915,46 +1267,105 @@ console.error(
 error
 );
 
+
 let message =
 "Login failed.";
 
-if(error.code==="auth/invalid-credential"){
+
+if(
+error.code ===
+"auth/invalid-credential"
+){
+
 message =
 "Invalid email or password.";
+
 }
 
-else if(error.code==="auth/user-not-found"){
+else if(
+error.code ===
+"auth/user-not-found"
+){
+
 message =
 "Admin account not found.";
+
 }
 
-else if(error.code==="auth/wrong-password"){
+else if(
+error.code ===
+"auth/wrong-password"
+){
+
 message =
 "Incorrect password.";
+
 }
 
-else if(error.code==="auth/invalid-email"){
+else if(
+error.code ===
+"auth/invalid-email"
+){
+
 message =
 "Invalid email address.";
+
 }
 
-else if(error.code==="auth/too-many-requests"){
+else if(
+error.code ===
+"auth/too-many-requests"
+){
+
 message =
 "Too many login attempts. Please try again later.";
+
 }
 
-else if(error.code==="auth/network-request-failed"){
+else if(
+error.code ===
+"auth/network-request-failed"
+){
+
 message =
 "Network error. Please check your internet connection.";
+
 }
 
-loginError.innerText=message;
+else if(
+error.code ===
+"auth/unauthorized-domain"
+){
+
+message =
+"Website is not authorized in Firebase.";
+
+}
+
+
+loginError.innerText =
+message;
+
+
+if(loginDebug){
+
+loginDebug.style.color =
+"#dc2626";
+
+loginDebug.innerText =
+message;
+
+}
+
 
 }finally{
 
 loginButton.disabled=false;
 
-loginButton.innerText="Login";
+loginButton.innerText =
+"Login";
+
+adminLoginRunning=false;
 
 }
 
@@ -986,9 +1397,11 @@ auth,
 
 if(user){
 
-loginPage.style.display="none";
+loginPage.style.display =
+"none";
 
-dashboard.style.display="block";
+dashboard.style.display =
+"block";
 
 loadProducts();
 
@@ -998,9 +1411,11 @@ loadDeliveryLocation();
 
 }else{
 
-loginPage.style.display="flex";
+loginPage.style.display =
+"flex";
 
-dashboard.style.display="none";
+dashboard.style.display =
+"none";
 
 }
 
@@ -1023,15 +1438,18 @@ db,
 )
 );
 
+
 if(locationDoc.exists()){
 
 const data =
 locationDoc.data();
 
+
 document.getElementById(
 "shopLatitude"
 ).value =
 data.shopLatitude ?? "";
+
 
 document.getElementById(
 "shopLongitude"
@@ -1063,12 +1481,14 @@ document.getElementById(
 ).value
 );
 
+
 const longitude =
 Number(
 document.getElementById(
 "shopLongitude"
 ).value
 );
+
 
 const message =
 document.getElementById(
@@ -1129,9 +1549,11 @@ document.getElementById(
 "saveDeliveryLocation"
 );
 
+
 button.disabled=true;
 
-button.innerText="Saving...";
+button.innerText =
+"Saving...";
 
 
 try{
@@ -1165,6 +1587,7 @@ message.style.color =
 
 message.innerText =
 "✓ Shop location saved successfully.";
+
 
 }catch(error){
 
@@ -1220,31 +1643,38 @@ document
 .getElementById("productName")
 .value="";
 
+
 document
 .getElementById("productUnit")
 .value="";
+
 
 document
 .getElementById("productPrice")
 .value="";
 
+
 document
 .getElementById("productOldPrice")
 .value="";
+
 
 document
 .getElementById("productCategory")
 .value="Grocery";
 
+
 document
 .getElementById("productEmoji")
 .value="🛒";
+
 
 productImage.value="";
 
 photoPreview.src="";
 
-photoPreview.style.display="none";
+photoPreview.style.display =
+"none";
 
 }
 
@@ -1258,9 +1688,11 @@ function(){
 const file =
 productImage.files[0];
 
+
 if(!file){
 
-photoPreview.style.display="none";
+photoPreview.style.display =
+"none";
 
 return;
 
@@ -1280,7 +1712,10 @@ return;
 }
 
 
-if(file.size > 10 * 1024 * 1024){
+if(
+file.size >
+10 * 1024 * 1024
+){
 
 alert(
 "Please select an image below 10 MB."
@@ -1336,7 +1771,8 @@ new Image();
 img.onload =
 function(){
 
-const maxSize=650;
+const maxSize =
+650;
 
 let width =
 img.width;
@@ -1346,8 +1782,8 @@ img.height;
 
 
 if(
-width>maxSize ||
-height>maxSize
+width > maxSize ||
+height > maxSize
 ){
 
 const ratio =
@@ -1355,6 +1791,7 @@ Math.min(
 maxSize/width,
 maxSize/height
 );
+
 
 width =
 Math.round(
@@ -1374,6 +1811,7 @@ document.createElement(
 "canvas"
 );
 
+
 canvas.width =
 width;
 
@@ -1384,8 +1822,10 @@ height;
 const ctx =
 canvas.getContext("2d");
 
+
 ctx.fillStyle =
 "#ffffff";
+
 
 ctx.fillRect(
 0,
@@ -1444,11 +1884,13 @@ document
 .value
 .trim();
 
+
 const unit =
 document
 .getElementById("productUnit")
 .value
 .trim();
+
 
 const price =
 Number(
@@ -1457,6 +1899,7 @@ document
 .value
 );
 
+
 const old =
 Number(
 document
@@ -1464,10 +1907,12 @@ document
 .value
 );
 
+
 const cat =
 document
 .getElementById("productCategory")
 .value;
+
 
 const emoji =
 document
@@ -1476,6 +1921,7 @@ document
 .trim()
 ||
 "🛒";
+
 
 const file =
 productImage.files[0];
@@ -1508,6 +1954,7 @@ document.getElementById(
 "saveProductButton"
 );
 
+
 saveButton.disabled=true;
 
 saveButton.innerText =
@@ -1527,815 +1974,4 @@ await compressImage(file);
 }
 
 
-if(imageData.length > 900000){
-
-alert(
-"Photo is too large after compression. Please choose another photo."
-);
-
-return;
-
-}
-
-
-await addDoc(
-collection(db,"products"),
-{
-
-name:name,
-
-cat:cat,
-
-unit:
-unit || "1 pc",
-
-price:price,
-
-old:
-old || price,
-
-emoji:emoji,
-
-imageData:imageData,
-
-active:true,
-
-createdAt:
-serverTimestamp()
-
-}
-);
-
-
-hideProductForm();
-
-await loadProducts();
-
-
-alert(
-"Product added successfully."
-);
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"Product save failed. Please check Firestore rules."
-);
-
-}finally{
-
-saveButton.disabled=false;
-
-saveButton.innerText =
-"Save Product";
-
-}
-
-}
-
-
-/* ESCAPE HTML */
-
-function escapeHTML(value){
-
-return String(value ?? "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-/* FORMAT ORDER ITEMS */
-
-function formatItems(items){
-
-if(
-!Array.isArray(items) ||
-!items.length
-){
-
-return "No items";
-
-}
-
-
-return items.map(
-function(item){
-
-const name =
-escapeHTML(
-item.name ||
-"Product"
-);
-
-const qty =
-Number(item.qty || 0);
-
-const price =
-Number(item.price || 0);
-
-return (
-name +
-" × " +
-qty +
-" — ₹" +
-(price * qty)
-);
-
-}
-).join("<br>");
-
-}
-
-
-/* LOAD PRODUCTS */
-
-async function loadProducts(){
-
-const box =
-document.getElementById(
-"productsList"
-);
-
-box.innerHTML =
-'<div class="empty">Loading products...</div>';
-
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"products")
-);
-
-
-document
-.getElementById("productCount")
-.innerText =
-snapshot.size;
-
-
-if(snapshot.empty){
-
-box.innerHTML =
-'<div class="empty">No products added yet.</div>';
-
-return;
-
-}
-
-
-box.innerHTML="";
-
-
-snapshot.forEach(
-(item)=>{
-
-const p =
-item.data();
-
-const row =
-document.createElement(
-"div"
-);
-
-row.className =
-"product-row";
-
-
-const photo =
-p.imageData
-?
-`
-<img
-class="product-thumb"
-src="${p.imageData}"
-alt=""
->
-`
-:
-"";
-
-
-row.innerHTML = `
-
-<div class="product-info">
-
-<b>
-
-${photo}
-
-${escapeHTML(
-p.emoji || "🛒"
-)}
-
-${escapeHTML(
-p.name || "Product"
-)}
-
-</b>
-
-₹${Number(p.price)||0}
-
-${
-p.old &&
-Number(p.old)>Number(p.price)
-?
-`
-<del style="color:#999">
-₹${Number(p.old)}
-</del>
-`
-:
-""
-}
-
-<br>
-
-<small>
-
-${escapeHTML(
-p.cat || "General"
-)}
-
-•
-
-${escapeHTML(
-p.unit || "1 pc"
-)}
-
-</small>
-
-</div>
-
-<div class="actions">
-
-<button
-class="red"
-data-delete-product="${item.id}"
->
-Delete
-</button>
-
-</div>
-
-`;
-
-
-box.appendChild(row);
-
-}
-);
-
-}catch(error){
-
-console.error(error);
-
-box.innerHTML =
-'<div class="empty">Unable to load products.</div>';
-
-}
-
-}
-
-
-/* DELETE PRODUCT */
-
-async function deleteProduct(id){
-
-if(
-!confirm(
-"Delete this product?"
-)
-){
-
-return;
-
-}
-
-
-try{
-
-await deleteDoc(
-doc(db,"products",id)
-);
-
-await loadProducts();
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"Unable to delete product."
-);
-
-}
-
-}
-
-
-/* PRODUCT DELETE CLICK */
-
-document
-.getElementById("productsList")
-.addEventListener(
-"click",
-function(event){
-
-const button =
-event.target.closest(
-"[data-delete-product]"
-);
-
-if(!button){
-
-return;
-
-}
-
-deleteProduct(
-button.getAttribute(
-"data-delete-product"
-)
-);
-
-}
-);
-
-
-/* LOAD ORDERS */
-
-async function loadOrders(){
-
-const box =
-document.getElementById(
-"ordersList"
-);
-
-box.innerHTML =
-'<div class="empty">Loading orders...</div>';
-
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"orders")
-);
-
-
-document
-.getElementById("orderCount")
-.innerText =
-snapshot.size;
-
-
-let sales=0;
-
-
-snapshot.forEach(
-(item)=>{
-
-const o =
-item.data();
-
-if(
-o.status!=="Cancelled" &&
-o.status!=="Canceled"
-){
-
-sales +=
-Number(o.total || 0);
-
-}
-
-}
-);
-
-
-document
-.getElementById("salesTotal")
-.innerText =
-Math.round(sales);
-
-
-if(snapshot.empty){
-
-box.innerHTML =
-'<div class="empty">No orders yet.</div>';
-
-return;
-
-}
-
-
-const orders=[];
-
-
-snapshot.forEach(
-(item)=>{
-
-orders.push({
-
-id:item.id,
-
-data:item.data()
-
-});
-
-}
-);
-
-
-/* NEWEST FIRST */
-
-orders.sort(
-(a,b)=>{
-
-const aTime =
-a.data.createdAt?.seconds || 0;
-
-const bTime =
-b.data.createdAt?.seconds || 0;
-
-return bTime-aTime;
-
-}
-);
-
-
-box.innerHTML="";
-
-
-orders.forEach(
-(order)=>{
-
-const o =
-order.data;
-
-const row =
-document.createElement(
-"div"
-);
-
-row.className =
-"order-row";
-
-
-const status =
-o.status || "Pending";
-
-
-row.innerHTML = `
-
-<div class="topbar">
-
-<div>
-
-<b>
-Order #${order.id
-.substring(0,8)
-.toUpperCase()}
-</b>
-
-<br>
-
-<span class="order-status">
-${escapeHTML(status)}
-</span>
-
-</div>
-
-
-<select
-data-status-id="${order.id}"
-style="
-width:auto;
-margin:0;
-"
->
-
-<option value="Pending"
-${status==="Pending"?"selected":""}
->
-Pending
-</option>
-
-<option value="Confirmed"
-${status==="Confirmed"?"selected":""}
->
-Confirmed
-</option>
-
-<option value="Preparing"
-${status==="Preparing"?"selected":""}
->
-Preparing
-</option>
-
-<option value="Out for Delivery"
-${status==="Out for Delivery"?"selected":""}
->
-Out for Delivery
-</option>
-
-<option value="Delivered"
-${status==="Delivered"?"selected":""}
->
-Delivered
-</option>
-
-<option value="Cancelled"
-${status==="Cancelled"?"selected":""}
->
-Cancelled
-</option>
-
-</select>
-
-</div>
-
-
-<div class="order-details">
-
-<b>Customer:</b>
-${escapeHTML(
-o.customerName || "Customer"
-)}
-
-<br>
-
-<b>Phone:</b>
-${escapeHTML(
-o.phone || "Not provided"
-)}
-
-<br>
-
-<b>Address:</b>
-${escapeHTML(
-o.address || "Not provided"
-)}
-
-<br>
-
-${
-o.deliveryDistanceKm !== undefined
-?
-`
-<b>Distance:</b>
-${Number(o.deliveryDistanceKm).toFixed(2)} km
-
-<br>
-`
-:
-""
-}
-
-<b>Subtotal:</b>
-₹${Number(o.subtotal)||0}
-
-<br>
-
-<b>Delivery:</b>
-₹${Number(o.deliveryCharge)||0}
-
-<br>
-
-<div class="order-total">
-
-Total:
-₹${Number(o.total)||0}
-
-</div>
-
-
-<div class="order-items">
-
-<b>
-🛒 Items
-</b>
-
-<br>
-
-${formatItems(
-o.items
-)}
-
-</div>
-
-<br>
-
-<b>Payment:</b>
-${escapeHTML(
-o.paymentMethod || "COD"
-)}
-
-</div>
-
-`;
-
-
-box.appendChild(row);
-
-}
-);
-
-}catch(error){
-
-console.error(error);
-
-box.innerHTML =
-'<div class="empty">Unable to load orders.</div>';
-
-}
-
-}
-
-
-/* STATUS CHANGE */
-
-async function changeOrderStatus(
-id,
-status
-){
-
-try{
-
-await updateDoc(
-doc(db,"orders",id),
-{
-
-status:status,
-
-updatedAt:
-serverTimestamp()
-
-}
-);
-
-
-await loadOrders();
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"Unable to update order."
-);
-
-}
-
-}
-
-
-/* STATUS EVENT */
-
-document
-.getElementById("ordersList")
-.addEventListener(
-"change",
-function(event){
-
-const select =
-event.target.closest(
-"[data-status-id]"
-);
-
-if(!select){
-
-return;
-
-}
-
-changeOrderStatus(
-select.getAttribute(
-"data-status-id"
-),
-select.value
-);
-
-}
-);
-
-
-/* BUTTON EVENTS */
-
-document
-.getElementById("loginButton")
-.addEventListener(
-"click",
-adminLogin
-);
-
-
-document
-.getElementById("password")
-.addEventListener(
-"keydown",
-function(event){
-
-if(event.key==="Enter"){
-
-adminLogin();
-
-}
-
-}
-);
-
-
-document
-.getElementById("email")
-.addEventListener(
-"keydown",
-function(event){
-
-if(event.key==="Enter"){
-
-adminLogin();
-
-}
-
-}
-);
-
-
-document
-.getElementById("logoutButton")
-.addEventListener(
-"click",
-adminLogout
-);
-
-
-document
-.getElementById("showAddProductButton")
-.addEventListener(
-"click",
-showAddProduct
-);
-
-
-document
-.getElementById("cancelProductButton")
-.addEventListener(
-"click",
-hideProductForm
-);
-
-
-document
-.getElementById("saveProductButton")
-.addEventListener(
-"click",
-addProduct
-);
-
-
-document
-.getElementById("saveDeliveryLocation")
-.addEventListener(
-"click",
-saveDeliveryLocation
-);
-
-
-document
-.getElementById("refreshOrdersButton")
-.addEventListener(
-"click",
-loadOrders
-);
-
-
-document
-.getElementById("openWebsiteButton")
-.addEventListener(
-"click",
-function(){
-
-window.open(
-"https://dilip271.github.io/Dootdelivery-/",
-"_blank"
-);
-
-}
-);
-
-
-</script>
-
-</body>
-
-</html>
+  
