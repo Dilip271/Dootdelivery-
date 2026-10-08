@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#16a34a">
-<title>Doot Delivery - Fast Local Delivery</title>
+<title>Doot Delivery</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -16,15 +16,13 @@ color:#17231d;
 padding-bottom:90px
 }
 
-button,input,textarea,select{font:inherit}
+button,input,textarea{font:inherit}
 
 header{
 background:#16a34a;
-color:white;
-padding:16px 16px 20px
+color:#fff;
+padding:18px 16px 22px
 }
-
-.logo{margin-bottom:15px}
 
 .brand-row{
 display:flex;
@@ -32,28 +30,22 @@ align-items:center;
 gap:12px
 }
 
-.scooter{
+.logo{
 width:62px;
 height:62px;
-background:white;
+background:#fff;
 border-radius:18px;
-display:flex;
-align-items:center;
-justify-content:center;
+display:grid;
+place-items:center;
 font-size:38px;
 box-shadow:0 3px 10px #0003
 }
 
-.brand{line-height:1}
-
 .brand-name{
 font-size:31px;
 font-weight:900;
-letter-spacing:-1px
+line-height:1
 }
-
-.brand-name .hindi{color:white}
-.brand-name .english{color:#eaffef}
 
 .delivery{
 font-size:20px;
@@ -62,27 +54,21 @@ color:#ffd43b;
 margin-top:5px
 }
 
-.tagline{
-margin-left:74px;
-margin-top:7px;
+.tag{
+margin:8px 0 15px 74px;
+font-weight:800;
+font-size:16px;
 line-height:1.4
 }
 
-.tagline-hindi{
+.tag small{
 display:block;
-font-size:16px;
-font-weight:800
-}
-
-.tagline-english{
-display:block;
-font-size:13px;
-font-weight:700
+font-size:13px
 }
 
 .search{
-background:white;
-border-radius:14px;
+background:#fff;
+border-radius:15px;
 padding:13px 15px;
 display:flex;
 align-items:center;
@@ -90,9 +76,9 @@ gap:9px
 }
 
 .search input{
+width:100%;
 border:0;
 outline:0;
-width:100%;
 font-size:16px
 }
 
@@ -102,23 +88,22 @@ margin:auto;
 padding:15px
 }
 
-.fast-box{
-background:white;
-padding:17px;
-border-radius:16px;
+.fast{
+background:#fff;
+border-radius:17px;
+padding:18px;
 margin-bottom:15px;
 box-shadow:0 2px 10px #0000000b;
-font-size:16px;
+font-size:17px;
 line-height:1.5
 }
 
-.fast-title{
+.fast b{
 color:#16a34a;
-font-weight:800;
-font-size:19px
+font-size:20px
 }
 
-.categories{
+.cats{
 display:flex;
 gap:10px;
 overflow-x:auto;
@@ -126,20 +111,21 @@ padding:5px 0 15px;
 scrollbar-width:none
 }
 
-.categories::-webkit-scrollbar{display:none}
-
-.categories button{
-border:1px solid #ddd;
-background:white;
-padding:11px 16px;
-border-radius:22px;
-white-space:nowrap;
-font-size:15px
+.cats::-webkit-scrollbar{
+display:none
 }
 
-.categories button.active{
+.cats button{
+border:1px solid #ddd;
+background:#fff;
+padding:11px 16px;
+border-radius:23px;
+white-space:nowrap
+}
+
+.cats button.active{
 background:#16a34a;
-color:white;
+color:#fff;
 border-color:#16a34a
 }
 
@@ -155,78 +141,87 @@ gap:13px
 }
 
 .product{
-background:white;
+background:#fff;
 border-radius:17px;
 padding:12px;
 box-shadow:0 2px 10px #0000000d
 }
 
-.product-image{
+.pimg{
 height:125px;
 background:#eff7f1;
 border-radius:13px;
-display:flex;
-justify-content:center;
-align-items:center;
+display:grid;
+place-items:center;
 font-size:58px;
-margin-bottom:11px;
-overflow:hidden
+overflow:hidden;
+margin-bottom:10px
 }
 
-.product-image img{
+.pimg img{
 width:100%;
 height:100%;
-object-fit:contain;
-border-radius:13px
+object-fit:contain
 }
 
 .product h3{
 font-size:16px;
 line-height:1.3;
-min-height:41px
+min-height:40px
 }
 
-.product small{color:#777}
+.product small{
+color:#777
+}
 
 .price{
 font-size:19px;
-font-weight:bold;
+font-weight:700;
 margin:8px 0
 }
 
-.old-price{
-color:#999;
+.old{
 font-size:13px;
+color:#999;
 margin-left:5px
 }
 
-.add-btn{
+.add{
 width:100%;
 padding:10px;
 border:1.5px solid #16a34a;
-background:white;
+background:#fff;
 color:#16a34a;
 border-radius:10px;
-font-weight:bold;
-font-size:15px;
+font-weight:700;
 cursor:pointer
 }
 
-.add-btn:active{
-background:#16a34a;
-color:white
+.empty{
+text-align:center;
+padding:35px;
+color:#777
 }
 
-.cart-bar{
-position:fixed;
+.error{
+color:#b91c1c;
+background:#fee2e2;
+border-radius:10px;
+padding:15px;
+text-align:left;
+line-height:1.5
+}
+
+.cartbar{
 display:none;
+position:fixed;
 left:14px;
 right:14px;
 bottom:15px;
 max-width:700px;
 margin:auto;
 background:#17231d;
-color:white;
+color:#fff;
 padding:13px 16px;
 border-radius:15px;
 align-items:center;
@@ -235,13 +230,14 @@ z-index:100;
 box-shadow:0 4px 20px #0005
 }
 
-.cart-button{
+.cartbar button,
+.orderbtn{
 background:#16a34a;
-color:white;
+color:#fff;
 border:0;
-padding:11px 16px;
-border-radius:9px;
-font-weight:bold
+border-radius:10px;
+padding:12px 16px;
+font-weight:700
 }
 
 .modal{
@@ -253,8 +249,8 @@ z-index:200;
 padding:15px
 }
 
-.modal-box{
-background:white;
+.box{
+background:#fff;
 width:100%;
 max-width:520px;
 max-height:92vh;
@@ -266,41 +262,47 @@ padding:20px
 
 .close{
 float:right;
-width:35px;
-height:35px;
 border:0;
 border-radius:50%;
-background:#eee;
-font-size:23px
+width:35px;
+height:35px;
+font-size:22px;
+background:#eee
 }
 
 .cart-title{
-font-size:23px;
 margin-bottom:15px
 }
 
-.cart-item{
+.cartitem{
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:10px;
-padding:13px 0;
+gap:8px;
+padding:12px 0;
 border-bottom:1px solid #eee
 }
 
-.cart-product{
+.cartprod{
 display:flex;
 align-items:center;
 gap:8px;
 flex:1
 }
 
-.cart-product img{
+.cartprod img,
+.fallback{
 width:42px;
 height:42px;
 object-fit:contain;
-border-radius:7px;
-background:#eff7f1
+background:#eff7f1;
+border-radius:7px
+}
+
+.fallback{
+display:grid;
+place-items:center;
+font-size:24px
 }
 
 .qty{
@@ -314,130 +316,67 @@ width:31px;
 height:31px;
 border:0;
 border-radius:7px;
-background:#e8f5ec;
-font-size:18px
+background:#e8f5ec
 }
 
 .summary{
 padding-top:15px;
-line-height:29px;
-font-size:16px
+line-height:28px
 }
 
-.total{
-font-size:20px;
-font-weight:bold
-}
-
-.delivery-note{
+.note{
 font-size:13px;
 color:#777;
-margin-top:4px;
-line-height:20px
-}
-
-.location-box{
-background:#f7faf8;
-border:1px solid #dcefe1;
-padding:12px;
-border-radius:10px;
-margin-top:10px
-}
-
-.location-button{
-width:100%;
-padding:12px;
-border:0;
-background:#e8f5ec;
-color:#166534;
-border-radius:10px;
-font-weight:bold
-}
-
-.location-button:disabled{opacity:.6}
-
-.location-status{
-font-size:13px;
-margin-top:8px;
 line-height:19px
 }
 
-.location-success{color:#166534}
-.location-error{color:#dc2626}
-
-.unavailable{
-background:#fee2e2;
-color:#991b1b;
-padding:10px;
-border-radius:9px;
-font-weight:bold;
-margin-top:10px
-}
-
 .form-title{
-margin-top:20px;
-margin-bottom:5px
+margin-top:20px
 }
 
-.form input,.form textarea{
+.form input,
+.form textarea{
 width:100%;
 padding:13px;
 margin-top:10px;
 border:1px solid #ddd;
 border-radius:10px;
-font-size:15px;
 outline:0
 }
 
-.form input:focus,.form textarea:focus{
-border-color:#16a34a
-}
-
-.place-order{
+.orderbtn{
 width:100%;
-padding:14px;
 margin-top:16px;
-border:0;
-background:#16a34a;
-color:white;
-border-radius:11px;
-font-size:17px;
-font-weight:bold
+font-size:16px
 }
 
-.place-order:disabled{
-opacity:.6;
-cursor:not-allowed
+.orderbtn:disabled{
+opacity:.55
 }
 
-.success-box{
+.success{
 text-align:center;
 padding:25px 10px
 }
 
 .success-icon{
-font-size:55px;
-margin-bottom:10px
+font-size:52px
 }
 
-.success-box h2{
+.success h2{
 color:#16a34a;
-margin-bottom:10px
+margin:10px 0
 }
 
-.success-box p{
-color:#555;
-line-height:1.5
-}
-
-.empty{
-text-align:center;
-padding:30px;
-color:#777
+.success p{
+line-height:1.5;
+color:#555
 }
 
 @media(min-width:600px){
-.products{grid-template-columns:repeat(3,1fr)}
+.products{
+grid-template-columns:repeat(3,1fr)
+}
 }
 </style>
 </head>
@@ -446,96 +385,126 @@ color:#777
 
 <header>
 
-<div class="logo">
-
 <div class="brand-row">
 
-<div class="scooter">🛵</div>
+<div class="logo">🛵</div>
 
-<div class="brand">
+<div>
 
 <div class="brand-name">
-<span class="hindi">दूत</span>
-<span class="english">Doot</span>
+दूत Doot
 </div>
 
-<div class="delivery">Delivery</div>
-
-</div>
-</div>
-
-<div class="tagline">
-<span class="tagline-hindi">दूत आपके दरवाजे तक</span>
-<span class="tagline-english">Doot at Your Doorstep</span>
+<div class="delivery">
+Delivery
 </div>
 
+</div>
+
+</div>
+
+<div class="tag">
+दूत आपके दरवाजे तक
+<small>Doot at Your Doorstep</small>
 </div>
 
 <div class="search">
+
 🔍
+
 <input
-id="searchInput"
-type="text"
+id="search"
+type="search"
 placeholder="Search groceries, snacks, drinks..."
 >
+
 </div>
 
 </header>
 
 
-<div class="container">
+<main class="container">
 
-<div class="fast-box">
+<div class="fast">
 
-📍 <span class="fast-title">Fast Delivery</span>
+📍 <b>Fast Delivery</b>
 
 <br>
 
-Order now and get your products delivered locally
-in <b>10–30 minutes.</b>
+Order now and get your products delivered locally in
+<strong>10–30 minutes.</strong>
 
 </div>
 
 
-<div class="categories">
+<div class="cats">
 
-<button class="active" data-category="All">All</button>
+<button class="active" data-cat="All">
+All
+</button>
 
-<button data-category="Grocery">🛒 Grocery</button>
+<button data-cat="Grocery">
+🛒 Grocery
+</button>
 
-<button data-category="Snacks">🍪 Snacks</button>
+<button data-cat="Snacks">
+🍪 Snacks
+</button>
 
-<button data-category="Drinks">🥤 Drinks</button>
+<button data-cat="Drinks">
+🥤 Drinks
+</button>
 
-<button data-category="Dairy">🥛 Dairy</button>
+<button data-cat="Dairy">
+🥛 Dairy
+</button>
 
-<button data-category="Beverages">🥤 Beverages</button>
+<button data-cat="Beverages">
+🥤 Beverages
+</button>
 
-<button data-category="Fruits & Vegetables">🥦 Fruits & Vegetables</button>
+<button data-cat="Fruits & Vegetables">
+🥦 Fruits & Vegetables
+</button>
 
-<button data-category="Household">🏠 Household</button>
+<button data-cat="Household">
+🏠 Household
+</button>
 
 </div>
 
 
-<h2 class="heading">Popular Products</h2>
+<h2 class="heading">
+Popular Products
+</h2>
+
 
 <div id="products" class="products">
-<div class="empty">Loading products...</div>
+
+<div class="empty">
+Loading products...
 </div>
 
 </div>
 
+</main>
 
-<div id="cartBar" class="cart-bar">
+
+<div id="cartbar" class="cartbar">
 
 <div>
-🛒 <span id="cartCount">0</span> items
+
+🛒 <span id="count">0</span> items
+
 <br>
-<b>₹<span id="cartTotal">0</span></b>
+
+<b>
+₹<span id="barTotal">0</span>
+</b>
+
 </div>
 
-<button id="viewCartButton" class="cart-button">
+<button id="openCart">
 View Cart →
 </button>
 
@@ -544,50 +513,44 @@ View Cart →
 
 <div id="cartModal" class="modal">
 
-<div class="modal-box">
+<div class="box">
 
-<button id="closeCartButton" class="close">×</button>
+<button id="closeCart" class="close">
+×
+</button>
 
-<h2 class="cart-title">🛒 Your Cart</h2>
+<h2 class="cart-title">
+🛒 Your Cart
+</h2>
 
 <div id="cartItems"></div>
 
 <div id="summary" class="summary"></div>
 
 
-<div class="location-box">
+<h3 class="form-title">
+Delivery Details
+</h3>
 
-<button id="locationButton" class="location-button">
-📍 Detect My Delivery Location
-</button>
-
-<div id="locationStatus" class="location-status">
-Please detect your delivery location.
-</div>
-
-</div>
-
-
-<h3 class="form-title">Delivery Details</h3>
 
 <div class="form">
 
 <input
-id="customerName"
+id="name"
 type="text"
 placeholder="Your Name"
 >
 
 <input
-id="customerPhone"
+id="phone"
 type="tel"
-placeholder="Mobile Number"
 inputmode="numeric"
 maxlength="10"
+placeholder="Mobile Number"
 >
 
 <textarea
-id="customerAddress"
+id="address"
 rows="4"
 placeholder="Complete Delivery Address"
 ></textarea>
@@ -596,9 +559,8 @@ placeholder="Complete Delivery Address"
 
 
 <button
-id="placeOrderButton"
-class="place-order"
-disabled
+id="place"
+class="orderbtn"
 >
 🛵 Place Order on WhatsApp
 </button>
@@ -610,24 +572,30 @@ disabled
 
 <div id="successModal" class="modal">
 
-<div class="modal-box">
+<div class="box">
 
-<div class="success-box">
+<div class="success">
 
-<div class="success-icon">✅</div>
+<div class="success-icon">
+✅
+</div>
 
-<h2>Order Placed!</h2>
+<h2>
+Order Placed!
+</h2>
 
-<p>Your order has been received successfully.</p>
+<p>
+Your order has been received successfully.
+</p>
 
-<p style="margin-top:8px">
+<p>
 Order ID:
-<b id="successOrderId"></b>
+<b id="orderId"></b>
 </p>
 
 <button
-id="successCloseButton"
-class="place-order"
+id="continue"
+class="orderbtn"
 >
 Continue Shopping
 </button>
@@ -641,24 +609,19 @@ Continue Shopping
 
 <script type="module">
 
-/* =========================
-   FIREBASE
-========================= */
-
 import {
 initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+
 import {
 getFirestore,
 collection,
 getDocs,
 addDoc,
-serverTimestamp,
-doc,
-getDoc
+serverTimestamp
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -666,46 +629,41 @@ from
 
 const firebaseConfig={
 
-apiKey:"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
+apiKey:
+"AIzaSyA0cx3zs7ronUP_Nh1d-H1d-ZjVfDGrECMI_g",
 
-authDomain:"doot-delivery.firebaseapp.com",
+authDomain:
+"doot-delivery.firebaseapp.com",
 
-projectId:"doot-delivery",
+projectId:
+"doot-delivery",
 
-storageBucket:"doot-delivery.firebasestorage.app",
+storageBucket:
+"doot-delivery.firebasestorage.app",
 
-messagingSenderId:"771238210735",
+messagingSenderId:
+"771238210735",
 
-appId:"1:771238210735:web:82fc817bd02cdde8ed385a",
+appId:
+"1:771238210735:web:82fc817bd02cdde8ed385a",
 
-measurementId:"G-94ZTPMFMVC"
+measurementId:
+"G-94ZTPMFMVC"
 
 };
 
 
-const app=initializeApp(firebaseConfig);
-
-const db=getFirestore(app);
-
-
-/* =========================
-   DOOT SETTINGS
-========================= */
-
-const DELIVERY_0_TO_2=30;
-
-const DELIVERY_2_TO_4=40;
-
-const DELIVERY_4_TO_6=50;
-
-const MAX_DELIVERY_KM=6;
-
-const WHATSAPP_NUMBER="919678274671";
+const db=
+getFirestore(
+initializeApp(firebaseConfig)
+);
 
 
-/* =========================
-   VARIABLES
-========================= */
+const DELIVERY_CHARGE=30;
+
+const WHATSAPP_NUMBER=
+"919678274671";
+
 
 let products=[];
 
@@ -713,49 +671,17 @@ let cart=[];
 
 let currentCategory="All";
 
-let shopLatitude=null;
 
-let shopLongitude=null;
+const $=id=>
+document.getElementById(id);
 
-let customerLatitude=null;
+const productsBox=
+$("products");
 
-let customerLongitude=null;
-
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const productsBox=document.getElementById("products");
-
-const searchInput=document.getElementById("searchInput");
-
-const cartBar=document.getElementById("cartBar");
-
-const cartCount=document.getElementById("cartCount");
-
-const cartTotal=document.getElementById("cartTotal");
-
-const cartModal=document.getElementById("cartModal");
-
-const cartItems=document.getElementById("cartItems");
-
-const summary=document.getElementById("summary");
-
-const placeOrderButton=document.getElementById("placeOrderButton");
-
-const locationButton=document.getElementById("locationButton");
-
-const locationStatus=document.getElementById("locationStatus");
-
-
-/* =========================
-   SAFE HTML
-========================= */
 
 function escapeHTML(value){
 
-return String(value ?? "")
+return String(value??"")
 .replaceAll("&","&amp;")
 .replaceAll("<","&lt;")
 .replaceAll(">","&gt;")
@@ -765,64 +691,7 @@ return String(value ?? "")
 }
 
 
-/* =========================
-   LOAD SHOP LOCATION
-========================= */
-
-async function loadShopLocation(){
-
-try{
-
-const ref=doc(db,"settings","delivery");
-
-const snap=await getDoc(ref);
-
-if(!snap.exists()){
-
-console.log("Shop location not configured.");
-
-return;
-
-}
-
-const data=snap.data();
-
-const lat=Number(data.shopLatitude);
-
-const lng=Number(data.shopLongitude);
-
-if(
-Number.isFinite(lat) &&
-Number.isFinite(lng)
-){
-
-shopLatitude=lat;
-
-shopLongitude=lng;
-
-console.log(
-"Shop location:",
-shopLatitude,
-shopLongitude
-);
-
-}
-
-}catch(error){
-
-console.error(
-"Shop location error:",
-error
-);
-
-}
-
-}
-
-
-/* =========================
-   LOAD PRODUCTS
-========================= */
+/* LOAD PRODUCTS */
 
 async function loadProducts(){
 
@@ -836,71 +705,102 @@ await getDocs(
 collection(db,"products")
 );
 
-products=[];
 
-snapshot.forEach(item=>{
+products=
+snapshot.docs
 
-const p=item.data();
+.filter(
+doc=>doc.data().active!==false
+)
 
-if(p.active===false)return;
+.map(doc=>{
 
-products.push({
+const p=doc.data();
 
-id:item.id,
+return{
 
-name:p.name || "Product",
+id:doc.id,
 
-price:Number(p.price)||0,
+name:
+p.name||"Product",
 
-old:Number(p.old)||0,
+price:
+Number(p.price)||0,
 
-category:p.cat || "Home",
+old:
+Number(p.old)||0,
 
-unit:p.unit || "",
+category:
+p.cat||"Home",
 
-image:p.emoji || "🛒",
+unit:
+p.unit||"",
 
-imageData:p.imageData || ""
+emoji:
+p.emoji||"🛒",
+
+imageData:
+p.imageData||""
+
+};
 
 });
 
-});
 
 renderProducts();
 
 updateCart();
 
-if(products.length===0){
+
+if(!products.length){
 
 productsBox.innerHTML=
 '<div class="empty">No products available yet.</div>';
 
 }
 
+
 }catch(error){
 
-console.error(error);
+console.error(
+"Product loading error:",
+error
+);
 
 productsBox.innerHTML=
-'<div class="empty">Products could not be loaded. Please check Firestore rules.</div>';
+`
+<div class="error">
+
+<b>
+Products could not be loaded.
+</b>
+
+<br><br>
+
+Please check Firestore rules for the
+<b>products</b> collection.
+
+</div>
+`;
 
 }
 
 }
 
 
-/* =========================
-   RENDER PRODUCTS
-========================= */
+/* RENDER PRODUCTS */
 
 function renderProducts(){
 
 const search=
-searchInput.value
+$("search")
+.value
 .trim()
 .toLowerCase();
 
-const filtered=products.filter(product=>{
+
+const list=
+products.filter(product=>{
 
 const categoryOK=
 currentCategory==="All" ||
@@ -916,7 +816,7 @@ return categoryOK && searchOK;
 });
 
 
-if(filtered.length===0){
+if(!list.length){
 
 productsBox.innerHTML=
 '<div class="empty">No products found.</div>';
@@ -927,28 +827,47 @@ return;
 
 
 productsBox.innerHTML=
-filtered.map(product=>{
+list.map(product=>{
 
-const imageHTML=product.imageData
+const image=
+product.imageData
 
 ?
 
-`<img
+`
+<img
 src="${product.imageData}"
 alt="${escapeHTML(product.name)}"
->`
+>
+`
 
 :
 
-escapeHTML(product.image || "🛒");
+escapeHTML(product.emoji);
 
 
-return `
+const oldPrice=
+product.old>product.price
+
+?
+
+`
+<del class="old">
+₹${product.old}
+</del>
+`
+
+:
+
+"";
+
+
+return`
 
 <div class="product">
 
-<div class="product-image">
-${imageHTML}
+<div class="pimg">
+${image}
 </div>
 
 <h3>
@@ -957,32 +876,19 @@ ${escapeHTML(product.name)}
 
 <small>
 ⚡ Fast delivery
-${product.unit ? " • "+escapeHTML(product.unit) : ""}
+${product.unit?
+" • "+escapeHTML(product.unit):
+""}
 </small>
 
 <div class="price">
-
 ₹${product.price}
-
-${
-product.old>product.price
-
-?
-
-`<del class="old-price">
-₹${product.old}
-</del>`
-
-:
-
-""
-}
-
+${oldPrice}
 </div>
 
 <button
-class="add-btn"
-data-add-id="${escapeHTML(product.id)}"
+class="add"
+data-add="${escapeHTML(product.id)}"
 >
 + Add
 </button>
@@ -996,31 +902,68 @@ data-add-id="${escapeHTML(product.id)}"
 }
 
 
-/* =========================
-   ADD PRODUCT TO CART
-========================= */
+/* SUBTOTAL */
 
-productsBox.addEventListener(
-"click",
-event=>{
+function getSubtotal(){
 
-const button=
-event.target.closest("[data-add-id]");
+return cart.reduce(
+(sum,item)=>{
 
-if(!button)return;
+const product=
+products.find(
+p=>p.id===item.id
+);
 
-addToCart(
-button.getAttribute("data-add-id")
+return sum+
+(
+product
+?
+product.price*item.qty
+:
+0
+);
+
+},
+0
 );
 
 }
+
+
+/* CART BAR */
+
+function updateCart(){
+
+const count=
+cart.reduce(
+(sum,item)=>
+sum+item.qty,
+0
 );
 
+$("count").textContent=count;
+
+$("barTotal").textContent=
+getSubtotal();
+
+$("cartbar").style.display=
+count
+?
+"flex"
+:
+"none";
+
+}
+
+
+/* ADD TO CART */
 
 function addToCart(id){
 
 const product=
-products.find(p=>p.id===id);
+products.find(
+p=>p.id===id
+);
 
 if(!product){
 
@@ -1030,12 +973,16 @@ return;
 
 }
 
+
 const existing=
-cart.find(item=>item.id===id);
+cart.find(
+item=>item.id===id
+);
+
 
 if(existing){
 
-existing.quantity++;
+existing.qty++;
 
 }else{
 
@@ -1043,224 +990,58 @@ cart.push({
 
 id:id,
 
-quantity:1
+qty:1
 
 });
 
 }
 
-updateCart();
-
-}
-
-
-/* =========================
-   QUANTITY
-========================= */
-
-function changeQuantity(id,change){
-
-const item=
-cart.find(item=>item.id===id);
-
-if(!item)return;
-
-item.quantity+=change;
-
-if(item.quantity<=0){
-
-cart=
-cart.filter(
-item=>item.id!==id
-);
-
-}
 
 updateCart();
 
-renderCart();
-
 }
 
 
-/* =========================
-   SUBTOTAL
-========================= */
+/* PRODUCT ADD BUTTON */
 
-function getSubtotal(){
+productsBox.addEventListener(
+"click",
+event=>{
 
-return cart.reduce(
-(total,item)=>{
-
-const product=
-products.find(
-p=>p.id===item.id
+const button=
+event.target.closest(
+"[data-add]"
 );
 
-if(!product)return total;
+if(!button)return;
 
-return total+
-product.price*
-item.quantity;
-
-},
-0
+addToCart(
+button.dataset.add
 );
 
 }
-
-
-/* =========================
-   DISTANCE
-========================= */
-
-function calculateDistanceKm(
-lat1,
-lon1,
-lat2,
-lon2
-){
-
-const R=6371;
-
-const dLat=
-(lat2-lat1)*Math.PI/180;
-
-const dLon=
-(lon2-lon1)*Math.PI/180;
-
-const a=
-Math.sin(dLat/2)**2+
-Math.cos(lat1*Math.PI/180)*
-Math.cos(lat2*Math.PI/180)*
-Math.sin(dLon/2)**2;
-
-return R*
-2*
-Math.atan2(
-Math.sqrt(a),
-Math.sqrt(1-a)
 );
 
-}
 
-
-function getCustomerDistance(){
-
-if(
-customerLatitude===null ||
-customerLongitude===null ||
-shopLatitude===null ||
-shopLongitude===null
-){
-
-return null;
-
-}
-
-return calculateDistanceKm(
-shopLatitude,
-shopLongitude,
-customerLatitude,
-customerLongitude
-);
-
-}
-
-
-/* =========================
-   DELIVERY CHARGE
-========================= */
-
-function getDeliveryCharge(){
-
-const distance=
-getCustomerDistance();
-
-if(distance===null)return null;
-
-if(distance<=2)return DELIVERY_0_TO_2;
-
-if(distance<=4)return DELIVERY_2_TO_4;
-
-if(distance<=6)return DELIVERY_4_TO_6;
-
-return -1;
-
-}
-
-
-/* =========================
-   UPDATE CART BAR
-========================= */
-
-function updateCart(){
-
-const count=
-cart.reduce(
-(total,item)=>
-total+item.quantity,
-0
-);
-
-const subtotal=
-getSubtotal();
-
-cartCount.innerText=count;
-
-cartTotal.innerText=subtotal;
-
-cartBar.style.display=
-count>0
-?
-"flex"
-:
-"none";
-
-}
-
-
-/* =========================
-   OPEN/CLOSE CART
-========================= */
-
-function openCart(){
-
-cartModal.style.display="flex";
-
-renderCart();
-
-}
-
-
-function closeCart(){
-
-cartModal.style.display="none";
-
-}
-
-
-/* =========================
-   RENDER CART
-========================= */
+/* RENDER CART */
 
 function renderCart(){
 
-if(cart.length===0){
+if(!cart.length){
 
-cartItems.innerHTML=
+$("cartItems").innerHTML=
 '<div class="empty">Your cart is empty.</div>';
 
-summary.innerHTML="";
+$("summary").innerHTML="";
 
-placeOrderButton.disabled=true;
+$("place").disabled=true;
 
 return;
 
 }
 
 
-cartItems.innerHTML=
+$("cartItems").innerHTML=
 cart.map(item=>{
 
 const product=
@@ -1271,44 +1052,34 @@ p=>p.id===item.id
 if(!product)return"";
 
 
-let imageHTML;
+const image=
+product.imageData
 
-if(product.imageData){
+?
 
-imageHTML=
-`<img
+`
+<img
 src="${product.imageData}"
 alt=""
->`;
-
-}else{
-
-imageHTML=
+>
 `
-<div style="
-width:42px;
-height:42px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#eff7f1;
-border-radius:7px;
-font-size:24px;
-">
-${escapeHTML(product.image||"🛒")}
+
+:
+
+`
+<div class="fallback">
+${escapeHTML(product.emoji)}
 </div>
 `;
 
-}
 
+return`
 
-return `
+<div class="cartitem">
 
-<div class="cart-item">
+<div class="cartprod">
 
-<div class="cart-product">
-
-${imageHTML}
+${image}
 
 <div>
 
@@ -1318,26 +1089,29 @@ ${escapeHTML(product.name)}
 
 <br>
 
-<span>
-₹${product.price} × ${item.quantity}
-</span>
+₹${product.price}
+×
+${item.qty}
 
 </div>
 
 </div>
+
 
 <div class="qty">
 
 <button
-data-minus-id="${escapeHTML(product.id)}"
+data-minus="${product.id}"
 >
 −
 </button>
 
-<b>${item.quantity}</b>
+<b>
+${item.qty}
+</b>
 
 <button
-data-plus-id="${escapeHTML(product.id)}"
+data-plus="${product.id}"
 >
 +
 </button>
@@ -1351,43 +1125,16 @@ data-plus-id="${escapeHTML(product.id)}"
 }).join("");
 
 
-const subtotal=getSubtotal();
+const subtotal=
+getSubtotal();
 
-const delivery=getDeliveryCharge();
-
-
-if(delivery===null){
-
-summary.innerHTML=`
-
-<div>
-Subtotal:
-<b>₹${subtotal}</b>
-</div>
-
-<div>
-Delivery:
-<b>Location Required</b>
-</div>
-
-<div class="delivery-note">
-📍 Please detect your delivery location.
-</div>
-
-`;
-
-placeOrderButton.disabled=true;
-
-return;
-
-}
+const total=
+subtotal+
+DELIVERY_CHARGE;
 
 
-if(delivery===-1){
-
-const distance=getCustomerDistance();
-
-summary.innerHTML=`
+$("summary").innerHTML=
+`
 
 <div>
 Subtotal:
@@ -1396,117 +1143,90 @@ Subtotal:
 
 <div>
 Delivery:
-<b style="color:#dc2626">
-Unavailable
+<b>₹${DELIVERY_CHARGE}</b>
+</div>
+
+<div class="note">
+🚚 ₹30 delivery charge is applicable
+on every order.
+</div>
+
+<hr>
+
+<div>
+<b>
+Total: ₹${total}
 </b>
 </div>
 
-<div class="unavailable">
-
-❌ Your location is
-${distance.toFixed(2)} km away.
-
-<br><br>
-
-Delivery is available only within 6 km.
-
-</div>
-
 `;
 
-placeOrderButton.disabled=true;
 
-return;
+$("place").disabled=false;
 
 }
 
 
-const distance=getCustomerDistance();
+/* CART QUANTITY */
 
-const total=subtotal+delivery;
-
-summary.innerHTML=`
-
-<div>
-Subtotal:
-<b>₹${subtotal}</b>
-</div>
-
-<div>
-Delivery:
-<b>₹${delivery}</b>
-</div>
-
-<div class="delivery-note">
-
-📍 Distance:
-<b>${distance.toFixed(2)} km</b>
-
-<br>
-
-0–2 km ₹30
-&nbsp;•&nbsp;
-2–4 km ₹40
-&nbsp;•&nbsp;
-4–6 km ₹50
-
-</div>
-
-<hr style="margin:10px 0">
-
-<div class="total">
-Total: ₹${total}
-</div>
-
-`;
-
-placeOrderButton.disabled=false;
-
-}
-
-
-/* =========================
-   CART +/- BUTTONS
-========================= */
-
-cartItems.addEventListener(
+$("cartItems").addEventListener(
 "click",
 event=>{
 
-const minus=
-event.target.closest("[data-minus-id]");
+const button=
+event.target.closest(
+"[data-minus],[data-plus]"
+);
 
-const plus=
-event.target.closest("[data-plus-id]");
+if(!button)return;
 
-if(minus){
 
-changeQuantity(
-minus.getAttribute("data-minus-id"),
--1
+const id=
+button.dataset.minus ||
+button.dataset.plus;
+
+
+const item=
+cart.find(
+x=>x.id===id
+);
+
+if(!item)return;
+
+
+if(button.dataset.plus){
+
+item.qty++;
+
+}else{
+
+item.qty--;
+
+}
+
+
+if(item.qty<=0){
+
+cart=
+cart.filter(
+x=>x.id!==id
 );
 
 }
 
-if(plus){
 
-changeQuantity(
-plus.getAttribute("data-plus-id"),
-1
-);
+updateCart();
 
-}
+renderCart();
 
 }
 );
 
 
-/* =========================
-   CATEGORIES
-========================= */
+/* CATEGORY */
 
 document
-.querySelectorAll(".categories button")
+.querySelectorAll(".cats button")
 .forEach(button=>{
 
 button.addEventListener(
@@ -1514,15 +1234,18 @@ button.addEventListener(
 ()=>{
 
 document
-.querySelectorAll(".categories button")
-.forEach(btn=>
-btn.classList.remove("active")
+.querySelectorAll(".cats button")
+.forEach(
+x=>x.classList.remove("active")
 );
+
 
 button.classList.add("active");
 
+
 currentCategory=
-button.getAttribute("data-category");
+button.dataset.cat;
+
 
 renderProducts();
 
@@ -1532,78 +1255,325 @@ renderProducts();
 });
 
 
-/* =========================
-   SEARCH
-========================= */
+/* SEARCH */
 
-searchInput.addEventListener(
+$("search").addEventListener(
 "input",
 renderProducts
 );
 
 
-/* =========================
-   LOCATION
-========================= */
+/* OPEN CART */
 
-locationButton.addEventListener(
+$("openCart").addEventListener(
 "click",
 ()=>{
 
-if(!navigator.geolocation){
+$("cartModal").style.display=
+"flex";
 
-locationStatus.innerHTML=
-`
-<span class="location-error">
-Location is not supported by this browser.
-</span>
-`;
+renderCart();
+
+}
+);
+
+
+/* CLOSE CART */
+
+$("closeCart").addEventListener(
+"click",
+()=>{
+
+$("cartModal").style.display=
+"none";
+
+}
+);
+
+
+/* CONTINUE */
+
+$("continue").addEventListener(
+"click",
+()=>{
+
+$("successModal").style.display=
+"none";
+
+}
+);
+
+
+/* PLACE ORDER */
+
+$("place").addEventListener(
+"click",
+async()=>{
+
+const name=
+$("name").value.trim();
+
+const phone=
+$("phone").value.trim();
+
+const address=
+$("address").value.trim();
+
+
+if(!name){
+
+alert(
+"Please enter your name."
+);
 
 return;
 
 }
 
 
-if(
-shopLatitude===null ||
-shopLongitude===null
-){
+if(!/^[0-9]{10}$/.test(phone)){
 
-locationStatus.innerHTML=
-`
-<span class="location-error">
-Shop delivery location is not configured.
-Please set shop location from Admin Panel.
-</span>
-`;
+alert(
+"Please enter a valid 10 digit mobile number."
+);
 
 return;
 
 }
 
 
-locationButton.disabled=true;
+if(!address){
 
-locationButton.innerText=
-"📍 Detecting Location...";
+alert(
+"Please enter your complete delivery address."
+);
 
-locationStatus.innerText=
-"Please allow location permission...";
+return;
 
-
-navigator.geolocation.getCurrentPosition(
-
-position=>{
-
-customerLatitude=
-position.coords.latitude;
-
-customerLongitude=
-position.coords.longitude;
+}
 
 
-const distance=
-getCustomerDistance();
+if(!cart.length){
+
+alert(
+"Your cart is empty."
+);
+
+return;
+
+}
 
 
-lo
+const subtotal=
+getSubtotal();
+
+const total=
+subtotal+
+DELIVERY_CHARGE;
+
+
+const items=
+cart.map(item=>{
+
+const product=
+products.find(
+p=>p.id===item.id
+);
+
+return{
+
+productId:
+product.id,
+
+name:
+product.name,
+
+price:
+product.price,
+
+quantity:
+item.qty,
+
+unit:
+product.unit||""
+
+};
+
+});
+
+
+$("place").disabled=true;
+
+$("place").textContent=
+"Placing Order...";
+
+
+try{
+
+
+const orderRef=
+await addDoc(
+collection(db,"orders"),
+{
+
+customerName:
+name,
+
+phone:
+phone,
+
+address:
+address,
+
+items:
+items,
+
+subtotal:
+subtotal,
+
+deliveryCharge:
+DELIVERY_CHARGE,
+
+total:
+total,
+
+paymentMethod:
+"WhatsApp / COD",
+
+status:
+"Pending",
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+/* WHATSAPP MESSAGE */
+
+let message=
+"🛵 *DOOT DELIVERY ORDER*\\n\\n";
+
+
+message+=
+"🆔 Order ID: "+
+orderRef.id
+.substring(0,8)
+.toUpperCase();
+
+
+message+=
+"\\n👤 Name: "+
+name;
+
+
+message+=
+"\\n📱 Mobile: "+
+phone;
+
+
+message+=
+"\\n📍 Address: "+
+address;
+
+
+message+=
+"\\n\\n🛒 *ORDER DETAILS*\\n";
+
+
+items.forEach(item=>{
+
+message+=
+item.name+
+" × "+
+item.quantity+
+" = ₹"+
+(
+item.price*
+item.quantity
+)+
+"\\n";
+
+});
+
+
+message+=
+"\\n💰 Subtotal: ₹"+
+subtotal;
+
+
+message+=
+"\\n🚚 Delivery: ₹"+
+DELIVERY_CHARGE;
+
+
+message+=
+"\\n💵 *TOTAL: ₹"+
+total+
+"*";
+
+
+/* CLEAR CART */
+
+cart=[];
+
+updateCart();
+
+
+$("cartModal").style.display=
+"none";
+
+
+$("orderId").textContent=
+orderRef.id
+.substring(0,8)
+.toUpperCase();
+
+
+$("successModal").style.display=
+"flex";
+
+
+/* WHATSAPP */
+
+window.open(
+"https://wa.me/"+
+WHATSAPP_NUMBER+
+"?text="+
+encodeURIComponent(message),
+"_blank"
+);
+
+
+}catch(error){
+
+console.error(
+"Order error:",
+error
+);
+
+alert(
+"Order could not be placed. Please check Firestore order permissions and try again."
+);
+
+}finally{
+
+$("place").disabled=false;
+
+$("place").textContent=
+"🛵 Place Order on WhatsApp";
+
+}
+
+});
+
+
+/* START */
+
+loadProducts();
+
+</script>
+
+</body>
+   </html>
